@@ -29,10 +29,7 @@ import reportWebVitals from './reportWebVitals';
 
 // Change this in prod
 axios.defaults.baseURL = 'http://localhost:8000/';
-<<<<<<< HEAD
 // axios.defaults.baseURL = 'https://splash-market-server.herokuapp.com/';
-=======
->>>>>>> 15ebc17... Finishing oauth login flow
 
 ReactDOM.render(
   <React.StrictMode>
