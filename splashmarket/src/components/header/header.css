@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+
+.header {
+    width:70%;
+
+    display:inline-block;
+
+    margin: 2% 15%;
+}
+
+
+
+.nav {
+    width:40%;
+    margin-top: 5px;    
+    margin-left: 25%;
+    float:left;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+a {
+    color: white;
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 18px;
+
+    cursor: pointer;
+}
+
+a:hover {
+    color: rgb(189, 189, 189);
+    font-family: Poppins;
+}
+
+a.currentPage {
+    color: #29ABFF;
+}
+
+
+
+.logo {
+    width:49px;
+    height:26px;
+    background-image:url("../../resources/logo/sm-small.svg");
+    float:left;
+
+    margin-top:5px;
+}
+
+
+
+
+
+.button_group {
+    display:inline-block;
+    float:right;
+}
+
+.blue_button {
+    background-color:#29ABFF;
+    border-radius:6px;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    float:right;
+}
+.blue_button-text {
+    color: white;
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.dark_button {
+    border-radius:6px;
+    border: 1px solid #292939;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background-color:transparent;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    margin-right:15px;
+
+    float:right;
+
+}
+.dark_button-text {
+    color: white;
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+
+
+@media screen and (max-width:1320px) {
+    .header {
+        width:90%;
+        margin: 2% 5%;
+    }
+    .nav {
+        margin-left:10%;
+        width:45%;
+    }
+}
+
+
+@media only screen and (max-device-width: 1000px) {
+    .logo {
+        float:none;
+        display:block;
+        margin: 0 auto;
+    }
+    .nav {
+        width:80%;
+        margin: 25px auto;
+        float:none;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .button_group {
+        float:none;
+        display:block;
+        width:261px;
+        height:35px;
+
+        margin: 0 auto;
+    }
+} 
+
+@media only screen and (max-device-width: 600px) {
+    .header {
+        width:94%;
+    
+        display:inline-block;
+    
+        margin: 2% 3%;
+    }
+    
+    .logo {
+        float:none;
+        display:block;
+        margin: 0 auto;
+    }
+    .nav {
+        width:100%;
+        margin: 25px auto;
+        float:none;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .button_group {
+        float:none;
+        display:block;
+        width:261px;
+        height:35px;
+
+        margin: 0 auto;
+    }
+} 

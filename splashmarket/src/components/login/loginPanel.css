@@ -1,0 +1,81 @@
+
+
+p {
+    color: #BFC3D3;
+
+}
+
+.logo-login {
+    width:49px;
+    height:26px;
+    background-image:url("../../resources/logo/sm-small.svg");
+
+    margin-bottom:40px;
+}
+
+.login-title {
+    
+    color: white;
+    font-family: Poppins;
+    font-size: 30px;
+    line-height: 40px;
+}
+
+.login_panel {
+
+    padding:50px;
+
+    width:280px;
+    height:250px;
+    background: #19192C;
+    border-radius: 7px;
+    
+    margin:auto;
+
+    position:absolute;
+    top:30%;
+
+    left:0;
+    right:0;
+}
+
+
+.discord_icon-login {
+    width:20px;
+    height:20px;
+
+    background-image: url(../../resources/icons/discord.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right:10px;
+}
+
+.blue_button-login {
+    background-color:#29ABFF;
+    border-radius:6px;
+
+    width:100%;
+    height:44px;
+
+    margin-top:70px;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+.blue_button-login-text {
+    color: white;
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+@media only screen and (max-device-width: 600px) {
+    .login_panel {
+        top:25%;
+        bottom:25%;
+        width: 200px;
+    }
+}
