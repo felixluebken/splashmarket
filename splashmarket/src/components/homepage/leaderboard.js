@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import './homepage.css'
 
 import RankedMemberPanel from '../panels/RankedMemberPanel'
@@ -54,6 +55,12 @@ import './homepage.css';
 import RankedMemberPanel from '../panels/RankedMemberPanel';
 
 function HomepageLeaderboard() {
+=======
+import React from 'react';
+import './homepage.css';
+
+function HomepageLeaderboard() {
+>>>>>>> c9b84a3... Added eslint and router
   return (
     <div className="section_leaderboard">
       <div className="leaderboard_text">
@@ -61,6 +68,7 @@ function HomepageLeaderboard() {
         <span className="section_title-big">View the members with the most transactions</span>
         <span className="section_text">Never worry about the reputation of your buyer or seller again. Splash Market makes it easy for you to verify any user.</span>
       </div>
+<<<<<<< HEAD
       <div className="leaderboard_img">
         <RankedMemberPanel
           username="dearchitect#7736"
@@ -70,6 +78,9 @@ function HomepageLeaderboard() {
           avatar="https://cdn.discordapp.com/avatars/638784999293976635/06d1e75f49559a1b16e6d127ec1c4fbf.jpg"
         />
       </div>
+=======
+      <div className="leaderboard_img" />
+>>>>>>> c9b84a3... Added eslint and router
     </div>
   );
 }

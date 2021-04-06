@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import './homepage.css'
 
 import BlogBotPanel from '../panels/BlogBotPanel' 
@@ -55,6 +56,12 @@ import './homepage.css';
 import BlogBotPanel from '../panels/BlogBotPanel';
 
 function HomepageBlogs() {
+=======
+import React from 'react';
+import './homepage.css';
+
+function HomepageBlogs() {
+>>>>>>> c9b84a3... Added eslint and router
   return (
     <div className="section_blogs">
       <div className="blogs_text">
@@ -62,6 +69,7 @@ function HomepageBlogs() {
         <span className="section_title-big">View the members with the most transactions</span>
       </div>
       <div className="blogs_img">
+<<<<<<< HEAD
         <BlogBotPanel
           headerColor="#52FF81"
           headerTextColor="#131323"
@@ -73,6 +81,11 @@ function HomepageBlogs() {
           authorUsername="dearchitect#7336"
           blogUrl="https://google.com"
         />
+=======
+        <div className="blog_panel blog-dashe" />
+        <div className="blog_panel blog-cyber" />
+        <div className="blog_panel blog-pd" />
+>>>>>>> c9b84a3... Added eslint and router
       </div>
       <div className="blog_link-container">
         <a className="blog_link">View all blogs ⇾</a>

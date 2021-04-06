@@ -18,7 +18,10 @@ function HeaderMinimal() {
         onClick={() => {
           handleRedirect('/');
         }}
+<<<<<<< HEAD
         style={{ margin: '10px auto' }}
+=======
+>>>>>>> c9b84a3... Added eslint and router
       />
       <div className="button_group">
         <div
