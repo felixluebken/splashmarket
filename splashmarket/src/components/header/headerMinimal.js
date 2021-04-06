@@ -3,10 +3,6 @@ import { useHistory } from 'react-router-dom';
 import './header.css';
 
 function HeaderMinimal() {
-<<<<<<< HEAD
-
-=======
->>>>>>> 15ebc17... Finishing oauth login flow
   const history = useHistory();
   const handleRedirect = (route) => {
     history.push(route);
@@ -22,11 +18,7 @@ function HeaderMinimal() {
         onClick={() => {
           handleRedirect('/');
         }}
-<<<<<<< HEAD
         style={{ margin: '10px auto', cursor: 'pointer' }}
-=======
-        style={{ margin: '10px auto' }}
->>>>>>> 15ebc17... Finishing oauth login flow
       />
       <div className="button_group">
         <div
