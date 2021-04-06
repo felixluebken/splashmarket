@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
 import {
   // useHistory,
+=======
+import React from 'react';
+import {
+  useHistory,
+>>>>>>> c9b84a3... Added eslint and router
   BrowserRouter as Router,
   Switch,
   Route,
@@ -8,6 +14,7 @@ import {
 
 import Homepage from './pages/Homepage';
 import Loginpage from './pages/Login';
+<<<<<<< HEAD
 import DiscordService from './services/DiscordService';
 
 const Routes = () => {
@@ -29,6 +36,12 @@ const Routes = () => {
       }
     }
   }, []);
+=======
+
+const Routes = () => {
+  const history = useHistory();
+  console.log('HISTORY: ', history);
+>>>>>>> c9b84a3... Added eslint and router
   return (
     <Router>
       <Switch>

@@ -3,6 +3,7 @@ import './homepage.css';
 
 function HomepageSearch() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     return(
             <div className="main_section">
                 <div className="main_section-frame">
@@ -23,6 +24,8 @@ function HomepageSearch() {
                     </div>
                 </div>
 =======
+=======
+>>>>>>> c9b84a3... Added eslint and router
   return (
     <div className="main_section">
       <div className="main_section-frame">
@@ -42,7 +45,10 @@ function HomepageSearch() {
           <span className="blue_button-search-text">Search</span>
         </div>
       </div>
+<<<<<<< HEAD
 >>>>>>> 1477cb1... Added eslint and router
+=======
+>>>>>>> c9b84a3... Added eslint and router
 
     </div>
   );
