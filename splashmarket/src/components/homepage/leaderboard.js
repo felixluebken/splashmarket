@@ -1,6 +1,9 @@
 import './homepage.css';
 import React, { useState, useEffect } from 'react';
 import RankedMemberPanel from '../panels/RankedMemberPanel';
+import './homepage.css'
+
+import RankedMemberPanel from '../panels/RankedMemberPanel'
 
 import UserService from '../../services/UserService';
 

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import './header.css';
 
 function HeaderMinimal() {
+
   const history = useHistory();
   const handleRedirect = (route) => {
     history.push(route);
