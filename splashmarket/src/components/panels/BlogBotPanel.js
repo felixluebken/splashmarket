@@ -14,7 +14,7 @@ function BlogBotPanel(props) {
                 <p className="panel_text-light-small" style={{width:"180px", overflow:"hidden"}}>Published {props.publishDate}</p>
                 <div className="blog_bot_panel-author">
                     <div className="blog_bot_panel-author-avatar" style={{backgroundImage:`url(${props.authorAvatar})`}}></div>
-                    <p className="panel_text-normal-small" style={{float:"left", margin:"11px 0px 0px 10px"}}>{props.authorUsername}</p>
+                    <p className="panel_text-normal-small" style={{float:"left", margin:"16px 0px 0px 10px"}}>{props.authorUsername}</p>
                     <a href={props.blogUrl}>
                         <div className="blue_button-read_blog">
                             <span class="blue_button-read_blog-text">Read Blog</span>
