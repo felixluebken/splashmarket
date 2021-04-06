@@ -102,6 +102,27 @@ a.currentPage {
     line-height: 18px;
 }
 
+.dark_button-solid {
+    border-radius:6px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background-color:#19192C;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    float:right;
+
+}
+.dark_button-solid-text {
+    color: white;
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 18px;
+}
 
 
 @media screen and (max-width:1320px) {

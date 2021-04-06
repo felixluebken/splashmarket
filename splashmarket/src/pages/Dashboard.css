@@ -1,0 +1,516 @@
+
+
+h4.dashboard_text-normal {
+    color: white;
+    font-family: Poppins;
+    font-size: 24px;
+    line-height: 30px;
+}
+h3.dashboard_text-normal {
+    color: white;
+    font-family: Poppins;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+
+
+
+p.dashboard_text-normal {
+    color: white;
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 18px;
+}
+p.dashboard_text-light {
+    color: #BFC3D3;
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+p.dashboard_text-normal-small {
+    color: white;
+    font-family: Poppins;
+    font-size: 14px;
+    line-height: 18px;
+}
+p.dashboard_text-light-small {
+    color: #BFC3D3;
+    font-family: Poppins;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+p.dashboard_text-normal-xs {
+    color: white;
+    font-family: Poppins;
+    font-size: 12px;
+    line-height: 14px;
+}
+p.dashboard_text-light-xs {
+    color: #BFC3D3;
+    font-family: Poppins;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+
+
+a.dashboard_link_text-normal {
+    color: #29ABFF;
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 18px;
+
+    text-decoration: none;
+
+    overflow:hidden;
+}
+
+table {
+    border-bottom: 1px solid #252538;
+    width:94%;
+    table-layout: fixed;
+}
+th {
+    color: #BFC3D3;
+    font-family: Poppins;
+    font-weight: lighter;
+    font-size: 14px;
+    line-height: 18px;
+
+    text-align: center;
+}
+
+
+
+
+
+.dashboard_body {
+  
+    width:70%;
+    margin: 0 15%;
+
+    display:flex;
+    flex-wrap:wrap;
+    justify-items: center;
+    justify-content: space-between;
+    align-items:flex-start;
+
+}
+.dashboard_body-left {
+    display:inline-block;
+    width:808px;
+    margin-right:1%;
+}
+.dashboard_body-right {
+    display:inline-block;
+    width:387px;
+}
+
+
+
+
+
+
+.dashboard_user-banner {
+    width:808px;
+    height:217px;
+
+    background-image:url(../resources/pages/dashboard-banner-user.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.dashboard_user {
+    height:55px;
+    width:255px;
+    overflow:hidden;
+    padding:10px 0px 15px 50px;
+}
+.dashboard_user-profile-pic {
+    width:55px;
+    height:55px;
+    background-color:#181820;
+    border-radius: 5px;
+
+    background-image:url(../resources/icons/discord.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+
+    float:left;
+}
+
+
+
+
+.dashboard_stats-container {
+    margin-top:20px;
+    width:808px;
+
+
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.dashboard_stats-panel {
+    width:211px;
+    height:66px;
+
+    padding: 20px 20px;
+
+    background: #19192C;
+    border-radius: 7px;
+}
+.dashboard_stats-text_container {
+    width:132px;
+    height:66px;
+
+    float:left;
+    margin-left:10px;
+}
+.dashboard_stats-icon_container {
+    width:66px;
+    height:66px;
+
+    background: #242637;
+    border-radius: 6px;
+
+    float:left;
+
+}
+.dashboard_stats-icon {
+    width:38px;
+    height:38px;
+
+    margin: 13px auto;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.dashboard_stats-icon-transactions {
+    background-image: url(../resources/icons/transactions-green.svg);
+}
+.dashboard_stats-icon-sold {
+    background-image: url(../resources/icons/sold-blue.svg);
+}
+.dashboard_stats-icon-purchased {
+    background-image: url(../resources/icons/purchased-cyan.svg);
+}
+
+
+
+
+.dashboard_transaction-history_panel {
+    width:808px;
+    height:304px;
+
+    margin-top:20px;
+}
+.dashboard_transaction-history_panel-container {
+    width:808px;
+    height:240px;
+    overflow-y: scroll;
+}
+.dashboard_transaction-history_panel-container::-webkit-scrollbar {
+    width:10px;
+}
+.dashboard_transaction-history_panel-container::-webkit-scrollbar-track {
+    background: #19192C;
+    border-radius: 36px;
+}
+.dashboard_transaction-history_panel-container::-webkit-scrollbar-thumb {
+    background: #29ABFF;
+    border-radius: 36px;
+}
+
+
+.dashboard_droplets_panel {
+    width:100%;
+    height:190px;
+
+    background: #19192C;
+    border-radius: 7px;
+
+    margin-top:28px;
+}
+.dashboard_droplets_panel-header {
+    padding:30px 50px;
+    height:25px;
+
+    display:flex;
+    flex-wrap:nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.dashboard_droplets_panel-body {
+    padding:0px 50px;
+    height:58px;
+
+}
+.dashboard_droplets_panel-icon_container {
+    width:58px;
+    height:58px;
+
+    background: #242637;
+    border-radius: 6px; 
+
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    float:left;
+}
+.dashboard_droplets_panel-icon {
+    width:58px;
+    height:58px;
+
+    margin-top:10px;
+
+    background-image:url(../resources/icons/droplets-blue.svg);
+    background-position: center;
+    background-size: contain;
+    
+}
+.dashboard_droplets_panel-text_container {
+    
+    width:60%;
+    height:58px;
+
+    margin-left:20px;
+    
+    float:left;
+}
+
+
+
+
+.dashboard_most-transacted_panel {
+    width:100%;
+    height:324px;
+    background: #19192C;
+    border-radius: 7px;
+
+    margin-top:20px;
+
+}
+.dashboard_most-transacted_header {
+    padding:30px 50px 10px 50px;
+    margin:"0";
+}
+.dashboard_most-transacted_bot-section {
+    padding: 10px 50px;
+    height: 56px;
+}
+.dashboard_most-transacted_bot-frame {
+    width: 56px;
+    height: 56px;
+    background: #C4C4C4;
+    border-radius: 5px;
+
+    display:flex;
+
+    align-items: center;
+    justify-content: center;
+
+    float:left;
+}
+.dashboard_most-transacted_bot-icon {
+    width: 42px;
+    height: 42px;
+
+    background-position: center;
+    background-size: contain;
+    background-repeat:no-repeat;
+}
+.dashboard_most-transacted-text_container {
+    height:56px;
+    width:200px;
+    margin-left:20px;
+    float:left;
+}
+.dashboard_most-transacted-bar_container {
+    width:100%;
+    height:6px;
+
+    margin-top:10px;
+
+    background: #242637;
+    border-radius: 7px;
+}
+.dashboard_most-transacted-bar {
+    width:50%;
+    height:6px;
+
+    background: #007CF8;
+    border-radius: 7px;
+}
+
+
+
+
+.dashboard_payment-panel {
+    width:100%;
+    height:73px;
+
+    padding-top:23px;
+
+
+
+    background: #19192C;
+    border-radius: 7px;
+
+    margin-top:20px;
+}
+.dashboard_payment-panel-card_icon {
+
+    margin-left:23px;
+
+    height:50px;
+    width:81px;
+
+    background-image: url(../resources/icons/card-cyan.svg);
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    float:left;
+
+}
+.dashboard_payment-panel-text_container {
+    height:50px;
+    width:200px;
+
+    margin-left:23px;
+
+    float:left;
+}
+
+
+@media screen and (max-width:1746px) {
+    .dashboard_body {
+  
+        width:80%;
+        margin: 0 10%;
+    }
+}
+@media screen and (max-width:1530px) {
+    .dashboard_body {
+  
+        width:90%;
+        margin: 0 5%;
+    }
+}
+@media screen and (max-width:1360px) {
+    .dashboard_body {
+        width:80%;
+        margin: 0 10%;
+        justify-content: center;
+    }
+    .dashboard_body-right {
+        display:inline-block;
+        width:808px;
+        margin-bottom:100px;
+    }
+}
+
+@media only screen and (max-device-width: 1000px) {
+    .dashboard_body-left {
+        display:inline-block;
+        width:700px;
+    }
+    .dashboard_user-banner {
+        width:700px;
+    }
+    .dashboard_stats-container {
+        margin-top:20px;
+        width:700px;
+            
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .dashboard_stats-panel {
+        margin-top:20px;
+    }
+    .dashboard_transaction-history_panel {
+        width:700px;
+        height:304px;
+    }
+    .dashboard_transaction-history_panel-container{
+        width:700px;
+    }
+}
+@media only screen and (max-device-width: 744px) {
+    .dashboard_body {
+  
+        width:96%;
+        margin: 0 2%;
+    
+    
+    }
+    .dashboard_body-left {
+        display:inline-block;
+        width:100%;
+
+    }
+    .dashboard_user-banner {
+        width:100%;
+        height:100px;
+    }
+    .dashboard_banner-greeting_text {
+        display:none;
+    }
+    .dashboard_user {
+        padding-top:26px;
+        padding-left:20px;
+
+    }
+
+
+    .dashboard_stats-container {
+        margin-top:20px;
+        width:100%;
+            
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .dashboard_stats-panel {
+        margin-top:20px;
+        width:90%
+    }
+    .dashboard_transaction-history_panel {
+        display:none;
+    }
+
+    .dashboard_body-right {
+        display:inline-block;
+        width:100%;
+        margin-bottom:100px;
+    }
+    .dashboard_droplets_panel-header {
+        padding:30px 20px;
+    }
+    .dashboard_droplets_panel-body {
+        padding:0px 20px;
+    }
+    .dashboard_most-transacted_bot-section {
+        padding: 10px 20px;
+    }
+    .dashboard_most-transacted_header {
+        padding:30px 20px 10px 20px;
+    }
+}

@@ -222,22 +222,6 @@ h1 {
     margin:20px;
 }
 
-.blog-sole {
-    background-image: url(../../resources/pages/homepage-blogs-sole.png);
-}
-.blog-pd {
-    background-image: url(../../resources/pages/homepage-blogs-pd.png);
-}
-.blog-cyber {
-    background-image: url(../../resources/pages/homepage-blogs-cyber.png);
-}
-.blog-dashe {
-    background-image: url(../../resources/pages/homepage-blogs-dashe.png);
-}
-.blog-dashe2 {
-    background-image: url(../../resources/pages/homepage-blogs-dashe2.png);
-}
-
 
 .leaderboard_text {
     margin-top:40px;
@@ -250,7 +234,7 @@ h1 {
 
     margin-top:40px;
     margin-bottom:40px;
-    
+
     height:461px;
     width:535px;
 
