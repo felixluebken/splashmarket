@@ -123,7 +123,63 @@ th {
     background-position: center;
     background-repeat: no-repeat;
 }
+.dashboard_admin-banner {
+    width:530px;
+    height:189px;
+
+    background-image:url(../resources/pages/dashboard-banner-admin.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+
+}
+.dashboard_admin-banner-container {
+    width:808px;
+    min-height:189px;
+
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    margin-top: 28px;
+}
+.dashboard_admin-mm_transactions {
+    width: 251px;
+    height: 189px;
+
+    background: #19192C;
+    border-radius: 7px;
+
+}
+.dashboard_admin-mm_transactions-icon_container {
+    background: #242637;
+    border-radius: 6px;
+
+    width: 66px;
+    height: 66px;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    margin:20px;
+}
+.dashboard_admin-mm_transactions-icon {
+    width:36px;
+    height:36px;
+
+    background-image:url(../resources/icons/transactions-mm-cyan.svg)
+}
+
 .dashboard_user {
+    height:55px;
+    width:255px;
+    overflow:hidden;
+    padding:10px 0px 15px 50px;
+}
+.dashboard_admin {
     height:55px;
     width:255px;
     overflow:hidden;
@@ -142,6 +198,11 @@ th {
 
 
     float:left;
+}
+
+.dashboard_banner-greeting_text-admin {
+    padding:40px 0px 15px 50px;
+    margin:0px;
 }
 
 
@@ -432,6 +493,17 @@ th {
     .dashboard_user-banner {
         width:700px;
     }
+    .dashboard_admin-banner-container {
+        width:700px;
+        min-height:440px;
+
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+    
+        margin-top: 28px;
+    }
     .dashboard_stats-container {
         margin-top:20px;
         width:700px;
@@ -474,8 +546,16 @@ th {
     }
     .dashboard_user {
         padding-top:26px;
-        padding-left:20px;
+        margin-left:24%;
+        padding-left:0;
+    }
 
+
+    .dashboard_admin-banner-container {
+        width:100%;
+    }
+    .dashboard_admin-mm_transactions {
+        width:100%
     }
 
 
@@ -512,5 +592,30 @@ th {
     }
     .dashboard_most-transacted_header {
         padding:30px 20px 10px 20px;
+    }
+}
+@media only screen and (max-device-width: 544px) {
+    .dashboard_user {
+        padding-top:26px;
+        margin-left:16%;
+        padding-left:0;
+    }
+}
+@media only screen and (max-device-width: 444px) {
+
+
+    .dashboard_admin {
+        padding-left:20px;
+    }
+
+    .dashboard_banner-greeting_text-admin {
+        padding:40px 0px 15px 20px;
+        margin:0px;
+    }
+
+    .dashboard_user {
+        padding-top:26px;
+        margin-left:8%;
+        padding-left:0;
     }
 }
