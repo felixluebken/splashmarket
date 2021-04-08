@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import App from './App';
 import './index.css';
 
@@ -25,6 +26,9 @@ import GuidesAdminEditPopup from './popups/GuidesAdminEditPopup'
 import GuidesAdminAddPopup from './popups/GuidesAdminAddPopup'
 
 import reportWebVitals from './reportWebVitals';
+
+// Change this in prod
+axios.defaults.baseURL = 'http://localhost:8000/';
 
 ReactDOM.render(
   <React.StrictMode>
