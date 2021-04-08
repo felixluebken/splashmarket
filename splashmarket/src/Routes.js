@@ -1,15 +1,10 @@
-<<<<<<< HEAD
 import React, { useState, useEffect, useContext } from 'react';
-=======
-import React from 'react';
->>>>>>> 1477cb1... Added eslint and router
 import {
-  useHistory,
+  // useHistory,
   BrowserRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
-<<<<<<< HEAD
 import DashboardUser from './pages/DashboardUser';
 import Homepage from './pages/Homepage';
 import Loginpage from './pages/Login';
@@ -68,18 +63,7 @@ const Routes = () => {
   if (isAuthenticating) {
     return <h1>Loading</h1>;
   }
-
-  console.log('USER: ', user);
-
-=======
-
-import Homepage from './pages/Homepage';
-import Loginpage from './pages/Login';
-
-const Routes = () => {
-  const history = useHistory();
-  console.log('HISTORY: ', history);
->>>>>>> 1477cb1... Added eslint and router
+  
   return (
     <Router>
       <Switch>
@@ -89,7 +73,6 @@ const Routes = () => {
         <Route exact path="/login">
           <Loginpage />
         </Route>
-<<<<<<< HEAD
         <PrivateRoute isAuthenticating={isAuthenticating}>
           <Route exact path="/user">
             {user.role === 'admin' ? (
@@ -103,8 +86,6 @@ const Routes = () => {
           <DashboardUser />
         </Route>
 
-=======
->>>>>>> 1477cb1... Added eslint and router
       </Switch>
     </Router>
   );
