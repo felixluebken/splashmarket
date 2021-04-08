@@ -8,11 +8,11 @@ p.panel_text-normal {
 
     margin:0;
 }
-p.panel_text--normal-small {
+p.panel_text-normal-small {
     color: #BFC3D3;
     font-family: Poppins;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 12px;
+    line-height: 14px;
 
     margin:0;
 }
@@ -31,6 +31,124 @@ p.panel_text-light-small {
     line-height: 14px;
 
     margin:0;
+}
+
+
+.member_leaderboard_panel {
+    padding-top:25px;
+    margin-bottom:15px;
+    
+    width:100%;
+    min-height:165px;
+
+    background: #19192C;
+    border-radius: 6px;
+}
+.member_leaderboard_panel-left {
+    width:65%;
+    float:left;
+}
+.member_leaderboard_panel-right {
+    width:35%;
+    float:right
+}
+.member_leaderboard_panel-header {
+    height:55px;
+    width:90%;
+    margin: 0 5%;
+
+    display:flex;
+
+}
+.member_leaderboard_panel-header-avatar {
+    width:55px;
+    height:55px;
+    background: #C4C4C4;
+    border-radius: 5px;
+    margin-right:20px;
+
+
+
+
+    background-position: center;
+    background-size:cover ;
+    background-repeat: no-repeat;
+}
+.member_leaderboard_panel-latest_transactions {
+    height:43px;
+
+
+    display:flex;
+    align-items: center;
+    justify-content: baseline;
+}
+.member_leaderboard_panel-latest_transactions-main {
+    background: #1E1E31;
+    border-radius: 6px;
+
+    width:170px;
+    height:100%;
+
+    margin: 0 5px 0 5%;
+
+    display:inline-flex;
+    align-items: center;
+    justify-content: baseline;
+
+    overflow:hidden;
+}
+.member_leaderboard_panel-latest_transactions-main_avatar {
+    width:35px;
+    height:35px;
+    background: #C4C4C4;
+    border-radius: 5px;
+
+    margin-left: 5px;
+
+    background-position: center;
+    background-size: cover ;
+    background-repeat: no-repeat;
+}
+.member_leaderboard_panel-latest_transactions-additional {
+    display:flex;
+    width:192px;
+    overflow:hidden;
+}
+.member_leaderboard_panel-stats_panel {
+    width:90%;
+
+    margin:0 5%;
+
+    margin-bottom:10px;
+
+    height: 66px;
+    
+    background: #1E1E31;
+    border-radius: 4px;
+
+    display:flex;
+    justify-content: baseline;
+    align-items: center;
+}
+.member_leaderboard_panel-stats_panel-text {
+    height:36px;
+
+}
+.member_leaderboard_panel-stats_panel-transaction_icon {
+    width:36px;
+    height:36px;
+
+    margin-left:15px;
+
+    background-image: url(../../resources/icons/transactions-green.svg)
+}
+.member_leaderboard_panel-stats_panel-last_transaction_icon {
+    width:36px;
+    height:36px;
+
+    margin-left:15px;
+
+    background-image: url(../../resources/icons/lasttransaction-blue.svg)
 }
 
 
@@ -202,4 +320,37 @@ h2.blog_bot_panel-header-title {
     font-family: Poppins;
     font-size: 16px;
     line-height: 18px;
+}
+
+
+@media only screen and (max-device-width: 660px) {
+    .member_leaderboard_panel {
+        display:inline-block;
+    }
+    .member_leaderboard_panel-left {
+        width:100%;
+    }
+    .member_leaderboard_panel-right {
+        width:60%;
+        float:left;
+
+        margin: 20px 5%;
+    }
+    .member_leaderboard_panel-stats_panel {
+        margin-left:0px;
+    }
+}
+@media only screen and (max-device-width: 440px) {
+    .member_leaderboard_panel-latest_transactions {
+        display:none;
+    }
+    .member_leaderboard_panel-latest_transactions-title {
+        display:none;
+    }
+    .member_leaderboard_panel-right {
+        width:80%;
+        float:left;
+
+        margin: 20px 5%;
+    }
 }

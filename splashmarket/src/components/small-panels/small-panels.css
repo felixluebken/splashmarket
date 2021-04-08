@@ -1,0 +1,61 @@
+p.text-normal {
+    color: white;
+    font-family: Poppins;
+    font-size: 17px;
+    line-height: 24px;
+}
+p.text-light {
+    color: #BFC3D3;
+    font-family: Poppins;
+    font-size: 17px;
+    line-height: 24px;
+}
+p.text-normal-small {
+    color: white;
+    font-family: Poppins;
+    font-size: 15px;
+    line-height: 24px;
+}
+p.text-light-small {
+    color: #BFC3D3;
+    font-family: Poppins;
+    font-size: 15px;
+    line-height: 24px;
+}
+
+.close_icon {
+    width:24px;
+    height:24px;
+    background-image: url(../../resources/icons/close-blue.svg);
+    margin:3px;
+
+    cursor: pointer;
+}
+
+
+
+.search_phrase-panel {
+    border: 1px solid #252538;
+    box-sizing: border-box;
+    border-radius: 5px;
+
+    display:inline-flex;
+    justify-content: baseline;
+    align-items: center;
+
+    margin-bottom:10px;
+    margin-right:10px;
+}
+.avatar-panel_43 {
+    background: #C4C4C4;
+    border-radius: 5px;
+
+    width: 43px;
+    height: 43px;
+
+    background-position: center;
+    background-size: cover ;
+    background-repeat: no-repeat;
+}
+
+

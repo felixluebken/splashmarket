@@ -1,0 +1,267 @@
+input {
+    background:transparent;
+    float:left;
+    outline:none;
+    border:none;
+
+    color: white;
+    font-family: Poppins;
+    font-size: 17px;
+    line-height: 18px;
+    width:44%;
+}
+select {
+    background: #19192C;
+    outline:none;
+    border:none;
+
+    width:23%;
+
+    color: white;
+    font-family: Poppins;
+    font-size: 17px;
+    line-height: 18px;
+}
+
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+
+    margin-right:10px;
+
+    background-image: url(../resources/icons/ckeckbox-unchecked.svg);
+    background-position: center;
+    background-size:contain;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  
+
+}
+.checkbox:checked {
+    background-image: url(../resources/icons/checkbox-checked.svg);
+}
+.checkbox-container {
+    width: 80%;
+    display:inline-block;
+    overflow: hidden;
+    margin-bottom:10px;
+}
+
+
+
+
+h3.leaderboard_title {
+    font-family: Poppins;
+    color:white;
+    font-size: 50px;
+    line-height: 60px;
+
+
+    margin-bottom:50px;
+}
+p.text-normal {
+    color: white;
+    font-family: Poppins;
+    font-size: 17px;
+    line-height: 24px;
+}
+p.text-light {
+    color: #BFC3D3;
+    font-family: Poppins;
+    font-size: 17px;
+    line-height: 24px;
+}
+p.text-normal-small {
+    color: white;
+    font-family: Poppins;
+    font-size: 15px;
+    line-height: 24px;
+}
+p.text-light-small {
+    color: #BFC3D3;
+    font-family: Poppins;
+    font-size: 15px;
+    line-height: 24px;
+}
+
+
+
+.leaderboard_search-section {
+    
+    width:70%;
+
+    padding:3% 15%;
+    
+    
+    min-height:250px;
+
+
+    background-image: url(../resources/background/homepage-1.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.search-frame {
+    width:100%;
+    height:73px;
+
+    background: #19192C;
+    border: 1.5px solid #252538;
+    box-sizing: border-box;
+    box-shadow: 0px 42px 51px rgba(9, 9, 20, 0.35);
+    border-radius: 8px;
+
+
+}
+.search_icon {
+    width:24px;
+    height:24px;
+    background-image: url(../resources/icons/search-blue.svg);
+    float:left;
+    margin:22px
+}
+.filter_icon {
+    width:24px;
+    height:24px;
+    background-image: url(../resources/icons/filter-blue.svg);
+    float:left;
+}
+.search_divider {
+    width: 1px;
+    height: 33.5px;
+    background-color:#252538;
+    float:left;
+}
+
+
+
+
+
+
+
+
+
+.leaderboard_body-section {
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    width:70%;
+    padding:3% 15%;
+
+    min-height:100px;
+}
+
+
+.leaderboard_body-results {
+    width:70%;
+}
+.leaderboard_body-results-container {
+    width:100%;
+    height:100%;
+}
+
+
+
+
+.leaderboard_body-current_search {
+    width:30%
+}
+.leaderboard_body-current_search-terms {
+    min-height:60px;
+}
+
+
+
+
+
+@media screen and (max-width:1320px) {
+    .leaderboard_search-section {
+        width:90%;
+        padding:3% 5%;
+    }
+    .leaderboard_body-section {
+        width:90%;
+        padding:3% 5%;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    input {
+        width:34%;
+    }
+    select {
+        width:20%
+    }
+}
+
+
+@media only screen and (max-device-width: 1000px) {
+    .leaderboard_body-section {
+        display:block;
+    }
+    .leaderboard_body-current_search {
+        width:100%;
+        display:inline-block;
+    }
+    .leaderboard_body-results {
+        width:100%;
+    }
+
+    .leaderboard_body-current_search-terms-container {
+        float:left;
+        margin-right:20px;
+    }
+    .leaderboard_body-current_search-categories-container {
+        float:left;
+
+    }
+
+
+    .search-frame {
+        width:100%;
+
+    }
+    input {
+        width:180px;
+    
+    }
+    select {
+        background: #19192C;
+        outline:none;
+        border:none;
+    
+        width:140px;
+    
+        color: white;
+        font-family: Poppins;
+        font-size: 17px;
+        line-height: 18px;
+    }
+}
+
+@media only screen and (max-device-width: 690px) {
+    .search-frame {
+        width:100%;
+        height:146px;
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        align-items: center;
+
+        margin:0;
+    }
+    .filter_icon {
+        display:none;
+    }
+    .search_divider {
+        display:none;
+    }
+    input {
+        width:50%;
+    
+    }
+}
