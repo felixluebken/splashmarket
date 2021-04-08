@@ -22,6 +22,9 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 1,
     'linebreak-style': 1,
     'max-len': 1,
+<<<<<<< HEAD
     'react/prop-types': 1,
+=======
+>>>>>>> c9b84a323685ffcb61b0a0397bcba2e4eb1879d4
   },
 };

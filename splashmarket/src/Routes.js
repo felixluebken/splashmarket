@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
 import {
   // useHistory,
+=======
+import React from 'react';
+import {
+  useHistory,
+>>>>>>> c9b84a323685ffcb61b0a0397bcba2e4eb1879d4
   BrowserRouter as Router,
   Switch,
   Route,
