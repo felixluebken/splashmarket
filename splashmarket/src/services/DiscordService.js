@@ -8,4 +8,11 @@ export default class DiscordService {
       .then(onSuccess)
       .catch(onError);
   }
+
+  static async GetUserDiscord(onSuccess, onError) {
+    await axios
+      .get(getAPIPath('discord/user'), { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
 }
