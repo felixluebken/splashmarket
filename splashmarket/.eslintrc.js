@@ -22,9 +22,11 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 1,
     'linebreak-style': 1,
     'max-len': 1,
-<<<<<<< HEAD
     'react/prop-types': 1,
+<<<<<<< HEAD
 =======
 >>>>>>> c9b84a3... Added eslint and router
+=======
+>>>>>>> 4d6591f... Finishing user dashboard
   },
 };
