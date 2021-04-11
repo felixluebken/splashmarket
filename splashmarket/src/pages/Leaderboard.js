@@ -10,9 +10,6 @@ import LeaderboardSearchPanel from '../components/panels/LeaderboardSearchPanel'
 /*
 numResults              -str number of searchresults
 
-
-
-
 */
 
 

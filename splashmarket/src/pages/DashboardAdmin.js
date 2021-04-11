@@ -1,6 +1,6 @@
 import './Dashboard.css'
-import HeaderLoggedIn from '../components/header/headerLoggedIn'
 
+import HeaderLoggedIn from '../components/header/headerLoggedIn'
 import TransactionHistoryPanel from '../components/list-panels/transactionHistory'
 
 
@@ -76,7 +76,6 @@ function DashboardAdmin(props) {
                             <p className="dashboard_text-light" style={{margin:"5px 0px 0px 20px"}}>Total Transactions MM'd</p>
                         </div>
                     </div>
-
 
                     <div className="dashboard_stats-container">
 

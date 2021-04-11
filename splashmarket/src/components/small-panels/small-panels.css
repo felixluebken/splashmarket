@@ -59,3 +59,57 @@ p.text-light-small {
 }
 
 
+
+.page_switch-active_text {
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+
+    color:white;
+}
+.page_switch-indicator-container {
+    width:31px;
+    height:31px;
+    border-radius: 4px;
+
+    border: 1px solid #33334A;
+    box-sizing: border-box;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    margin: 0 5px;
+}
+
+.page_switch-text {
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+
+    color:#BFC3D3;
+}
+.page_switch-indicator-container_active {
+    width:31px;
+    height:31px;
+    border-radius: 4px;
+    background: #29ABFF;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor:default;
+
+    margin: 0 5px;
+}
