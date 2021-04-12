@@ -19,14 +19,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <DashboardAdminDropletsInfo
-      droplets = "1" 
-      title = "SplashX"
-      cost = "5"
-      mainTitle = "SplashX Membership"
-      description = "SplashX is a fire cook groups that you should def join bro. I dont know what else to put here but i just wanna see how the text wraps"
-      prizeDescription = "SplashX is a fire cook groups that you should def join bro. I dont know what else to put here but i just wanna see how the text wraps"
-    />
+    <DashboardUser />
   </React.StrictMode>,
   document.getElementById('root')
 );
