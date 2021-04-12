@@ -324,8 +324,6 @@ a.blog_link {
     }
 
 }
-
-
 @media only screen and (max-device-width: 1000px) {
     .search-frame_homepage {
         width:650px;
@@ -362,7 +360,6 @@ a.blog_link {
         align-items: center;
     }
 }
-
 @media only screen and (max-device-width: 600px) {
     .search-frame_homepage {
         width:90%;
