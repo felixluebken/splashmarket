@@ -174,8 +174,8 @@ h1 {
 }
 
 
-.search-frame {
-    width:760px;
+.search-frame_homepage {
+    width:960px;
     height:73px;
 
     background: #19192C;
@@ -327,7 +327,7 @@ a.blog_link {
 
 
 @media only screen and (max-device-width: 1000px) {
-    .search-frame {
+    .search-frame_homepage {
         width:650px;
         display:block;
     }
@@ -352,9 +352,19 @@ a.blog_link {
         justify-content: space-around;
     }
 }
+@media only screen and (max-device-width:692px) {
+    .search-frame_homepage {
+        width:90%;
+        height:146px;
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        align-items: center;
+    }
+}
 
 @media only screen and (max-device-width: 600px) {
-    .search-frame {
+    .search-frame_homepage {
         width:90%;
         height:146px;
         display:flex;

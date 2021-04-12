@@ -697,9 +697,206 @@ textarea.dashboard_text-area {
 
 
 
+@media screen and (max-width:4000px) {
 
 
 
+    .dashboard_body-left {
+        width:1200px;
+    }
+    .dashboard_user-banner {
+        width:1200px;
+        height:322px;
+    }
+    .dashboard_stats-container {
+        margin-top: 20px;
+        width: 1200px;
+    }
+    .dashboard_stats-panel {
+        width: 260px;
+        padding:40px;
+    }
+    .dashboard_transaction-history_panel {
+        width: 1200px;
+    }
+    .dashboard_transaction-history_panel-container {
+        width: 1200px;
+        height: 340px;
+    }
+
+    .dashboard_body-right {
+        width: 420px;
+
+    }
+    .dashboard_droplets_panel {
+        margin-top:40px;
+        height: 250px;
+    }
+    .dashboard_droplets_panel-header {
+        margin-bottom:30px;
+    }
+    .dashboard_most-transacted_panel {
+        height: 424px;
+    }
+    .dashboard_most-transacted_bot-section {
+        padding: 24px 50px;
+    }
+    .dashboard_payment-panel {
+        height: 110px;
+        padding-top: 43px;
+    }
+
+    .dashboard_admin-banner-container {
+        width: 1200px;
+    }
+    .dashboard_admin-banner {
+        width: 800px;
+        height: 285px;
+    }
+    .dashboard_admin-mm_transactions {
+        width: 340px;
+        height: 285px;
+    }
+
+
+    .dashboard_droplets_redeem-panel_container {
+        width:50%;
+        margin:20px 25%;
+    }
+}
+@media screen and (max-width:2344px) {
+
+    .dashboard_body-left {
+        width:900px;
+    }
+    .dashboard_user-banner {
+        width:900px;
+        height:280px;
+    }
+    .dashboard_stats-container {
+        margin-top: 20px;
+        width: 900px;
+    }
+    .dashboard_stats-panel {
+        width: 240px;
+        padding:20px;
+    }
+    .dashboard_transaction-history_panel {
+        width: 900px;
+    }
+    .dashboard_transaction-history_panel-container {
+        width: 900px;
+        height: 240px;
+    }
+
+
+    .dashboard_body-right {
+        width: 420px;
+    }
+    .dashboard_droplets_panel {
+        margin-top:48px;
+        height: 215px;
+    }
+    .dashboard_droplets_panel-header {
+        margin-bottom:15px;
+    }
+    .dashboard_most-transacted_panel {
+        height: 310px;
+    }
+    .dashboard_most-transacted_bot-section {
+        padding: 8px 50px;
+    }
+    .dashboard_payment-panel {
+        height: 80px;
+        padding-top: 30px;
+    }
+
+    .dashboard_admin-banner-container {
+        width: 900px;
+    }
+    .dashboard_admin-banner {
+        width: 600px;
+        height: 214px;
+    }
+    .dashboard_admin-mm_transactions {
+        width: 275px;
+        height: 214px;
+    }
+
+    .dashboard_droplets_redeem-panel_container {
+        width:54%;
+        margin:20px 23%;
+    }
+}
+@media screen and (max-width:1920px) {
+
+
+    .dashboard_body {
+        justify-content: space-between;
+    }
+    .dashboard_body-left {
+        width:808px;
+    }
+    .dashboard_user-banner {
+        width:808px;
+        height:217px;
+    }
+    .dashboard_stats-container {
+        margin-top: 20px;
+        width: 808px;
+    }
+    .dashboard_stats-panel {
+        width: 211px;
+        height: 66px;
+    }
+    .dashboard_transaction-history_panel {
+        width: 808px;
+    }
+    .dashboard_transaction-history_panel-container {
+        width: 808px;
+        height: 240px;
+    }
+
+    
+    .dashboard_body-right {
+        width: 387px;
+
+    }
+    .dashboard_droplets_panel {
+        margin-top:28px;
+        height: 190px;
+    }
+    .dashboard_droplets_panel-header {
+        margin-bottom:0px;
+    }
+    .dashboard_most-transacted_panel {
+        height: 324px;
+    }
+    .dashboard_most-transacted_bot-section {
+        padding: 10px 50px;
+    }
+    .dashboard_payment-panel {
+        height: 73px;
+        padding-top: 23px;
+    }
+
+    .dashboard_admin-banner-container {
+        width: 808px;
+    }
+    .dashboard_admin-banner {
+        width: 530px;
+        height: 189px;
+    }
+    .dashboard_admin-mm_transactions {
+        width: 251px;
+        height: 189px;
+    }
+
+    .dashboard_droplets_redeem-panel_container {
+        width:70%;
+        margin:20px 15%;
+    }
+}
 
 @media screen and (max-width:1746px) {
     .dashboard_body {
