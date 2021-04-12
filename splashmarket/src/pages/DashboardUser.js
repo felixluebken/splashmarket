@@ -54,7 +54,7 @@ const DashboardUser = (props) => {
   const [user, userDispatch] = useContext(UserContext);
   const history = useHistory();
   const {
-    id, username, discriminator, avatar, transactions, totalBought, totalSold, currency,
+    id, username, discriminator, avatar, transactions, totalBought, totalSold, currency, topTransactedBots,
   } = user;
   useEffect(() => {
     const onGetUserSuccess = (response) => {
@@ -80,14 +80,13 @@ const DashboardUser = (props) => {
     }
   }, []);
   const {
-    dropletsRedeemUrl, manageSubscriptionUrl, paymentType, paymentLast4, numTransactions1, botName1, botBackgroundColor1, botBarColor1, botBarPercent1, numTransactions2, botName2, botBackgroundColor2, botBarColor2, botBarPercent2, numTransactions3, botName3, botBackgroundColor3, botBarColor3, botBarPercent3,
+    dropletsRedeemUrl, manageSubscriptionUrl, paymentType, paymentLast4, numTransactions1, botBarColor1,
   } = props;
 
   if (isLoadingUserData) {
     return <h1>Loading</h1>;
   }
 
-  console.log('TRANSACTIONS: ', transactions);
   return (
     <>
       <HeaderLoggedIn />
@@ -152,10 +151,10 @@ const DashboardUser = (props) => {
             <div className="dashboard_transaction-history_panel-container">
               {transactions.map((transaction) => {
                 const {
-                  bot, transactionDate, position, otherParty,
+                  bot, transactionDate, position, otherParty, logo,
                 } = transaction;
                 return (
-                  <TransactionHistoryPanel botBackground="black" botIcon="" botName={bot} date={transactionDate} position={position} otherParty={otherParty} transcriptTitle="Transcript 123" transcriptUrl="https://google.com" />
+                  <TransactionHistoryPanel botBackground="black" botIcon={logo || ''} botName={bot} date={transactionDate} position={position} otherParty={otherParty} transcriptTitle="Transcript 123" transcriptUrl="https://google.com" />
                 );
               })}
             </div>
@@ -183,58 +182,28 @@ const DashboardUser = (props) => {
 
           <div className="dashboard_most-transacted_panel">
             <p className="dashboard_text-normal dashboard_most-transacted_header">Most Transacted Bots</p>
-            <div className="dashboard_most-transacted_bot-section">
-              <div className="dashboard_most-transacted_bot-frame" style={{ backgroundColor: `${botBackgroundColor1}` }}>
-                <div className="dashboard_most-transacted_bot-icon" style={{ backgroundImage: `url(${botBackgroundColor1})` }} />
-              </div>
+            {topTransactedBots.map((transactedBot) => {
+              const { bot, logo, occurences } = transactedBot;
+              const occurencePercentage = `${(occurences / transactions.length) * 100}%`;
+              return (
+                <div className="dashboard_most-transacted_bot-section">
+                  <div className="dashboard_most-transacted_bot-frame" style={{ backgroundColor: 'black' }}>
+                    <div className="dashboard_most-transacted_bot-icon" style={{ backgroundImage: `url(${logo})` }} />
+                  </div>
 
-              <div className="dashboard_most-transacted-text_container">
-                <p className="dashboard_text-light-xs" style={{ margin: '0' }}>
-                  {numTransactions1}
-                  {' '}
-                  Transactions
-                </p>
-                <p className="dashboard_text-normal-small" style={{ margin: '5px 0px 0px 0px' }}>{botName1}</p>
-                <div className="dashboard_most-transacted-bar_container">
-                  <div className="dashboard_most-transacted-bar" style={{ backgroundColor: `${botBarColor1}`, width: `${botBarPercent1}` }} />
+                  <div className="dashboard_most-transacted-text_container">
+                    <p className="dashboard_text-light-xs" style={{ margin: '0' }}>
+                      {numTransactions1}
+                      Transactions
+                    </p>
+                    <p className="dashboard_text-normal-small" style={{ margin: '5px 0px 0px 0px' }}>{bot}</p>
+                    <div className="dashboard_most-transacted-bar_container">
+                      <div className="dashboard_most-transacted-bar" style={{ backgroundColor: `${botBarColor1}`, width: occurencePercentage }} />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div className="dashboard_most-transacted_bot-section">
-              <div className="dashboard_most-transacted_bot-frame" style={{ backgroundColor: `${botBackgroundColor2}` }}>
-                <div className="dashboard_most-transacted_bot-icon" style={{ backgroundImage: `url(${botBackgroundColor2})` }} />
-              </div>
-
-              <div className="dashboard_most-transacted-text_container">
-                <p className="dashboard_text-light-xs" style={{ margin: '0' }}>
-                  {numTransactions2}
-                  {' '}
-                  Transactions
-                </p>
-                <p className="dashboard_text-normal-small" style={{ margin: '5px 0px 0px 0px' }}>{botName2}</p>
-                <div className="dashboard_most-transacted-bar_container">
-                  <div className="dashboard_most-transacted-bar" style={{ backgroundColor: `${botBarColor2}`, width: `${botBarPercent2}` }} />
-                </div>
-              </div>
-            </div>
-            <div className="dashboard_most-transacted_bot-section">
-              <div className="dashboard_most-transacted_bot-frame" style={{ backgroundColor: `${botBackgroundColor3}` }}>
-                <div className="dashboard_most-transacted_bot-icon" style={{ backgroundImage: `url(${botBackgroundColor3})` }} />
-              </div>
-
-              <div className="dashboard_most-transacted-text_container">
-                <p className="dashboard_text-light-xs" style={{ margin: '0' }}>
-                  {numTransactions3}
-                  {' '}
-                  Transactions
-                </p>
-                <p className="dashboard_text-normal-small" style={{ margin: '5px 0px 0px 0px' }}>{botName3}</p>
-                <div className="dashboard_most-transacted-bar_container">
-                  <div className="dashboard_most-transacted-bar" style={{ backgroundColor: `${botBarColor3}`, width: `${botBarPercent3}` }} />
-                </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
 
           <div className="dashboard_payment-panel">
@@ -251,7 +220,6 @@ const DashboardUser = (props) => {
             </div>
           </div>
         </div>
-
       </div>
     </>
   );

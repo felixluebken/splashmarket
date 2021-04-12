@@ -1,9 +1,12 @@
-import './Dashboard.css'
-import HeaderLoggedIn from '../components/header/headerLoggedIn'
+/* eslint-disable camelcase */
+import React, { useContext, useState, useEffect } from 'react';
+import './Dashboard.css';
+import { useHistory } from 'react-router-dom';
+import HeaderLoggedIn from '../components/header/headerLoggedIn';
 
-import TransactionHistoryPanel from '../components/list-panels/transactionHistory'
-
-
+import TransactionHistoryPanel from '../components/list-panels/transactionHistory';
+import { SET_USER, UserContext } from '../context/UserContext';
+import DiscordService from '../services/DiscordService';
 
 /*
 PROP PARAMS
@@ -22,7 +25,6 @@ dropletsRedeemUrl           -str (url for redeeming droplets)
 manageSubscriptionUrl       -str (url for managing subscriptions)
 paymentType                 -str
 paymentLast4                -str
-
 
 MOST TRANSACTED #1
 numTransactions1            -str
@@ -48,161 +50,193 @@ botIcon3                    -str (url)
 botBarColor3                -str (hex)
 botBarPercent3              -str (% of progress)
 
-
 */
 
 function DashboardAdmin(props) {
-    return(
-        <>
-            <HeaderLoggedIn />
-            <div className="dashboard_body">
-                <div className="dashboard_body-left">
+  const [isLoadingUserData, setIsLoadingUserData] = useState(true);
+  const [user, userDispatch] = useContext(UserContext);
+  const history = useHistory();
+  const {
+    id, username, discriminator, avatar, transactions, totalBought, totalSold, currency, topTransactedBots, transactionsMMd,
+  } = user;
+  useEffect(() => {
+    const onGetUserSuccess = (response) => {
+      userDispatch({
+        type: SET_USER,
+        payload: {
+          value: response.data,
+        },
+      });
+      setIsLoadingUserData(false);
+    };
 
-                    <div className="dashboard_admin-banner-container">
-                        <div className="dashboard_admin-banner">
-                            <p className="dashboard_text-normal dashboard_banner-greeting_text-admin">{props.dashboardGreeting}</p>
-                            <div className="dashboard_admin">
-                                <div className="dashboard_user-profile-pic" style={{backgroundImage:`url(${props.avatar})`}}></div>
-                                <p className="dashboard_text-normal" style={{padding:"5px 0px 5px 70px",margin:"0px"}}>{props.username}</p>
-                                <p className="dashboard_text-light" style={{padding:"5px 0px 0px 70px",margin:"0px"}}>{props.discriminator}</p>
-                            </div>
-                        </div>
+    const onGetUserError = (error) => {
+      console.log('ERROR: ', error.response);
+      setIsLoadingUserData(false);
+      history.push('/');
+    };
 
-                        <div className="dashboard_admin-mm_transactions">
-                            <div className="dashboard_admin-mm_transactions-icon_container">
-                                <div className="dashboard_admin-mm_transactions-icon"></div>
-                            </div>
-                            <h3 className="dashboard_text-normal" style={{margin:"0px 0px 0px 20px"}}>{props.transactions_mm}</h3>
-                            <p className="dashboard_text-light" style={{margin:"5px 0px 0px 20px"}}>Total Transactions MM'd</p>
-                        </div>
-                    </div>
+    if (!id) {
+      DiscordService.GetUserDiscord(onGetUserSuccess, onGetUserError);
+    } else {
+      setIsLoadingUserData(false);
+    }
+  }, []);
+  const {
+    dropletsRedeemUrl, manageSubscriptionUrl, paymentType, paymentLast4, numTransactions1, botBarColor1,
+  } = props;
 
+  if (isLoadingUserData) {
+    return <h1>Loading</h1>;
+  }
+  console.log('USER: ', user);
+  return (
+    <>
+      <HeaderLoggedIn />
+      <div className="dashboard_body">
+        <div className="dashboard_body-left">
 
-                    <div className="dashboard_stats-container">
-
-                        <div className="dashboard_stats-panel">
-                            <div className="dashboard_stats-icon_container">
-                                <div className="dashboard_stats-icon dashboard_stats-icon-transactions"></div>
-                            </div>
-                            <div className="dashboard_stats-text_container">
-                                <h3 className="dashboard_text-normal" style={{margin:"5px 0px 0px 0px"}}>{props.transactions}</h3>
-                                <p className="dashboard_text-light" style={{margin:"5px 0px 0px 0px"}}>Transactions</p>
-                            </div>
-                        </div>
-
-                        <div className="dashboard_stats-panel">
-                            <div className="dashboard_stats-icon_container">
-                                <div className="dashboard_stats-icon dashboard_stats-icon-sold"></div>
-                            </div>
-                            <div className="dashboard_stats-text_container">
-                                <h3 className="dashboard_text-normal" style={{margin:"5px 0px 0px 0px"}}>{props.totalSold}</h3>
-                                <p className="dashboard_text-light" style={{margin:"5px 0px 0px 0px"}}>Total Sold</p>
-                            </div>
-                        </div>
-
-                        <div className="dashboard_stats-panel">
-                            <div className="dashboard_stats-icon_container">
-                                <div className="dashboard_stats-icon dashboard_stats-icon-purchased"></div>
-                            </div>
-                            <div className="dashboard_stats-text_container">
-                                <h3 className="dashboard_text-normal" style={{margin:"5px 0px 0px 0px"}}>{props.totalPurchased}</h3>
-                                <p className="dashboard_text-light" style={{margin:"5px 0px 0px 0px"}}>Total Purchased</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className="dashboard_transaction-history_panel">
-                        <p className="dashboard_text-normal">Transaction History</p>
-                        <table>
-                            <tr>
-                                <th style={{minWidth:"10%"}}>Bot</th>
-                                <th>Date</th>
-                                <th>Position</th>
-                                <th>Other Party</th>
-                                <th>Transcript</th>
-                            </tr>
-                        </table>
-
-                        <div className="dashboard_transaction-history_panel-container">
-                            <TransactionHistoryPanel botBackground="black" botIcon="" botName="Cybersole" date="Dec 24, 2020" position="Owner" otherParty="dearchitect#1234" transcriptTitle="Transcript 123" transcriptUrl="https://google.com"/>
-                        </div>
-                    </div>
-
-                </div>
-                <div className="dashboard_body-right">
-                    <div className="dashboard_droplets_panel">
-                        <div className="dashboard_droplets_panel-header">
-                            <p className="dashboard_text-normal">Droplets</p>
-                            <a href={props.dropletsRedeemUrl} className="dashboard_link_text-normal">Redeem ⇾</a>
-                        </div>
-                        <div className="dashboard_droplets_panel-body">
-                            <div className="dashboard_droplets_panel-icon_container">
-                                <div className="dashboard_droplets_panel-icon"></div>
-                            </div>
-                            <div className="dashboard_droplets_panel-text_container">
-                                <p className="dashboard_text-light" style={{margin:"5px 0px"}}>Your current balance</p>
-                                <h4 className="dashboard_text-normal" style={{margin:"5px 0px"}}>{props.droplets} Droplets</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="dashboard_most-transacted_panel">
-                        <p className="dashboard_text-normal dashboard_most-transacted_header">Most Transacted Bots</p>
-                        <div className="dashboard_most-transacted_bot-section">
-                            <div className="dashboard_most-transacted_bot-frame" style={{backgroundColor:`${props.botBackgroundColor1}`}}>
-                                <div className="dashboard_most-transacted_bot-icon" style={{backgroundImage:`url(${props.botBackgroundColor1})`}}></div>
-                            </div>
-
-                            <div className="dashboard_most-transacted-text_container">
-                                <p className="dashboard_text-light-xs" style={{margin:"0"}}>{props.numTransactions1} Transactions</p>
-                                <p className="dashboard_text-normal-small" style={{margin:"5px 0px 0px 0px"}}>{props.botName1}</p>
-                                <div className="dashboard_most-transacted-bar_container">
-                                    <div className="dashboard_most-transacted-bar" style={{backgroundColor:`${props.botBarColor1}`,width:`${props.botBarPercent1}`}}></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="dashboard_most-transacted_bot-section">
-                        <div className="dashboard_most-transacted_bot-frame" style={{backgroundColor:`${props.botBackgroundColor2}`}}>
-                                <div className="dashboard_most-transacted_bot-icon" style={{backgroundImage:`url(${props.botBackgroundColor2})`}}></div>
-                            </div>
-
-                            <div className="dashboard_most-transacted-text_container">
-                                <p className="dashboard_text-light-xs" style={{margin:"0"}}>{props.numTransactions2} Transactions</p>
-                                <p className="dashboard_text-normal-small" style={{margin:"5px 0px 0px 0px"}}>{props.botName2}</p>
-                                <div className="dashboard_most-transacted-bar_container">
-                                    <div className="dashboard_most-transacted-bar" style={{backgroundColor:`${props.botBarColor2}`,width:`${props.botBarPercent2}`}}></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="dashboard_most-transacted_bot-section">
-                            <div className="dashboard_most-transacted_bot-frame" style={{backgroundColor:`${props.botBackgroundColor3}`}}>
-                                <div className="dashboard_most-transacted_bot-icon" style={{backgroundImage:`url(${props.botBackgroundColor3})`}}></div>
-                            </div>
-
-                            <div className="dashboard_most-transacted-text_container">
-                                <p className="dashboard_text-light-xs" style={{margin:"0"}}>{props.numTransactions3} Transactions</p>
-                                <p className="dashboard_text-normal-small" style={{margin:"5px 0px 0px 0px"}}>{props.botName3}</p>
-                                <div className="dashboard_most-transacted-bar_container">
-                                    <div className="dashboard_most-transacted-bar" style={{backgroundColor:`${props.botBarColor3}`,width:`${props.botBarPercent3}`}}></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="dashboard_payment-panel">
-                        <div className="dashboard_payment-panel-card_icon"></div>
-                        <div className="dashboard_payment-panel-text_container">
-                            <p className="dashboard_text-light" style={{margin:"0px 0px 10px 0px"}}>{props.paymentType}  •••• {props.paymentLast4}</p>
-                            <a className="dashboard_link_text-normal" href={props.manageSubscriptionUrl}>Manage Subscription ⇾</a>
-                        </div>
-                    </div>
-                </div>
-
+          <div className="dashboard_admin-banner-container">
+            <div className="dashboard_admin-banner">
+              <p className="dashboard_text-normal dashboard_banner-greeting_text-admin">Good afternoon,</p>
+              <div className="dashboard_admin">
+                <div className="dashboard_user-profile-pic" style={{ backgroundImage: `url(${avatar})` }} />
+                <p className="dashboard_text-normal" style={{ padding: '5px 0px 5px 70px', margin: '0px' }}>{username}</p>
+                <p className="dashboard_text-light" style={{ padding: '5px 0px 0px 70px', margin: '0px' }}>{discriminator}</p>
+              </div>
             </div>
-        </>
-    )
+
+            <div className="dashboard_admin-mm_transactions">
+              <div className="dashboard_admin-mm_transactions-icon_container">
+                <div className="dashboard_admin-mm_transactions-icon" />
+              </div>
+              <h3 className="dashboard_text-normal" style={{ margin: '0px 0px 0px 20px' }}>{transactionsMMd}</h3>
+              <p className="dashboard_text-light" style={{ margin: '5px 0px 0px 20px' }}>Total Transactions MM&#39;d</p>
+            </div>
+          </div>
+
+          <div className="dashboard_stats-container">
+
+            <div className="dashboard_stats-panel">
+              <div className="dashboard_stats-icon_container">
+                <div className="dashboard_stats-icon dashboard_stats-icon-transactions" />
+              </div>
+              <div className="dashboard_stats-text_container">
+                <h3 className="dashboard_text-normal" style={{ margin: '5px 0px 0px 0px' }}>{transactions.length}</h3>
+                <p className="dashboard_text-light" style={{ margin: '5px 0px 0px 0px' }}>Transactions</p>
+              </div>
+            </div>
+
+            <div className="dashboard_stats-panel">
+              <div className="dashboard_stats-icon_container">
+                <div className="dashboard_stats-icon dashboard_stats-icon-sold" />
+              </div>
+              <div className="dashboard_stats-text_container">
+                <h3 className="dashboard_text-normal" style={{ margin: '5px 0px 0px 0px' }}>{totalSold}</h3>
+                <p className="dashboard_text-light" style={{ margin: '5px 0px 0px 0px' }}>Total Sold</p>
+              </div>
+            </div>
+
+            <div className="dashboard_stats-panel">
+              <div className="dashboard_stats-icon_container">
+                <div className="dashboard_stats-icon dashboard_stats-icon-purchased" />
+              </div>
+              <div className="dashboard_stats-text_container">
+                <h3 className="dashboard_text-normal" style={{ margin: '5px 0px 0px 0px' }}>{totalBought}</h3>
+                <p className="dashboard_text-light" style={{ margin: '5px 0px 0px 0px' }}>Total Purchased</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="dashboard_transaction-history_panel">
+            <p className="dashboard_text-normal">Transaction History</p>
+            <table>
+              <tr>
+                <th style={{ minWidth: '10%' }}>Bot</th>
+                <th>Date</th>
+                <th>Position</th>
+                <th>Other Party</th>
+                <th>Transcript</th>
+              </tr>
+            </table>
+
+            <div className="dashboard_transaction-history_panel-container">
+              {transactions.map((transaction) => {
+                const {
+                  bot, transactionDate, position, otherParty, logo,
+                } = transaction;
+                return (
+                  <TransactionHistoryPanel botBackground="black" botIcon={logo || ''} botName={bot} date={transactionDate} position={position} otherParty={otherParty} transcriptTitle="Transcript 123" transcriptUrl="https://google.com" />
+                );
+              })}
+            </div>
+          </div>
+
+        </div>
+        <div className="dashboard_body-right">
+          <div className="dashboard_droplets_panel">
+            <div className="dashboard_droplets_panel-header">
+              <p className="dashboard_text-normal">Droplets</p>
+              <a href={dropletsRedeemUrl} className="dashboard_link_text-normal">Redeem ⇾</a>
+            </div>
+            <div className="dashboard_droplets_panel-body">
+              <div className="dashboard_droplets_panel-icon_container">
+                <div className="dashboard_droplets_panel-icon" />
+              </div>
+              <div className="dashboard_droplets_panel-text_container">
+                <p className="dashboard_text-light" style={{ margin: '5px 0px' }}>Your current balance</p>
+                <h4 className="dashboard_text-normal" style={{ margin: '5px 0px' }}>
+                  {`${currency} Droplets`}
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          <div className="dashboard_most-transacted_panel">
+            <p className="dashboard_text-normal dashboard_most-transacted_header">Most Transacted Bots</p>
+            {topTransactedBots.map((transactedBot) => {
+              const { bot, logo, occurences } = transactedBot;
+              const occurencePercentage = `${(occurences / transactions.length) * 100}%`;
+              return (
+                <div className="dashboard_most-transacted_bot-section">
+                  <div className="dashboard_most-transacted_bot-frame" style={{ backgroundColor: 'black' }}>
+                    <div className="dashboard_most-transacted_bot-icon" style={{ backgroundImage: `url(${logo})` }} />
+                  </div>
+
+                  <div className="dashboard_most-transacted-text_container">
+                    <p className="dashboard_text-light-xs" style={{ margin: '0' }}>
+                      {numTransactions1}
+                      Transactions
+                    </p>
+                    <p className="dashboard_text-normal-small" style={{ margin: '5px 0px 0px 0px' }}>{bot}</p>
+                    <div className="dashboard_most-transacted-bar_container">
+                      <div className="dashboard_most-transacted-bar" style={{ backgroundColor: `${botBarColor1}`, width: occurencePercentage }} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="dashboard_payment-panel">
+            <div className="dashboard_payment-panel-card_icon" />
+            <div className="dashboard_payment-panel-text_container">
+              <p className="dashboard_text-light" style={{ margin: '0px 0px 10px 0px' }}>
+                {paymentType}
+                {' '}
+                ••••
+                {' '}
+                {paymentLast4}
+              </p>
+              <a className="dashboard_link_text-normal" href={manageSubscriptionUrl}>Manage Subscription ⇾</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </>
+  );
 }
 
 export default DashboardAdmin;

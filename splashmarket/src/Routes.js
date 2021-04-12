@@ -9,11 +9,12 @@ import Homepage from './pages/Homepage';
 import Loginpage from './pages/Login';
 import DiscordService from './services/DiscordService';
 import { UserContext, SET_USER } from './context/UserContext';
+// import DashboardAdmin from './pages/DashboardAdmin';
 
 const Routes = () => {
   const history = useHistory();
-  const [, userDispatch] = useContext(UserContext);
-
+  const [user, userDispatch] = useContext(UserContext);
+  console.log('USER: ', user);
   const onGetUserSuccess = (response) => {
     userDispatch({
       type: SET_USER,
@@ -56,7 +57,11 @@ const Routes = () => {
         <Loginpage />
       </Route>
       <Route exact path="/user">
+        {/* {user.role === 'admin' ? (
+          <DashboardAdmin />
+        ) : ( */}
         <DashboardUser />
+        {/* )} */}
       </Route>
     </Switch>
   // </Router>

@@ -18,7 +18,7 @@ function HeaderMinimal() {
         onClick={() => {
           handleRedirect('/');
         }}
-        style={{ margin: '10px auto' }}
+        style={{ margin: '10px auto', cursor: 'pointer' }}
       />
       <div className="button_group">
         <div
