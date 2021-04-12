@@ -18,11 +18,12 @@ function TransactionHistoryPanel(props) {
   const {
     botBackground, botIcon, botName, date, position, otherParty, transcriptUrl, transcriptTitle,
   } = props;
+
   return (
     <div className="transaction_history-panel">
       <div className="transaction_history-container">
         <div className="transaction_history-bot_frame" style={{ backgroundColor: `${botBackground}` }}>
-          <div className="transaction_history-bot_icon" style={{ backgroundImage: `${botIcon}` }} />
+          <div className="transaction_history-bot_icon" style={{ backgroundImage: `url(${botIcon})` }} />
         </div>
         <p className="list_panel_text-normal" style={{ maxWidth: '58%' }}>{botName}</p>
       </div>

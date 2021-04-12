@@ -18,6 +18,7 @@ const HeaderHomepage = () => {
         onClick={() => {
           handleRedirect('/');
         }}
+        style={{ cursor: 'pointer' }}
       />
       <div className="nav">
         <a href="/" className="currentPage">Home</a>

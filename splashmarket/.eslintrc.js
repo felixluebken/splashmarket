@@ -20,13 +20,9 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'jsx-a11y/anchor-is-valid': 1,
-    'linebreak-style': 1,
+    'linebreak-style': 0,
     'max-len': 1,
     'react/prop-types': 1,
-<<<<<<< HEAD
-=======
->>>>>>> c9b84a3... Added eslint and router
-=======
->>>>>>> 4d6591f... Finishing user dashboard
+    'react/prop-types': 0,
   },
 };
