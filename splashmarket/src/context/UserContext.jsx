@@ -17,10 +17,14 @@ const initialState = {
   currency: 0,
   subscriptionActive: false,
 <<<<<<< HEAD
+<<<<<<< HEAD
   transactionsMMd: 0,
   isLoggedIn: false,
 =======
 >>>>>>> 4d6591f... Finishing user dashboard
+=======
+  transactionsMMd: 0,
+>>>>>>> 87cb574... Finished with dashboard admin and user
 };
 
 const reducer = (state, action) => {

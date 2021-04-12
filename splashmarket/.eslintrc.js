@@ -28,6 +28,6 @@ module.exports = {
     'jsx-a11y/interactive-supports-focus': 0,
     'linebreak-style': 1,
     'max-len': 1,
-    'react/prop-types': 1,
+    'react/prop-types': 0,
   },
 };

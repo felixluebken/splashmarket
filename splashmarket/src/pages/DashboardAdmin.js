@@ -53,6 +53,7 @@ botBarPercent3              -str (% of progress)
 */
 
 function DashboardAdmin(props) {
+<<<<<<< HEAD
   const [user] = useContext(UserContext);
   const [greeting, setGreeting] = useState('');
   const history = useHistory();
@@ -64,11 +65,48 @@ function DashboardAdmin(props) {
       history.push('/');
     }
     setGreeting(getLocalTime());
+=======
+  const [isLoadingUserData, setIsLoadingUserData] = useState(true);
+  const [user, userDispatch] = useContext(UserContext);
+  const history = useHistory();
+  const {
+    id, username, discriminator, avatar, transactions, totalBought, totalSold, currency, topTransactedBots, transactionsMMd,
+  } = user;
+  useEffect(() => {
+    const onGetUserSuccess = (response) => {
+      userDispatch({
+        type: SET_USER,
+        payload: {
+          value: response.data,
+        },
+      });
+      setIsLoadingUserData(false);
+    };
+
+    const onGetUserError = (error) => {
+      console.log('ERROR: ', error.response);
+      setIsLoadingUserData(false);
+      history.push('/');
+    };
+
+    if (!id) {
+      DiscordService.GetUserDiscord(onGetUserSuccess, onGetUserError);
+    } else {
+      setIsLoadingUserData(false);
+    }
+>>>>>>> 87cb574... Finished with dashboard admin and user
   }, []);
   const {
     dropletsRedeemUrl, manageSubscriptionUrl, paymentType, paymentLast4, numTransactions1, botBarColor1,
   } = props;
 
+<<<<<<< HEAD
+=======
+  if (isLoadingUserData) {
+    return <h1>Loading</h1>;
+  }
+  console.log('USER: ', user);
+>>>>>>> 87cb574... Finished with dashboard admin and user
   return (
     <>
       <HeaderLoggedIn />
@@ -77,7 +115,11 @@ function DashboardAdmin(props) {
 
           <div className="dashboard_admin-banner-container">
             <div className="dashboard_admin-banner">
+<<<<<<< HEAD
               <p className="dashboard_text-normal dashboard_banner-greeting_text-admin">{`${greeting},`}</p>
+=======
+              <p className="dashboard_text-normal dashboard_banner-greeting_text-admin">Good afternoon,</p>
+>>>>>>> 87cb574... Finished with dashboard admin and user
               <div className="dashboard_admin">
                 <div className="dashboard_user-profile-pic" style={{ backgroundImage: `url(${avatar})` }} />
                 <p className="dashboard_text-normal" style={{ padding: '5px 0px 5px 70px', margin: '0px' }}>{username}</p>
@@ -143,6 +185,7 @@ function DashboardAdmin(props) {
             <div className="dashboard_transaction-history_panel-container">
               {transactions.map((transaction) => {
                 const {
+<<<<<<< HEAD
                   bot, transactionDate, position, otherParty, logo, transcriptHTML, transcriptTitle,
                 } = transaction;
 
@@ -152,6 +195,12 @@ function DashboardAdmin(props) {
                 }
                 return (
                   <TransactionHistoryPanel botBackground="black" botIcon={logo || ''} botName={bot} date={transactionDate} position={position} otherParty={otherParty} transcriptTitle={transcriptTitle || 'Transcript Not Available'} transcriptUrl={uri} />
+=======
+                  bot, transactionDate, position, otherParty, logo,
+                } = transaction;
+                return (
+                  <TransactionHistoryPanel botBackground="black" botIcon={logo || ''} botName={bot} date={transactionDate} position={position} otherParty={otherParty} transcriptTitle="Transcript 123" transcriptUrl="https://google.com" />
+>>>>>>> 87cb574... Finished with dashboard admin and user
                 );
               })}
             </div>
