@@ -16,6 +16,7 @@ const initialState = {
   totalTrade: 0,
   currency: 0,
   subscriptionActive: false,
+  transactionsMMd: 0,
 };
 
 const reducer = (state, action) => {

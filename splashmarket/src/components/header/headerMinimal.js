@@ -19,9 +19,13 @@ function HeaderMinimal() {
           handleRedirect('/');
         }}
 <<<<<<< HEAD
+<<<<<<< HEAD
         style={{ margin: '10px auto' }}
 =======
 >>>>>>> c9b84a3... Added eslint and router
+=======
+        style={{ margin: '10px auto', cursor: 'pointer' }}
+>>>>>>> 87cb574... Finished with dashboard admin and user
       />
       <div className="button_group">
         <div
