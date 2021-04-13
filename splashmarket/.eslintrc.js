@@ -23,6 +23,5 @@ module.exports = {
     'linebreak-style': 0,
     'max-len': 1,
     'react/prop-types': 1,
-    'react/prop-types': 0,
   },
 };
