@@ -5,8 +5,8 @@ import { useHistory } from 'react-router-dom';
 import HeaderLoggedIn from '../components/header/headerLoggedIn';
 
 import TransactionHistoryPanel from '../components/list-panels/transactionHistory';
-import { SET_USER, UserContext } from '../context/UserContext';
-import DiscordService from '../services/DiscordService';
+import { UserContext } from '../context/UserContext';
+import { getLocalTime } from '../helpers/helpers';
 
 /*
 PROP PARAMS
@@ -53,43 +53,22 @@ botBarPercent3              -str (% of progress)
 */
 
 function DashboardAdmin(props) {
-  const [isLoadingUserData, setIsLoadingUserData] = useState(true);
-  const [user, userDispatch] = useContext(UserContext);
+  const [user] = useContext(UserContext);
+  const [greeting, setGreeting] = useState('');
   const history = useHistory();
   const {
-    id, username, discriminator, avatar, transactions, totalBought, totalSold, currency, topTransactedBots, transactionsMMd,
+    username, discriminator, avatar, transactions, totalBought, totalSold, currency, topTransactedBots, transactionsMMd,
   } = user;
   useEffect(() => {
-    const onGetUserSuccess = (response) => {
-      userDispatch({
-        type: SET_USER,
-        payload: {
-          value: response.data,
-        },
-      });
-      setIsLoadingUserData(false);
-    };
-
-    const onGetUserError = (error) => {
-      console.log('ERROR: ', error.response);
-      setIsLoadingUserData(false);
+    if (!user.isLoggedIn) {
       history.push('/');
-    };
-
-    if (!id) {
-      DiscordService.GetUserDiscord(onGetUserSuccess, onGetUserError);
-    } else {
-      setIsLoadingUserData(false);
     }
+    setGreeting(getLocalTime());
   }, []);
   const {
     dropletsRedeemUrl, manageSubscriptionUrl, paymentType, paymentLast4, numTransactions1, botBarColor1,
   } = props;
 
-  if (isLoadingUserData) {
-    return <h1>Loading</h1>;
-  }
-  console.log('USER: ', user);
   return (
     <>
       <HeaderLoggedIn />
@@ -98,7 +77,7 @@ function DashboardAdmin(props) {
 
           <div className="dashboard_admin-banner-container">
             <div className="dashboard_admin-banner">
-              <p className="dashboard_text-normal dashboard_banner-greeting_text-admin">Good afternoon,</p>
+              <p className="dashboard_text-normal dashboard_banner-greeting_text-admin">{`${greeting},`}</p>
               <div className="dashboard_admin">
                 <div className="dashboard_user-profile-pic" style={{ backgroundImage: `url(${avatar})` }} />
                 <p className="dashboard_text-normal" style={{ padding: '5px 0px 5px 70px', margin: '0px' }}>{username}</p>

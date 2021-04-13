@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './homepage.css';
 import RankedMemberPanel from '../panels/RankedMemberPanel';
+import UserService from '../../services/UserService';
 
 function HomepageLeaderboard() {
+  const [topUsers, setTopUsers] = useState([]);
+  // Get top transactions here
+  useEffect(() => {
+    const onGetMostTransactionsSuccess = (response) => {
+      if (response.data && response.data.length > 0) {
+        setTopUsers(response.data);
+      }
+    };
+
+    const onGetMostTransactionsError = (error) => {
+      console.log('ERROR: ', error.response);
+    };
+
+    UserService.FindUsersWithMostTransactions(onGetMostTransactionsSuccess, onGetMostTransactionsError);
+  }, []);
   return (
     <div className="section_leaderboard">
       <div className="leaderboard_text">
@@ -11,13 +27,20 @@ function HomepageLeaderboard() {
         <span className="section_text">Never worry about the reputation of your buyer or seller again. Splash Market makes it easy for you to verify any user.</span>
       </div>
       <div className="leaderboard_img">
-        <RankedMemberPanel
-          username="dearchitect#7736"
-          transactions="420"
-          memberSince="Dec 24, 2020"
-          ranking="1"
-          avatar="https://cdn.discordapp.com/avatars/638784999293976635/06d1e75f49559a1b16e6d127ec1c4fbf.jpg"
-        />
+        {topUsers && topUsers.map((user, index) => {
+          const {
+            username, discriminator, avatar, transactionsLength, createdAt,
+          } = user;
+          return (
+            <RankedMemberPanel
+              username={`${username}#${discriminator}`}
+              transactions={transactionsLength}
+              memberSince={createdAt}
+              ranking={index + 1}
+              avatar={avatar}
+            />
+          );
+        })}
       </div>
     </div>
   );

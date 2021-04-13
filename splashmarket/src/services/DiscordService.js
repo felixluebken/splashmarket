@@ -9,6 +9,13 @@ export default class DiscordService {
       .catch(onError);
   }
 
+  static async UserLogout(onSuccess, onError) {
+    await axios
+      .get(getAPIPath('discord/logout'), { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
+
   static async GetUserDiscord(onSuccess, onError) {
     await axios
       .get(getAPIPath('discord/user'), { withCredentials: true })

@@ -1,6 +1,7 @@
 import React from 'react';
 import './header.css';
 import { useHistory } from 'react-router-dom';
+import DiscordService from '../../services/DiscordService';
 
 function HeaderLoggedIn() {
   const history = useHistory();
@@ -8,6 +9,18 @@ function HeaderLoggedIn() {
   const handleRedirect = (route) => {
     history.push(route);
   };
+
+  const handleLogout = () => {
+    const onLogoutSuccess = () => {
+      handleRedirect('/');
+    };
+    const onLogoutError = () => {
+      handleRedirect('/');
+    };
+
+    DiscordService.UserLogout(onLogoutSuccess, onLogoutError);
+  };
+
   return (
     <div className="header">
       <div
@@ -22,7 +35,15 @@ function HeaderLoggedIn() {
         style={{ margin: '10px auto', cursor: 'pointer' }}
       />
       <div className="button_group" style={{ margin: '10px auto' }}>
-        <div className="dark_button-solid" style={{ width: 123, height: 35 }}>
+        <div
+          className="dark_button-solid"
+          style={{ width: 123, height: 35 }}
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={handleLogout}
+        >
           <span className="dark_button-solid-text">Log Out</span>
         </div>
         <div className="dark_button" style={{ width: 123, height: 35 }}>

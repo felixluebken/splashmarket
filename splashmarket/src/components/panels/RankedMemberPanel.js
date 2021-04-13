@@ -14,9 +14,7 @@ function RankedMemberPanel(props) {
       <div className="ranked_member_panel-content">
         <p className="panel_text-normal">{username}</p>
         <p className="panel_text-light" style={{ marginTop: '10px' }}>
-          {transactions}
-          Transactions | Member since
-          {memberSince}
+          {`${transactions} Transactions | Member since ${memberSince}`}
         </p>
       </div>
       <div className="ranked_member_panel-rank">
