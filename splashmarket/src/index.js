@@ -4,12 +4,13 @@ import './index.css';
 
 import Homepage from './pages/Homepage'
 import Leaderboard from './pages/Leaderboard'
+import BotsSearch from './pages/BotsSearch'
 
 import Loginpage from './pages/Login'
+
+
 import DashboardUser from './pages/DashboardUser'
 import DashboardAdmin from './pages/DashboardAdmin'
-
-
 import DashboardUserDroplets from './pages/DashboardUserDroplets'
 import DashboardUserDropletsInfo from './pages/DashboardUserDropletsInfo'
 import DashboardAdminDroplets from './pages/DashboardAdminDroplets'
@@ -22,8 +23,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <DashboardAdminDroplets />
-    <DropletsAdminAddPopup />
+    <Homepage />
   </React.StrictMode>,
   document.getElementById('root')
 );

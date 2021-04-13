@@ -227,7 +227,7 @@ h1 {
     margin-top:40px;
     margin-bottom:40px;
 
-    height:461px;
+    min-height:461px;
     width:400px;
 }
 .leaderboard_img {
@@ -268,8 +268,8 @@ h1 {
     margin-right:15%;
 
     display:flex;
-	flex-wrap:nowrap;
-    justify-content: space-between;
+	flex-wrap:wrap;
+    justify-content: space-evenly;
 	align-items: center;
 }
 .blog_link-container {
@@ -310,9 +310,7 @@ a.blog_link {
     .blogs_text {
         padding:5% 25%;
     }
-    .blogs_img {
-        display:block;
-    }
+
     .blog_panel {
         margin-left:auto;
         margin-right:auto;
@@ -353,17 +351,18 @@ a.blog_link {
 @media only screen and (max-device-width:692px) {
     .search-frame_homepage {
         width:90%;
-        height:146px;
+        height:166px;
         display:flex;
         flex-wrap:wrap;
         justify-content:center;
         align-items: center;
     }
+
 }
 @media only screen and (max-device-width: 600px) {
     .search-frame_homepage {
         width:90%;
-        height:146px;
+        height:166px;
         display:flex;
         flex-wrap:wrap;
         justify-content:center;

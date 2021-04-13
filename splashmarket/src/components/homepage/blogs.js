@@ -21,6 +21,26 @@ function HomepageBlogs() {
                                 authorUsername="dearchitect#7336"
                                 blogUrl="https://google.com"
                 />
+                <BlogBotPanel   headerColor="#52FF81"
+                                headerTextColor="#131323"
+                                headerTitle="Cyber"
+                                headerIcon="icon_url_here"
+                                bodyContent="How well did Cybersole perform on the University Blue drop?"
+                                publishDate="December 24, 2020"
+                                authorAvatar="https://cdn.discordapp.com/avatars/638784999293976635/06d1e75f49559a1b16e6d127ec1c4fbf.jpg"
+                                authorUsername="dearchitect#7336"
+                                blogUrl="https://google.com"
+                />
+                <BlogBotPanel   headerColor="#52FF81"
+                                headerTextColor="#131323"
+                                headerTitle="Cyber"
+                                headerIcon="icon_url_here"
+                                bodyContent="How well did Cybersole perform on the University Blue drop?"
+                                publishDate="December 24, 2020"
+                                authorAvatar="https://cdn.discordapp.com/avatars/638784999293976635/06d1e75f49559a1b16e6d127ec1c4fbf.jpg"
+                                authorUsername="dearchitect#7336"
+                                blogUrl="https://google.com"
+                />
             </div>
             <div className="blog_link-container">
                 <a className="blog_link">View all blogs ⇾</a>
