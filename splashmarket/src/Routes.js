@@ -19,13 +19,13 @@ import { UserContext, SET_USER } from './context/UserContext';
 
 const Routes = () => {
   const history = useHistory();
-  const [user, userDispatch] = useContext(UserContext);
-  console.log('USER: ', user);
+  const [, userDispatch] = useContext(UserContext);
+
   const onGetUserSuccess = (response) => {
     userDispatch({
       type: SET_USER,
       payload: {
-        value: response.data,
+        value: { ...response.data, isLoggedIn: true },
       },
     });
     history.push('/user');
@@ -33,7 +33,9 @@ const Routes = () => {
 
   const onGetUserError = (error) => {
     console.log('ERROR: ', error.response);
-    history.push('/');
+    if (history.location.pathnname !== '/') {
+      history.push('/');
+    }
   };
   const handleUserLogin = async (code) => {
     const onLoginSuccess = async () => {
@@ -50,6 +52,8 @@ const Routes = () => {
       if (window.location.search) {
         handleUserLogin(window.location.search);
       }
+    } else {
+      DiscordService.GetUserDiscord(onGetUserSuccess, onGetUserError);
     }
   }, []);
 <<<<<<< HEAD

@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import './homepage.css'
 
 import RankedMemberPanel from '../panels/RankedMemberPanel'
@@ -51,16 +52,38 @@ function HomepageLeaderboard() {
 =======
 >>>>>>> 15ebc17... Finishing oauth login flow
 import React from 'react';
+=======
+import React, { useState, useEffect } from 'react';
+>>>>>>> 739e7cf... Cleaning up
 import './homepage.css';
 import RankedMemberPanel from '../panels/RankedMemberPanel';
+import UserService from '../../services/UserService';
 
 function HomepageLeaderboard() {
+<<<<<<< HEAD
 =======
 import React from 'react';
 import './homepage.css';
 
 function HomepageLeaderboard() {
 >>>>>>> c9b84a3... Added eslint and router
+=======
+  const [topUsers, setTopUsers] = useState([]);
+  // Get top transactions here
+  useEffect(() => {
+    const onGetMostTransactionsSuccess = (response) => {
+      if (response.data && response.data.length > 0) {
+        setTopUsers(response.data);
+      }
+    };
+
+    const onGetMostTransactionsError = (error) => {
+      console.log('ERROR: ', error.response);
+    };
+
+    UserService.FindUsersWithMostTransactions(onGetMostTransactionsSuccess, onGetMostTransactionsError);
+  }, []);
+>>>>>>> 739e7cf... Cleaning up
   return (
     <div className="section_leaderboard">
       <div className="leaderboard_text">
@@ -70,13 +93,20 @@ function HomepageLeaderboard() {
       </div>
 <<<<<<< HEAD
       <div className="leaderboard_img">
-        <RankedMemberPanel
-          username="dearchitect#7736"
-          transactions="420"
-          memberSince="Dec 24, 2020"
-          ranking="1"
-          avatar="https://cdn.discordapp.com/avatars/638784999293976635/06d1e75f49559a1b16e6d127ec1c4fbf.jpg"
-        />
+        {topUsers && topUsers.map((user, index) => {
+          const {
+            username, discriminator, avatar, transactionsLength, createdAt,
+          } = user;
+          return (
+            <RankedMemberPanel
+              username={`${username}#${discriminator}`}
+              transactions={transactionsLength}
+              memberSince={createdAt}
+              ranking={index + 1}
+              avatar={avatar}
+            />
+          );
+        })}
       </div>
 =======
       <div className="leaderboard_img" />

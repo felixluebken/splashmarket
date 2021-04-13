@@ -17,6 +17,7 @@ const initialState = {
   currency: 0,
   subscriptionActive: false,
   transactionsMMd: 0,
+  isLoggedIn: false,
 };
 
 const reducer = (state, action) => {
