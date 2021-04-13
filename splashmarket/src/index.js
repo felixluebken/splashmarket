@@ -15,11 +15,15 @@ import DashboardUserDropletsInfo from './pages/DashboardUserDropletsInfo'
 import DashboardAdminDroplets from './pages/DashboardAdminDroplets'
 import DashboardAdminDropletsInfo from './pages/DashboardAdminDropletsInfo'
 
+import RedeemDropletsPopup from './popups/RedeemDropletsPopup'
+import DropletsAdminAddPopup from './popups/DropletsAdminAddPopup'
+
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Leaderboard />
+    <DashboardAdminDroplets />
+    <DropletsAdminAddPopup />
   </React.StrictMode>,
   document.getElementById('root')
 );

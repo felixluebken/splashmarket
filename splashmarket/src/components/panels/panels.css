@@ -389,7 +389,7 @@ h2.blog_bot_panel-header-title {
 }
 .dashboard_droplets-cost {  
     height:43px;
-    width:200px;
+    width:300px;
 
     display:flex;
     justify-content: first baseline;
@@ -509,6 +509,7 @@ input.dashboard_droplets-name_edit {
     line-height: 14px;
 
     margin:15px 20px;
+    padding:0px 20px;
 
     width: 276px;
     height:35px;
@@ -527,6 +528,7 @@ input.dashboard_droplets-cost_edit {
     line-height: 14px;
 
     margin:1px 5px;
+    padding:0px 20px;
 
     width: 200px;
     height:35px;
