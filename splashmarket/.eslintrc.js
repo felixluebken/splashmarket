@@ -26,5 +26,6 @@ module.exports = {
     'no-unused-vars': 1,
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/interactive-supports-focus': 0,
+    'import/no-named-as-default': 0,
   },
 };
