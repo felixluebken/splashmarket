@@ -20,6 +20,7 @@ function HomepageLeaderboard() {
 
     UserService.FindUsersWithMostTransactions(onGetMostTransactionsSuccess, onGetMostTransactionsError);
   }, []);
+
   return (
     <div className="section_leaderboard">
       <div className="leaderboard_text">
@@ -43,7 +44,6 @@ function HomepageLeaderboard() {
           );
         })}
       </div>
-      <div className="leaderboard_img" />
     </div>
   );
 }
