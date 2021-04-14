@@ -1,26 +1,22 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   useHistory,
-<<<<<<< HEAD
->>>>>>> c9b84a3... Added eslint and router
   BrowserRouter as Router,
-=======
->>>>>>> 4d6591f... Finishing user dashboard
   Switch,
   Route,
 } from 'react-router-dom';
 import DashboardUser from './pages/DashboardUser';
 import Homepage from './pages/Homepage';
 import Loginpage from './pages/Login';
-<<<<<<< HEAD
 import DiscordService from './services/DiscordService';
 import { UserContext, SET_USER } from './context/UserContext';
-// import DashboardAdmin from './pages/DashboardAdmin';
+import PrivateRoute from './PrivateRoute';
+import DashboardAdmin from './pages/DashboardAdmin';
 
 const Routes = () => {
   const history = useHistory();
-  const [, userDispatch] = useContext(UserContext);
-
+  const [user, userDispatch] = useContext(UserContext);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
   const onGetUserSuccess = (response) => {
     userDispatch({
       type: SET_USER,
@@ -28,12 +24,19 @@ const Routes = () => {
         value: { ...response.data, isLoggedIn: true },
       },
     });
-    history.push('/user');
+
+    if (history.location.pathname === '/authenticate') {
+      history.push('/user');
+    }
+    setIsAuthenticating(false);
   };
 
   const onGetUserError = (error) => {
-    console.log('ERROR: ', error.response);
-    if (history.location.pathnname !== '/') {
+    console.log('USER ERROR: ', error.response);
+    // Redirect if the user is on the /user without an authenticated user
+    setIsAuthenticating(false);
+
+    if (history.location.pathnname === '/user') {
       history.push('/');
     }
   };
@@ -43,12 +46,12 @@ const Routes = () => {
     };
     const onLoginError = (error) => {
       console.log('ERROR: ', error.response);
-      history.push('/');
+      // history.push('/');
     };
     await DiscordService.UserLogin(code, onLoginSuccess, onLoginError);
   };
   useEffect(() => {
-    if (window.location && window.location.pathname === '/authenticate') {
+    if (window.location && window.location.pathname.includes('authenticate')) {
       if (window.location.search) {
         handleUserLogin(window.location.search);
       }
@@ -56,35 +59,38 @@ const Routes = () => {
       DiscordService.GetUserDiscord(onGetUserSuccess, onGetUserError);
     }
   }, []);
-<<<<<<< HEAD
-=======
 
-const Routes = () => {
-  const history = useHistory();
-  console.log('HISTORY: ', history);
->>>>>>> c9b84a3... Added eslint and router
-=======
+  if (isAuthenticating) {
+    return <h1>Loading</h1>;
+  }
 
->>>>>>> 4d6591f... Finishing user dashboard
-  return (
-  // <Router>
-    <Switch>
-      <Route exact path="/">
-        <Homepage />
-      </Route>
-      <Route exact path="/login">
-        <Loginpage />
-      </Route>
-      <Route exact path="/user">
-        {/* {user.role === 'admin' ? (
-          <DashboardAdmin />
-        ) : ( */}
-        <DashboardUser />
-        {/* )} */}
-      </Route>
-    </Switch>
-  // </Router>
-  );
-};
+  console.log('USER: ', user);
+
+          return (
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <Homepage />
+              </Route>
+              <Route exact path="/login">
+                <Loginpage />
+              </Route>
+              <PrivateRoute isAuthenticating={isAuthenticating}>
+                <Route exact path="/user">
+                  {user.role === 'admin' ? (
+                    <DashboardAdmin />
+                  ) : (
+                    <DashboardUser />
+                  )}
+                </Route>
+              </PrivateRoute>
+              <Route exact path="/user/:id">
+                <DashboardUser />
+              </Route>
+
+            </Switch>
+          </Router>
+       )
+          }
 
 export default Routes;

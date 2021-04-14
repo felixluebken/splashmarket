@@ -143,10 +143,15 @@ function DashboardAdmin(props) {
             <div className="dashboard_transaction-history_panel-container">
               {transactions.map((transaction) => {
                 const {
-                  bot, transactionDate, position, otherParty, logo,
+                  bot, transactionDate, position, otherParty, logo, transcriptHTML, transcriptTitle,
                 } = transaction;
+
+                let uri = null;
+                if (transcriptHTML) {
+                  uri = `data:text/html,${escape(transcriptHTML)}`;
+                }
                 return (
-                  <TransactionHistoryPanel botBackground="black" botIcon={logo || ''} botName={bot} date={transactionDate} position={position} otherParty={otherParty} transcriptTitle="Transcript 123" transcriptUrl="https://google.com" />
+                  <TransactionHistoryPanel botBackground="black" botIcon={logo || ''} botName={bot} date={transactionDate} position={position} otherParty={otherParty} transcriptTitle={transcriptTitle || 'Transcript Not Available'} transcriptUrl={uri} />
                 );
               })}
             </div>
