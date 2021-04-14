@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './header.css';
 import { useHistory } from 'react-router-dom';
 import DiscordService from '../../services/DiscordService';
+import { SET_USER, UserContext } from '../../context/UserContext';
 
-function HeaderLoggedIn() {
+const HeaderLoggedIn = () => {
+  const [user, userDispatch] = useContext(UserContext);
   const history = useHistory();
 
   const handleRedirect = (route) => {
@@ -12,9 +14,21 @@ function HeaderLoggedIn() {
 
   const handleLogout = () => {
     const onLogoutSuccess = () => {
+      userDispatch({
+        type: SET_USER,
+        payload: {
+          value: { ...user, isLoggedIn: false },
+        },
+      });
       handleRedirect('/');
     };
     const onLogoutError = () => {
+      userDispatch({
+        type: SET_USER,
+        payload: {
+          value: { ...user, isLoggedIn: false },
+        },
+      });
       handleRedirect('/');
     };
 
@@ -52,6 +66,6 @@ function HeaderLoggedIn() {
       </div>
     </div>
   );
-}
+};
 
 export default HeaderLoggedIn;

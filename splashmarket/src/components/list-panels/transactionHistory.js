@@ -1,6 +1,6 @@
 import React from 'react';
 import './list-panels.css';
-
+import BotSwapIcon from '../../resources/logo/bot-swap-icon.svg';
 /*
 PROP PARAMS
 
@@ -22,8 +22,8 @@ function TransactionHistoryPanel(props) {
   return (
     <div className="transaction_history-panel">
       <div className="transaction_history-container">
-        <div className="transaction_history-bot_frame" style={{ backgroundColor: `${botBackground}` }}>
-          <div className="transaction_history-bot_icon" style={{ backgroundImage: `url(${botIcon})` }} />
+        <div className="transaction_history-bot_frame" style={{ backgroundColor: botIcon ? `${botBackground}` : '#242637' }}>
+          <div className="transaction_history-bot_icon" style={{ backgroundImage: botIcon ? `url(${botIcon})` : `url(${BotSwapIcon})` }} />
         </div>
         <p className="list_panel_text-normal" style={{ maxWidth: '58%' }}>{botName}</p>
       </div>
@@ -39,11 +39,17 @@ function TransactionHistoryPanel(props) {
         <p className="list_panel_text-normal" style={{ maxWidth: '90%' }}>{otherParty}</p>
       </div>
 
-      <div className="transaction_history-container">
-        <a className="list_panel_link-normal" href={transcriptUrl}>
-          {transcriptTitle}
-          {' '}
-          ⇾
+      <div
+        className="transaction_history-container"
+      >
+        <a
+          className="list_panel_link-normal"
+          href={transcriptUrl}
+          target="_blank"
+          rel="noreferrer"
+          download={transcriptTitle}
+        >
+          {`${transcriptTitle ? `${transcriptTitle} ⇾` : transcriptTitle}`}
         </a>
       </div>
     </div>
