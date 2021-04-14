@@ -7,7 +7,7 @@ function HomepageSearch() {
       <div className="main_section-frame">
         <h1 style={{ textAlign: 'center', marginBottom: '60px' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
       </div>
-      <div className="search-frame_homepage">
+      <div className="search-frame">
         <div className="search_icon" />
         <input placeholder="Search Members..." style={{ margin: '24px 0px' }} />
         <div className="search_divider" style={{ margin: '15px 10px' }} />

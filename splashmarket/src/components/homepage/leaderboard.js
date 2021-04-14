@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 import './homepage.css';
 import React, { useState, useEffect } from 'react';
 import RankedMemberPanel from '../panels/RankedMemberPanel';
 
+=======
+import React, { useState, useEffect } from 'react';
+import './homepage.css';
+import RankedMemberPanel from '../panels/RankedMemberPanel';
+>>>>>>> 8eed809428092b28aa66fc6a1741239f50cda555
 import UserService from '../../services/UserService';
 
 function HomepageLeaderboard() {
