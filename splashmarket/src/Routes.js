@@ -66,31 +66,31 @@ const Routes = () => {
 
   console.log('USER: ', user);
 
-          return (
-          <Router>
-            <Switch>
-              <Route exact path="/">
-                <Homepage />
-              </Route>
-              <Route exact path="/login">
-                <Loginpage />
-              </Route>
-              <PrivateRoute isAuthenticating={isAuthenticating}>
-                <Route exact path="/user">
-                  {user.role === 'admin' ? (
-                    <DashboardAdmin />
-                  ) : (
-                    <DashboardUser />
-                  )}
-                </Route>
-              </PrivateRoute>
-              <Route exact path="/user/:id">
-                <DashboardUser />
-              </Route>
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Homepage />
+        </Route>
+        <Route exact path="/login">
+          <Loginpage />
+        </Route>
+        <PrivateRoute isAuthenticating={isAuthenticating}>
+          <Route exact path="/user">
+            {user.role === 'admin' ? (
+              <DashboardAdmin />
+            ) : (
+              <DashboardUser />
+            )}
+          </Route>
+        </PrivateRoute>
+        <Route exact path="/user/:id">
+          <DashboardUser />
+        </Route>
 
-            </Switch>
-          </Router>
-       )
-          }
+      </Switch>
+    </Router>
+  );
+};
 
 export default Routes;

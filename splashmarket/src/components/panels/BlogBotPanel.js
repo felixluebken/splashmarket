@@ -27,7 +27,6 @@ function BlogBotPanel(props) {
             </div>
           </a>
         </div>
-
       </div>
     </div>
   );

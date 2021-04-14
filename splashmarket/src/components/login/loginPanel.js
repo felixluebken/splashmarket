@@ -2,21 +2,17 @@ import React from 'react';
 import './loginPanel.css';
 
 function LoginPanel() {
-<<<<<<< HEAD
   const handleRedirect = (route) => {
     console.log('ROUTE: ', route);
     window.location.href = route;
   };
 
-=======
->>>>>>> c9b84a3... Added eslint and router
   return (
     <div className="login_panel">
       <div className="logo-login" />
       <span className="login-title">Login</span>
       <p>to access your dashboard</p>
       <a>
-<<<<<<< HEAD
         {/* <div className="blue_button-login"> */}
         <div
           className="blue_button-login"
@@ -32,12 +28,6 @@ function LoginPanel() {
           <span className="blue_button-login-text">Login with Discord</span>
         </div>
         {/* </div> */}
-=======
-        <div className="blue_button-login">
-          <div className="discord_icon-login" />
-          <span className="blue_button-login-text">Login with Discord</span>
-        </div>
->>>>>>> c9b84a3... Added eslint and router
       </a>
 
     </div>
