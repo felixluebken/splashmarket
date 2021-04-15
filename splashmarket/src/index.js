@@ -4,7 +4,9 @@ import './index.css';
 
 import Homepage from './pages/Homepage'
 import Leaderboard from './pages/Leaderboard'
+
 import BotsSearch from './pages/BotsSearch'
+import BotsExpand from './pages/BotsExpand'
 
 import Loginpage from './pages/Login'
 
@@ -23,7 +25,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Homepage />
+    <BotsExpand bannerColor="#52FF81" bannerTextColor="black" botName="Cybersole" lastSale="$7000" bannerIconUrl="https://pbs.twimg.com/profile_images/1184203863269634048/P98ia02p_400x400.jpg"/>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -21,8 +21,6 @@ a.list_panel_link-normal {
 
 
 
-
-
 .transaction_history-panel {
     width:95%;
     height:55px;
@@ -40,12 +38,7 @@ a.list_panel_link-normal {
     display:flex;
     justify-content:space-evenly;
     align-items: center;
-
-
-
 }
-
-
 
 .transaction_history-bot_frame {
     width:43px;
@@ -65,4 +58,29 @@ a.list_panel_link-normal {
     background-repeat: no-repeat;
     background-size: cover;
 
+}
+
+
+.previous_sales-panel {
+    width:95%;
+    height:55px;
+    background: #19192C;
+    border-radius: 7px;
+
+    margin-top:20px;
+
+    display:flex;
+}
+.previous_sales-container {
+    width:33%;
+    height:100%;
+
+    display:flex;
+    justify-content:space-evenly;
+    align-items: center;
+}
+.previous_sales-text_padding {
+    background: #1E1E31;
+    border-radius: 6px;
+    display:inline-block;
 }
