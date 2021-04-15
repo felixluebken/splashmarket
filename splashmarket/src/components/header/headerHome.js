@@ -26,10 +26,10 @@ const HeaderHomepage = () => {
         tabIndex={0}
         aria-label="Home page header"
         aria-hidden="true"
+        style={{ cursor: 'pointer' }}
         onClick={() => {
           handleRedirect('/');
         }}
-        style={{ cursor: 'pointer' }}
       />
       <div className="nav">
         <a href="/" className="currentPage">Home</a>

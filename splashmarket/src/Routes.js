@@ -12,11 +12,14 @@ import DiscordService from './services/DiscordService';
 import { UserContext, SET_USER } from './context/UserContext';
 import PrivateRoute from './PrivateRoute';
 import DashboardAdmin from './pages/DashboardAdmin';
+import DashboardAdminDroplets from './pages/DashboardAdminDroplets';
+import DashboardUserDroplets from './pages/DashboardUserDroplets';
 
 const Routes = () => {
   const history = useHistory();
   const [user, userDispatch] = useContext(UserContext);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const onGetUserSuccess = (response) => {
     userDispatch({
       type: SET_USER,
@@ -28,14 +31,17 @@ const Routes = () => {
     if (history.location.pathname === '/authenticate') {
       history.push('/user');
     }
+    // Handle authentication
+    setIsAuthenticated(true);
     setIsAuthenticating(false);
   };
 
   const onGetUserError = (error) => {
     console.log('USER ERROR: ', error.response);
     // Redirect if the user is on the /user without an authenticated user
+    // Handle authentication
+    setIsAuthenticated(false);
     setIsAuthenticating(false);
-
     if (history.location.pathnname === '/user') {
       history.push('/');
     }
@@ -73,14 +79,17 @@ const Routes = () => {
         <Route exact path="/login">
           <Loginpage />
         </Route>
-        <PrivateRoute isAuthenticating={isAuthenticating}>
-          <Route exact path="/user">
-            {user.role === 'admin' ? (
-              <DashboardAdmin />
-            ) : (
-              <DashboardUser />
-            )}
-          </Route>
+        <PrivateRoute exact path="/user" isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating}>
+          {user.role === 'admin'
+            ? <DashboardAdmin />
+            : <DashboardUser />}
+        </PrivateRoute>
+        <PrivateRoute exact path="/droplets" isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating}>
+          {user.role === 'admin' ? (
+            <DashboardAdminDroplets />
+          ) : (
+            <DashboardUserDroplets />
+          )}
         </PrivateRoute>
         <Route exact path="/user/:id">
           <DashboardUser />

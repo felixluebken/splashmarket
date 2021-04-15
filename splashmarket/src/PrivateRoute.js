@@ -1,26 +1,23 @@
-import { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { UserContext } from './context/UserContext';
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/react-in-jsx-scope */
+import { useHistory, Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = (props) => {
-  const { children, isAuthenticating } = props;
+  const {
+    children, isAuthenticating, isAuthenticated, ...rest
+  } = props;
   const history = useHistory();
-  const [user] = useContext(UserContext);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  useEffect(() => {
-    if (!isAuthenticating && user.isLoggedIn) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-      history.push('/');
-    }
-  }, []);
 
   if (isAuthenticating) {
     return 'Authenticating';
   }
+
   return (
-    isAuthenticated ? children : null
+    isAuthenticated ? (
+      <Route {...rest}>
+        {children}
+      </Route>
+    ) : <Redirect to={{ pathname: '/login', state: { from: history.location.pathname } }} />
   );
 };
 
