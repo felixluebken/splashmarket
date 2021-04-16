@@ -4,13 +4,9 @@ import { useHistory, Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = (props) => {
   const {
-    children, isAuthenticating, isAuthenticated, ...rest
+    children, isAuthenticated, ...rest
   } = props;
   const history = useHistory();
-
-  if (isAuthenticating) {
-    return 'Authenticating';
-  }
 
   return (
     isAuthenticated ? (

@@ -1,86 +1,76 @@
 p.list_panel_text-normal {
-    color: white;
-    font-family: Poppins;
-    font-size: 15px;
-    line-height: 18px;
-
-    overflow:hidden;
+  color: white;
+  font-family: Poppins;
+  font-size: 15px;
+  line-height: 18px;
+  overflow: hidden;
 }
 
 a.list_panel_link-normal {
-    color: #29ABFF;
-    font-family: Poppins;
-    font-size: 15px;
-    line-height: 18px;
+  color: #29abff;
+  font-family: Poppins;
+  font-size: 15px;
+  line-height: 18px;
 
-    text-decoration: none;
+  text-decoration: none;
 
-    overflow:hidden;
-    
+  overflow: hidden;
 }
-
-
 
 .transaction_history-panel {
-    width:95%;
-    height:55px;
-    background: #19192C;
-    border-radius: 7px;
+  width: 95%;
+  height: 55px;
+  background: #19192c;
+  border-radius: 7px;
 
-    margin-top:20px;
+  margin-top: 20px;
 
-    display:flex;
+  display: flex;
 }
 .transaction_history-container {
-    width:20%;
-    height:100%;
+  width: 20%;
+  height: 100%;
 
-    display:flex;
-    justify-content:space-evenly;
-    align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .transaction_history-bot_frame {
-    width:43px;
-    height:43px;
-    background: #C4C4C4;
-    border-radius: 5px;
+  width: 43px;
+  height: 43px;
+  background: #c4c4c4;
+  border-radius: 5px;
 
-    display:flex;
-    justify-content:space-evenly;
-    align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .transaction_history-bot_icon {
-    width:36px;
-    height:36px;
-
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
+  width: 36px;
+  height: 36px;
 }
-
 
 .previous_sales-panel {
-    width:95%;
-    height:55px;
-    background: #19192C;
-    border-radius: 7px;
+  width: 95%;
+  height: 55px;
+  background: #19192c;
+  border-radius: 7px;
 
-    margin-top:20px;
+  margin-top: 20px;
 
-    display:flex;
+  display: flex;
 }
 .previous_sales-container {
-    width:33%;
-    height:100%;
+  width: 33%;
+  height: 100%;
 
-    display:flex;
-    justify-content:space-evenly;
-    align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .previous_sales-text_padding {
-    background: #1E1E31;
-    border-radius: 6px;
-    display:inline-block;
+  background: #1e1e31;
+  border-radius: 6px;
+  display: inline-block;
 }
