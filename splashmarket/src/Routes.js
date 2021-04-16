@@ -14,6 +14,7 @@ import PrivateRoute from './PrivateRoute';
 import DashboardAdmin from './pages/DashboardAdmin';
 import DashboardAdminDroplets from './pages/DashboardAdminDroplets';
 import DashboardUserDroplets from './pages/DashboardUserDroplets';
+import DashboardAdminDropletsInfo from './pages/DashboardAdminDropletsInfo';
 
 const Routes = () => {
   const history = useHistory();
@@ -87,6 +88,13 @@ const Routes = () => {
         <PrivateRoute exact path="/droplets" isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating}>
           {user.role === 'admin' ? (
             <DashboardAdminDroplets />
+          ) : (
+            <DashboardUserDroplets />
+          )}
+        </PrivateRoute>
+        <PrivateRoute exact path="/droplets/:id" isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating}>
+          {user.role === 'admin' ? (
+            <DashboardAdminDropletsInfo />
           ) : (
             <DashboardUserDroplets />
           )}

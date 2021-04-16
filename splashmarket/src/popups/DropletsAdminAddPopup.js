@@ -3,20 +3,13 @@
 import React, { useState } from 'react';
 import './Popups.css';
 import {
-  Formik, Form, Field, ErrorMessage,
+  Formik,
 } from 'formik';
-import * as yup from 'yup';
+
 import EmptyFileIcon from '../resources/icons/img-grey.svg';
 import DropletService from '../services/DropletService';
-
-const validationSchema = yup.object().shape({
-  company: yup.string().required('Company Name is required.'),
-  prize: yup.string().required('Prize is required.'),
-  price: yup.string().required('Price is required.'),
-  companyDescription: yup.string().required('Company Description is required.'),
-  prizeDescription: yup.string().required('Prize Description is required.'),
-  fileContents: yup.string().required('Company Logo is required.'),
-});
+import { enforceNumber } from '../helpers/helpers';
+import { dropletValidationSchema } from '../helpers/validationSchema';
 
 const initialValues = {
   company: '',
@@ -25,13 +18,15 @@ const initialValues = {
   companyDescription: '',
   prizeDescription: '',
   fileContents: '',
+  roleID: '',
+  webhookURL: '',
 };
 
 function DropletsAdminAddPopup(props) {
-  const { handleTogglePopup } = props;
+  const { handleTogglePopup, getAllDroplets } = props;
   const [imgURL, setImgURL] = useState('');
-  const onDropletCreateSuccess = (response) => {
-    console.log('RESPONSE: ', response.data);
+  const onDropletCreateSuccess = () => {
+    getAllDroplets();
     handleTogglePopup();
   };
   const onDropletCreateError = (error) => {
@@ -63,7 +58,7 @@ function DropletsAdminAddPopup(props) {
 
   return (
     <Formik
-      validationSchema={validationSchema}
+      validationSchema={dropletValidationSchema}
       onSubmit={(event) => {
         event.preventDefault();
       }}
@@ -79,9 +74,8 @@ function DropletsAdminAddPopup(props) {
         validateForm,
         setFieldValue,
       }) => {
-        console.log('VALUES: ', values);
         const {
-          company, prize, price, companyDescription, prizeDescription, fileContents,
+          company, prize, price, companyDescription, prizeDescription, roleID, webhookURL,
         } = values;
         return (
           <div className="popup_panel-tall">
@@ -137,6 +131,31 @@ function DropletsAdminAddPopup(props) {
               placeholder="Enter amount"
               style={{ marginBottom: '10px' }}
               value={price}
+              onChange={handleChange}
+              onBlur={handleBlur(validateField)}
+              onKeyDown={enforceNumber}
+            />
+
+            <p className="popup_text-normal-small" style={{ marginBottom: '6px' }}>Role ID</p>
+            <input
+              name="roleID"
+              className={`popup_admin_input ${errors.roleID && 'invalid-input'}`}
+              placeholder="Enter amount"
+              style={{ marginBottom: '10px' }}
+              value={roleID}
+              onChange={handleChange}
+              onBlur={handleBlur(validateField)}
+              onKeyDown={enforceNumber}
+            />
+
+            <p className="popup_text-normal-small" style={{ marginBottom: '6px' }}>Webhook URL</p>
+            <input
+              name="webhookURL"
+              tyle="number"
+              className={`popup_admin_input ${errors.webhookURL && 'invalid-input'}`}
+              placeholder="Enter amount"
+              style={{ marginBottom: '10px' }}
+              value={webhookURL}
               onChange={handleChange}
               onBlur={handleBlur(validateField)}
             />

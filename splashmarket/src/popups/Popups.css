@@ -61,7 +61,7 @@ textarea.popup_admin_text-area {
   resize: none;
   width: 90%;
 
-  height: 80px;
+  height: 40px;
 
   color: white;
   font-family: Poppins;
@@ -95,8 +95,8 @@ textarea.invalid-input {
 }
 .popup_panel-tall {
   width: 356px;
-  height: 615px;
-
+  height: 700px;
+  overflow-y: auto;
   padding: 30px 40px;
 
   display: inline-block;

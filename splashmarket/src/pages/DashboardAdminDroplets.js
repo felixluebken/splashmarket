@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 
 import HeaderLoggedIn from '../components/header/headerLoggedIn';
@@ -8,6 +8,7 @@ import DashboardDropletsAdminPanel from '../components/panels/DashboardDropletsA
 
 import PageSwitch from '../components/page-switch/PageSwitch';
 import DropletsAdminAddPopup from '../popups/DropletsAdminAddPopup';
+import DropletService from '../services/DropletService';
 
 /*
 droplets           -str
@@ -16,16 +17,36 @@ droplets           -str
 
 const DashboardAdminDroplets = (props) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-
+  const [droplets, setDroplets] = useState([]);
+  const [pager, setPager] = useState();
   const handleTogglePopup = () => {
     setIsPopupVisible(!isPopupVisible);
   };
+
+  const onGetDropletsSuccess = (response) => {
+    const { data } = response;
+
+    setDroplets(data.pageOfItems);
+    setPager(data.pager);
+  };
+
+  const onGetDropletsError = (error) => {
+    console.log('ERROR GETTING DROPLETS: ', error.response);
+  };
+
+  const getAllDroplets = async (page) => {
+    await DropletService.GetDroplets(page, onGetDropletsSuccess, onGetDropletsError);
+  };
+
+  useEffect(() => {
+    getAllDroplets();
+  }, []);
 
   return (
     <>
       <HeaderLoggedIn />
       {isPopupVisible && (
-      <DropletsAdminAddPopup handleTogglePopup={handleTogglePopup} />
+      <DropletsAdminAddPopup handleTogglePopup={handleTogglePopup} getAllDroplets={getAllDroplets} />
       )}
       <div className="dashboard_droplets_redeem-header">
         <div className="dashboard_droplets_redeem-header_text">
@@ -61,12 +82,10 @@ const DashboardAdminDroplets = (props) => {
       </div>
 
       <div className="dashboard_droplets_redeem-panel_container">
-        <DashboardDropletsAdminPanel title="SplashX" />
-        <DashboardDropletsAdminPanel title="SplashX" />
-        <DashboardDropletsAdminPanel title="SplashX" />
-        <DashboardDropletsAdminPanel title="SplashX" />
-        <DashboardDropletsAdminPanel title="SplashX" />
-        <DashboardDropletsAdminPanel title="SplashX" />
+        {droplets.map((droplet) => (
+          <DashboardDropletsAdminPanel droplet={droplet} droplets={droplets} setDroplets={setDroplets} />
+        ))}
+
       </div>
 
       <PageSwitch />

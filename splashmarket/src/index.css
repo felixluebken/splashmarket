@@ -1,7 +1,14 @@
-
-
 body {
   background-color: #131323;
-  margin:0;
-  overflow-x:hidden;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.invalid-input {
+  border-color: 1px solid red;
+}
+
+.btn-saved {
+  background: #5bf97d;
+  background-color: #5bf97d;
 }

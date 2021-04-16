@@ -8,4 +8,32 @@ export default class DropletService {
       .then(onSuccess)
       .catch(onError);
   }
+
+  static async GetDroplets(page, onSuccess, onError) {
+    await axios
+      .get(getAPIPath('droplets'), { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
+
+  static async GetDroplet(id, onSuccess, onError) {
+    await axios
+      .get(getAPIPath(`droplets/${id}`), { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
+
+  static async UpdateDroplet(id, data, onSuccess, onError) {
+    await axios
+      .put(getAPIPath(`droplets/${id}`), data, { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
+
+  static async DeleteDroplet(id, onSuccess, onError) {
+    await axios
+      .delete(getAPIPath(`droplets/${id}`), { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
 }
