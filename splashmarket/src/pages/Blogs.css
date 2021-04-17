@@ -1,0 +1,50 @@
+.blogs_panel-container {
+    width:70%;
+    margin:30px 15%;
+
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+h5.bots_expand-title {
+    color:white;
+
+    margin: 10px 0px;
+
+    width:100%;
+
+    font-family: Poppins;
+    font-size: 24px;
+    line-height: 34px;
+}
+p.bots_expand-text {
+    color:#BFC3D3;
+
+    margin: 7px 0px;
+
+    width:100%;
+
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 26px;
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width:1320px) {
+    .blogs_panel-container {
+        width:90%;
+        margin:50px 5%;
+
+    }
+
+}

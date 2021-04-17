@@ -3,12 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 import Homepage from './pages/Homepage'
+
+import Loginpage from './pages/Login'
+
 import Leaderboard from './pages/Leaderboard'
 
 import BotsSearch from './pages/BotsSearch'
 import BotsExpand from './pages/BotsExpand'
 
-import Loginpage from './pages/Login'
+import Blogs from './pages/Blogs'
+import BlogsExpand from './pages/BlogsExpand'
+
 
 
 import DashboardUser from './pages/DashboardUser'
@@ -25,7 +30,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BotsExpand bannerColor="#52FF81" bannerTextColor="black" botName="Cybersole" lastSale="$7000" bannerIconUrl="https://pbs.twimg.com/profile_images/1184203863269634048/P98ia02p_400x400.jpg"/>
+    <BlogsExpand />
   </React.StrictMode>,
   document.getElementById('root')
 );

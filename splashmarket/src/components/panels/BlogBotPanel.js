@@ -1,5 +1,21 @@
 import './panels.css'
 
+/*
+headerColor         -str
+headerIcon          -str
+headerTextColor     -str
+
+headerTitle         -str
+
+bodyContent         -str
+authorAvatar        -str
+authorUsername      -str
+
+blogUrl             -str
+
+
+
+*/
 
 function BlogBotPanel(props) {
     return(
