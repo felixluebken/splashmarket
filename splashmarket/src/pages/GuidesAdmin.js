@@ -6,7 +6,7 @@ import Footer from '../components/footer/footer'
 
 import PageSwitch from '../components/page-switch/PageSwitch'
 
-import GuideBotPanel from '../components/panels/GuideBotPanelUser'
+import GuideBotPanel from '../components/panels/GuideBotPanelAdmin'
 
 /*
 currentResults          -str
@@ -18,7 +18,7 @@ totalResults            -str
 
 
 
-function Guides(props) {
+function GuidesAdmin(props) {
     return(
         <>
             <div className="guides_header-container">
@@ -40,6 +40,16 @@ function Guides(props) {
                 </select>
                 <div className="blue_button-search" style={{margin:"15px"}}>
                     <span className="blue_button-search-text">Search</span>
+                </div>
+            </div>
+
+            <div className="guides_admin-button-container">
+                <div className="guides_admin-delete_all_button">
+                    <span className="guides_admin-button_text">Delete All</span>
+                </div>
+
+                <div className="guides_admin-add_button">
+                    <span className="guides_admin-button_text">Add Bot</span>
                 </div>
             </div>
 
@@ -67,4 +77,4 @@ function Guides(props) {
         </>
     )
 }
-export default Guides;
+export default GuidesAdmin;

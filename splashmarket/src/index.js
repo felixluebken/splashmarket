@@ -14,7 +14,8 @@ import BotsExpand from './pages/BotsExpand'
 import Blogs from './pages/Blogs'
 import BlogsExpand from './pages/BlogsExpand'
 
-import Guides from './pages/Guides'
+import GuidesUser from './pages/GuidesUser'
+import GuidesAdmin from './pages/GuidesAdmin'
 
 import DashboardUser from './pages/DashboardUser'
 import DashboardAdmin from './pages/DashboardAdmin'
@@ -30,7 +31,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Guides />
+    <GuidesAdmin />
   </React.StrictMode>,
   document.getElementById('root')
 );

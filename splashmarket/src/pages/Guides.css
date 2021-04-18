@@ -56,8 +56,6 @@ p.text-light-small {
 
 
 
-
-
 .search-frame_guides {
     width:70%;
     height:73px;
@@ -73,8 +71,6 @@ p.text-light-small {
     margin-left:auto;
     margin-right:auto;
 }
-
-
 input.guides_search {
     background:transparent;
     float:left;
@@ -100,7 +96,6 @@ select.guides_filter {
     font-size: 17px;
     line-height: 18px;
 }
-
 .search_icon {
     width:24px;
     height:24px;
@@ -120,8 +115,27 @@ select.guides_filter {
     background-color:#252538;
     float:left;
 }
+.blue_button-search {
+    background-color:#29ABFF;
+    border-radius:6px;
 
+    display:flex;
+    justify-content: center;
+    align-items: center;
 
+    cursor: pointer;
+
+    width:130px;
+    height:44px;
+
+    float:right;
+}
+.blue_button-search-text {
+    color: white;
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 18px;
+}
 
 
 
@@ -130,13 +144,58 @@ select.guides_filter {
 }
 .guides_panel-container {
     width:70%;
-    margin:40px 15%;
+    margin:20px 15%;
 
     display:flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
 
+
+
+
+.guides_admin-button-container {
+    height:44px;
+    width:70%;
+
+    margin:10px 15%;
+}
+.guides_admin-add_button {
+    width: 141px;
+    height: 44px;
+
+    background: #29ABFF;
+    border-radius: 6px;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    float:right;
+    cursor:pointer;
+}
+.guides_admin-delete_all_button {
+    width: 141px;
+    height: 44px;
+
+    background: #FB4056;
+    border-radius: 6px;
+
+    margin-left:12px;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    float:right;
+    cursor:pointer;
+}
+.guides_admin-button_text {
+    color: white;
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 18px;
+}
 
 
 
@@ -159,6 +218,11 @@ select.guides_filter {
     }
     .guides_search_results-container {
         margin:0px 5% 0px 5%;
+    }
+
+    .guides_admin-button-container {
+        width:90%;
+        margin:30px 5%;
     }
 }
 @media only screen and (max-width:940px) {

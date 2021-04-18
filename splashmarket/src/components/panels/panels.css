@@ -880,6 +880,17 @@ input.dashboard_droplets-cost_edit {
     background-repeat:no-repeat;
     background-size: contain;
 }
+.guides_panel_admin-header {
+
+
+    width:269px;
+    height:55px;
+    margin:22px 25px;
+
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
 
 .guides_panel {
     width: 319px;
@@ -900,6 +911,17 @@ input.dashboard_droplets-cost_edit {
     align-items: baseline;
     flex-wrap: wrap;
 }
+
+.guides_panel_admin-delete_btn {
+    width:24px;
+    height:24px;
+    background-image: url(../../resources/icons/delete-red.svg);
+    margin-left:100px;
+    cursor: pointer;
+}
+
+
+
 
 
 

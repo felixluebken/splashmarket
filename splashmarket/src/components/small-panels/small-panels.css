@@ -129,5 +129,19 @@ p.text-light-small {
 
     margin: 2px 3px;
 }
+.guide_tag_add-frame {
+    height: 27px;
+    width:27px;
 
+    background: #3B3B51;
+    border-radius: 6px;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    margin: 2px 3px;
+}
 
