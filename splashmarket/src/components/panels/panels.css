@@ -857,6 +857,52 @@ input.dashboard_droplets-cost_edit {
 }
 
 
+
+
+.guides_panel-icon_frame {
+    background: #C4C4C4;
+    border-radius: 5px;
+
+    width: 55px;
+    height: 55px;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    margin:22px 25px;
+}
+.guides_panel-icon {
+    width:40px;
+    height:40px;
+
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size: contain;
+}
+
+.guides_panel {
+    width: 319px;
+    min-height: 217px;
+
+    background: #19192C;
+    border-radius: 6px;
+
+    margin:15px;
+}
+.guides_panel-tags_container {
+    margin:16px 25px;
+    width:269px;
+    min-height:60px;
+
+    display:inline-flex;
+    justify-content: left;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+
+
 @media screen and (max-width:1100px) {
     .bot_blog_panel-large {
         width:484px;

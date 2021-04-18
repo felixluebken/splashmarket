@@ -11,7 +11,7 @@ function HomepageSearch() {
                     <div className="search_icon"></div>
                     <input placeholder="Search Members..." style={{margin:"24px 0px"}}></input>
                     <div className="search_divider" style={{margin:"15px 10px"}}></div>
-                    <div className="filter_icon" style={{margin:"20px 10px"}}></div>
+                    <div className="guides_filter" style={{margin:"20px 10px"}}></div>
                     <select style={{margin:"21px 0px"}}>
                         <option>Filter...</option>
                         <option>1</option>
