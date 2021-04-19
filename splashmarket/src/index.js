@@ -27,11 +27,15 @@ import DashboardAdminDropletsInfo from './pages/DashboardAdminDropletsInfo'
 import RedeemDropletsPopup from './popups/RedeemDropletsPopup'
 import DropletsAdminAddPopup from './popups/DropletsAdminAddPopup'
 
+import GuidesAdminEditPopup from './popups/GuidesAdminEditPopup'
+import GuidesAdminAddPopup from './popups/GuidesAdminAddPopup'
+
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <GuidesAdmin />
+    <GuidesAdminAddPopup />
   </React.StrictMode>,
   document.getElementById('root')
 );
