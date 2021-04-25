@@ -15,6 +15,7 @@ import DashboardAdmin from './pages/DashboardAdmin';
 import DashboardAdminDroplets from './pages/DashboardAdminDroplets';
 import DashboardUserDroplets from './pages/DashboardUserDroplets';
 import DashboardAdminDropletsInfo from './pages/DashboardAdminDropletsInfo';
+import Leaderboard from './pages/Leaderboard';
 
 const Routes = () => {
   const history = useHistory();
@@ -101,6 +102,9 @@ const Routes = () => {
         </PrivateRoute>
         <Route exact path="/user/:id">
           <DashboardUser />
+        </Route>
+        <Route exact path="/leaderboard">
+          <Leaderboard />
         </Route>
 
       </Switch>

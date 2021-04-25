@@ -8,4 +8,11 @@ export default class UserService {
       .then(onSuccess)
       .catch(onError);
   }
+
+  static async FindUserSearch(params, onSuccess, onError) {
+    await axios
+      .get(getAPIPath('user/search'), { params }, { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
 }
