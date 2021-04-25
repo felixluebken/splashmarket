@@ -38,6 +38,7 @@ function HomepageLeaderboard() {
           } = user;
           return (
             <RankedMemberPanel
+              // key={username}
               username={`${username}#${discriminator}`}
               transactions={transactionsLength}
               memberSince={createdAt}

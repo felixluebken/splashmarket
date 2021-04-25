@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable max-len */
 import React, { useState, useContext, useEffect } from 'react';
 import './Leaderboard.css';
 import { useHistory } from 'react-router-dom';
@@ -16,6 +18,9 @@ import useQuery from '../helpers/useQuery';
 const Leaderboard = (props) => {
   const [isSearching, setIsSearching] = useState(true);
   const history = useHistory();
+
+  // Push sort queries into array
+  // If it includes, populate check box
 
   const [searchParameters, setSearchParameters] = useState({
     user: '',
@@ -136,6 +141,64 @@ const Leaderboard = (props) => {
     );
   };
 
+  useEffect(() => {
+    if (sortByQueries) {
+      dispatch({
+        type: SET_SEARCH_RESULTS,
+        payload: {
+          ...searchResults,
+          queries: [sortByQueries],
+        },
+      });
+    } else {
+      dispatch({
+        type: SET_SEARCH_RESULTS,
+        payload: {
+          ...searchResults,
+          queries: [searchParameters.sortBy],
+        },
+      });
+    }
+  }, [sortByQueries, searchParameters.sortBy]);
+
+  const handleCategoryCheck = (event) => {
+    dispatch({
+      type: SET_SEARCH_RESULTS,
+      payload: {
+        ...searchResults,
+        queries: [event.target.name],
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (searchResults.queries && searchResults.queries.length > 0 && searchResults.results.length > 0) {
+      const searchResultsCopy = [...searchResults.results];
+      let sortedResults;
+      if (searchResults.queries.includes('most')) {
+        sortedResults = searchResultsCopy.sort((a, b) => ((a.transactionsLength > b.transactionsLength) ? -1 : (a.transactions.length > b.transactions.length) ? 1 : 0));
+      } else if (searchResults.queries.includes('a-z')) {
+        sortedResults = searchResultsCopy.sort((a, b) => ((a.username.toLowerCase() < b.username.toLowerCase()) ? -1 : (a.username.toLowerCase() > b.username.toLowerCase()) ? 1 : 0));
+      } else if (searchResults.queries.includes('z-a')) {
+        sortedResults = searchResultsCopy.sort((a, b) => ((a.username.toLowerCase() > b.username.toLowerCase()) ? -1 : (a.username.toLowerCase() > b.username.toLowerCase()) ? 1 : 0));
+      } else if (searchResults.queries.includes('oldest')) {
+        sortedResults = searchResultsCopy.sort((a, b) => ((a.createdAt < b.createdAt) ? -1 : (a.createdAt > b.createdAt) ? 1 : 0));
+      } else if (searchResults.queries.includes('newest')) {
+        sortedResults = searchResultsCopy.sort((a, b) => ((a.createdAt > b.createdAt) ? -1 : (a.createdAt > b.createdAt) ? 1 : 0));
+      }
+      console.log('SORTED RESULTS: ', sortedResults);
+      if (sortedResults && sortedResults.length > 0) {
+        dispatch({
+          type: SET_SEARCH_RESULTS,
+          payload: {
+            ...searchResults,
+            results: sortedResults,
+          },
+        });
+      }
+    }
+  }, [searchResults.queries]);
+
   return (
     <>
       <HeaderLeaderboard />
@@ -237,24 +300,16 @@ const Leaderboard = (props) => {
           </div>
 
           <div className="leaderboard_body-current_search-categories-container">
+
             <p className="text-normal" style={{ marginBottom: '20px' }}>Refine by Categories</p>
 
-            <div className="checkbox-container">
-              <input type="checkbox" className="checkbox" />
-              <p className="text-light-small" style={{ margin: '3px 0px 0px 0px' }}>Most Transactions</p>
-            </div>
-
-            <div className="checkbox-container">
-              <input type="checkbox" className="checkbox" />
-              <p className="text-light-small" style={{ margin: '3px 0px 0px 0px' }}>Oldest Join Date</p>
-            </div>
-
-            <div className="checkbox-container">
-              <input type="checkbox" className="checkbox" />
-              <p className="text-light-small" style={{ margin: '3px 0px 0px 0px' }}>Newest Join Date</p>
-            </div>
+            {selectOptions.sortOptions.map((sortOption) => (
+              <div className="checkbox-container">
+                <input type="checkbox" name={sortOption.value} className="checkbox" onChange={handleCategoryCheck} checked={searchResults.queries.includes(sortOption.value)} />
+                <p className="text-light-small" style={{ margin: '3px 0px 0px 0px' }}>{sortOption.label}</p>
+              </div>
+            ))}
           </div>
-
         </div>
 
         <div className="leaderboard_body-results">
@@ -275,7 +330,7 @@ const Leaderboard = (props) => {
           <div className="leaderboard_body-results-container">
             {searchResults.results && searchResults.results.length >= 1 && searchResults.results[0].username !== 'No users found' && searchResults.results.map((searchResult) => {
               const {
-                createdAt, avatar, transactions, username, discriminator, transactionsLength,
+                createdAt, avatar, transactions, username, discriminator, transactionsLength, id,
               } = searchResult;
               const memberSince = moment(createdAt).format('MMMM DD, YYYY');
               const lastTransaction = transactions && transactions.length >= 0 ? transactions[transactions.length - 1] : null;
@@ -303,6 +358,7 @@ const Leaderboard = (props) => {
 
               return (
                 <LeaderboardSearchPanel
+                  key={id}
                   username={`${username}${discriminator ? `#${discriminator}` : ''}`}
                   memberSince={memberSince || ''}
                   avatarUrl={avatar}
