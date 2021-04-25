@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
-  // useHistory,
+  useHistory,
   BrowserRouter as Router,
   Switch,
   Route,
@@ -71,7 +71,7 @@ const Routes = () => {
   if (isAuthenticating) {
     return <h1>Loading</h1>;
   }
-  
+
   return (
     <Router>
       <Switch>

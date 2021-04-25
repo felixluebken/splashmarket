@@ -16,18 +16,8 @@ const initialState = {
   totalTrade: 0,
   currency: 0,
   subscriptionActive: false,
-<<<<<<< HEAD
-<<<<<<< HEAD
   transactionsMMd: 0,
   isLoggedIn: false,
-<<<<<<< HEAD
-=======
->>>>>>> 4d6591f... Finishing user dashboard
-=======
-  transactionsMMd: 0,
->>>>>>> 87cb574... Finished with dashboard admin and user
-=======
->>>>>>> 739e7cf... Cleaning up
 };
 
 const reducer = (state, action) => {

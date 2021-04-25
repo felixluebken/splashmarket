@@ -4,26 +4,26 @@ import axios from 'axios';
 import App from './App';
 import './index.css';
 
-import Homepage from './pages/Homepage'
+import Homepage from './pages/Homepage';
 
-import Loginpage from './pages/Login'
+import Loginpage from './pages/Login';
 
-import Leaderboard from './pages/Leaderboard'
+import Leaderboard from './pages/Leaderboard';
 
-import BotsSearch from './pages/BotsSearch'
-import BotsExpand from './pages/BotsExpand'
+import BotsSearch from './pages/BotsSearch';
+import BotsExpand from './pages/BotsExpand';
 
-import Blogs from './pages/Blogs'
-import BlogsExpand from './pages/BlogsExpand'
+import Blogs from './pages/Blogs';
+import BlogsExpand from './pages/BlogsExpand';
 
-import GuidesUser from './pages/GuidesUser'
-import GuidesAdmin from './pages/GuidesAdmin'
+import GuidesUser from './pages/GuidesUser';
+import GuidesAdmin from './pages/GuidesAdmin';
 
 // import RedeemDropletsPopup from './popups/RedeemDropletsPopup';
 // import DropletsAdminAddPopup from './popups/DropletsAdminAddPopup';
 
-import GuidesAdminEditPopup from './popups/GuidesAdminEditPopup'
-import GuidesAdminAddPopup from './popups/GuidesAdminAddPopup'
+import GuidesAdminEditPopup from './popups/GuidesAdminEditPopup';
+import GuidesAdminAddPopup from './popups/GuidesAdminAddPopup';
 
 import reportWebVitals from './reportWebVitals';
 

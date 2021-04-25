@@ -8,17 +8,6 @@ export default class DiscordService {
       .then(onSuccess)
       .catch(onError);
   }
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-  static async UserLogout(onSuccess, onError) {
-    await axios
-      .get(getAPIPath('discord/logout'), { withCredentials: true })
-      .then(onSuccess)
-      .catch(onError);
-  }
-=======
->>>>>>> 4d6591f... Finishing user dashboard
 
   static async UserLogout(onSuccess, onError) {
     await axios
@@ -33,9 +22,4 @@ export default class DiscordService {
       .then(onSuccess)
       .catch(onError);
   }
-<<<<<<< HEAD
-=======
->>>>>>> 15ebc17... Finishing oauth login flow
-=======
->>>>>>> 4d6591f... Finishing user dashboard
 }

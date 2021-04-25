@@ -87,8 +87,6 @@ function DashboardAdminDropletsInfo() {
 
         };
         const { _id } = values;
-        console.log('ID: ', id);
-        console.log('PUT DATA: ', putData);
         await DropletService.UpdateDroplet(_id, putData, onDropletUpdateSuccess, onDropletUpdateError);
       }
     });
