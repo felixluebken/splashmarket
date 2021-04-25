@@ -16,6 +16,7 @@ import BlogsExpand from './pages/BlogsExpand'
 
 import GuidesUser from './pages/GuidesUser'
 import GuidesAdmin from './pages/GuidesAdmin'
+import GuidesSearch from './pages/GuidesSearch'
 
 import DashboardUser from './pages/DashboardUser'
 import DashboardAdmin from './pages/DashboardAdmin'
@@ -34,8 +35,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <GuidesAdmin />
-    <GuidesAdminAddPopup />
+    <GuidesSearch />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -202,6 +202,29 @@ select.guides_filter {
 
 
 
+.guides_search-results {
+    width:70%;
+}
+.guides_search-results-container {
+    width:100%;
+    height:100%;
+
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+
+
+
+.guides_search-current_search {
+    width:30%
+}
+.guides_search-current_search-terms {
+    min-height:60px;
+}
+
+
 
 
 
@@ -249,6 +272,21 @@ select.guides_filter {
     .guides_header-container_banner {
         margin-top:50px;
 
+    }
+
+
+    .guides_search-current_search {
+        width:100%;
+    }
+    .guides_search-results {
+        width:100%;
+    }
+    .guides_search-current_search-terms-container {
+        float:left;
+        margin-right:20px;
+    }
+    .guides_search-current_search-categories-container {
+        float:left;
     }
 }
 @media only screen and (max-device-width:884px) {
