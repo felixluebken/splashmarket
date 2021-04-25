@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Bots.css';
-
 import HeaderBots from '../components/header/headerBots';
 import Footer from '../components/footer/footer';
-
 import PageSwitch from '../components/page-switch/PageSwitch';
-
 import BotPanel from '../components/panels/BotPanel';
+import BotService from '../services/BotService';
 
-/*
-currentResults          -str
-totalResults            -str
+const BotsSearch = (props) => {
+  const [bots, setBots] = useState([]);
 
-*/
-function BotsSearch(props) {
+  // Need to do paging
+  useEffect(() => {
+    const onFindBotsSuccess = (response) => {
+      setBots(response.data);
+    };
+    const onFindBotsError = (error) => {
+      console.log('ERROR: ', error.response);
+    };
+    BotService.FindBotsWithGraphs(onFindBotsSuccess, onFindBotsError);
+  }, []);
+
   const { currentResults, totalResults } = props;
+
   return (
     <>
       <div className="bots_header-container">
@@ -49,27 +56,21 @@ function BotsSearch(props) {
       </div>
 
       <div className="bots_panel-container">
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
-        <BotPanel name="Cybersole" lowestAsk="$7000" highestOffer="$7532" lastTransactionPrice="$7000" lastTransactionType="Rental" panelBackground="#AEF359" />
+        {bots && bots.map((bot) => {
+          const {
+            _id, displayName, logo,
+          } = bot;
+          return (
+            <BotPanel key={_id} name={displayName} iconUrl={logo} />
+
+          );
+        })}
       </div>
 
       <PageSwitch />
       <Footer />
     </>
   );
-}
+};
 
 export default BotsSearch;
