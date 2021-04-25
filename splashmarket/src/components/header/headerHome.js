@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
@@ -32,8 +33,31 @@ const HeaderHomepage = () => {
         }}
       />
       <div className="nav">
-        <a href="/" className="currentPage">Home</a>
-        <a>Leaderboard</a>
+        <a
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            handleRedirect('/');
+          }}
+          className="currentPage"
+        >
+          Home
+
+        </a>
+        <a
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            handleRedirect('/leaderboard');
+          }}
+        >
+          Leaderboard
+
+        </a>
         <a>Bots</a>
         <a>Blogs</a>
         <a>Guide</a>

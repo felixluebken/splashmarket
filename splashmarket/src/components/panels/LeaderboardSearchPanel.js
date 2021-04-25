@@ -21,8 +21,6 @@ function LeaderboardSearchPanel(props) {
     avatarUrl, username, memberSince, latestTransactionAvatarUrl, latestTransactionUsername, transactionsLength, lastTransaction, transactions,
   } = props;
 
-  console.log('TRANSACTIONS: ', transactions);
-  console.log('LATEST TRANSACTION AVATAR URL: ', latestTransactionAvatarUrl);
   return (
     <div className="member_leaderboard_panel">
       <div className="member_leaderboard_panel-left">
@@ -61,7 +59,7 @@ function LeaderboardSearchPanel(props) {
           <div className="member_leaderboard_panel-latest_transactions-additional">
             {/* DONT PUT MORE THAN 4 */}
             {transactions && transactions.length > 0 && transactions.map((transaction) => (
-              <AvatarPanel43 avatarUrl={transaction.avatar || BotSwapIcon} />
+              <AvatarPanel43 key={transaction.id} avatarUrl={transaction.avatar || BotSwapIcon} />
             ))}
           </div>
 
