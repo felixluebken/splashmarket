@@ -17,6 +17,8 @@ import BlogsExpand from './pages/BlogsExpand'
 import GuidesUser from './pages/GuidesUser'
 import GuidesAdmin from './pages/GuidesAdmin'
 import GuidesSearch from './pages/GuidesSearch'
+import GuidesExpandUser from './pages/GuidesExpandUser'
+import GuidesExpandAdmin from './pages/GuidesExpandAdmin'
 
 import DashboardUser from './pages/DashboardUser'
 import DashboardAdmin from './pages/DashboardAdmin'
@@ -35,7 +37,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <GuidesSearch />
+    <GuidesExpandAdmin bannerColor="#52FF81" botName="Cybersole" bannerTextColor="black" siteLink="https://google.com" />
   </React.StrictMode>,
   document.getElementById('root')
 );
