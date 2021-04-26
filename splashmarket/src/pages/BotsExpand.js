@@ -39,32 +39,40 @@ function BotsExpand(props) {
 
     const onGetBotError = (error) => {
       console.log('ERROR: ', error.response);
+      if (error.response) {
+        if (error.response.data === 'There were no transactions found.' && error.response.status === 404) {
+          setFoundBot([]);
+        }
+      }
+      setIsLoading(false);
     };
     BotService.GetSales(bot, timeframeQuery, onGetBotSuccess, onGetBotError);
   }, [bot]);
 
-  useEffect(() => {
-    if (foundBot.transactions && foundBot.transactions.length > 0) {
-      foundBot.transactions.forEach((botTransaction) => {
-        const convertedDate = moment(botTransaction.createdAt).format('YYYY-MM-DD');
+  // useEffect(() => {
+  //   if (foundBot.transactions && foundBot.transactions.length > 0) {
+  //     foundBot.transactions.forEach((botTransaction) => {
+  //       const convertedDate = moment(botTransaction.createdAt).format('YYYY-MM-DD');
 
-        // // console.log('BOT TRANSACTION: ', botTransaction);
-        // if (mergedBotRenewals.includes(botTransaction.bot.trim().toLowerCase())) {
-        //   if (!standardRenewalTypes.includes(botTransaction.renewalType.trim().toLowerCase())) {
-        //     botTransaction.renewalType = ' Renewal';
-        //   }
-        // }
-        // foundRenewalTypes[botTransaction.renewalType].dataValues.push({
-        //   x: new Date(convertedDate),
-        //   y: botTransaction.paymentPrice,
-        // });
-        setDates([...dates, convertedDate]);
-        setPrices([...prices, botTransaction.paymentPrice]);
-        dates.push(convertedDate);
-        prices.push(botTransaction.paymentPrice);
-      });
-    }
-  }, [foundBot.transactions]);
+  //       // // console.log('BOT TRANSACTION: ', botTransaction);
+  //       // if (mergedBotRenewals.includes(botTransaction.bot.trim().toLowerCase())) {
+  //       //   if (!standardRenewalTypes.includes(botTransaction.renewalType.trim().toLowerCase())) {
+  //       //     botTransaction.renewalType = ' Renewal';
+  //       //   }
+  //       // }
+  //       // foundRenewalTypes[botTransaction.renewalType].dataValues.push({
+  //       //   x: new Date(convertedDate),
+  //       //   y: botTransaction.paymentPrice,
+  //       // });
+  //       setDates([...dates, convertedDate]);
+  //       setPrices([...prices, botTransaction.paymentPrice]);
+  //       dates.push(convertedDate);
+  //       prices.push(botTransaction.paymentPrice);
+  //     });
+  //   }
+  // }, [foundBot.transactions]);
+
+  console.log('FOUND BOT: ', foundBot);
 
   if (isLoading) {
     return (
@@ -74,8 +82,6 @@ function BotsExpand(props) {
     );
   }
 
-  console.log('FOUND BOT: ', dates);
-  console.log('PRICE: ', prices);
   return (
     <>
       <div className="bots_header-container">
@@ -88,7 +94,7 @@ function BotsExpand(props) {
         </div>
         <div className="bots_expand-header_last-sale_container">
           <p className="last_sale_text">Last Sale</p>
-          <h5 className="last_sale_text">{`$${foundBot.lastTransaction || 'N/A'}`}</h5>
+          <h5 className="last_sale_text">{`${foundBot.lastTransaction ? `$${foundBot.lastTransaction}` : 'N/A'}`}</h5>
         </div>
       </div>
 
@@ -109,9 +115,9 @@ function BotsExpand(props) {
           </div>
 
           <div className="bots_expand-graph_panel-legend-legend">
-            {foundBot.renewalTypes && foundBot.renewalTypes.length > 0 && foundBot.renewalTypes.map((renewalType) => {
+            {foundBot.renewalTypes && Object.keys(foundBot.datasets).length > 0 && Object.keys(foundBot.datasets).map((renewalType) => {
               const capitalizedRenewal = renewalType.split(' ');
-
+              if (foundBot.datasets[renewalType].data.length === 0) return null;
               for (let i = 0; i < capitalizedRenewal.length; i += 1) {
                 capitalizedRenewal[i] = capitalizedRenewal[i][0].toUpperCase() + capitalizedRenewal[i].substr(1);
               }
@@ -129,21 +135,35 @@ function BotsExpand(props) {
         <div className="bots_expand-graph_panel-graph">
           <Line
             data={{
-              labels: dates || [],
-              datasets: [
-                {
-                  label: 'Renewal',
-                  data: prices,
+              labels: (foundBot && foundBot.dates) || [],
+              datasets: (foundBot && foundBot.datasets && Object.keys(foundBot.datasets) && Object.keys(foundBot.datasets).map((renewalType) => {
+                const capitalizedRenewal = renewalType.split(' ');
+                const dataPrices = foundBot.datasets[renewalType].data || [];
+                for (let i = 0; i < capitalizedRenewal.length; i += 1) {
+                  capitalizedRenewal[i] = capitalizedRenewal[i][0].toUpperCase() + capitalizedRenewal[i].substr(1);
+                }
+                const dataset = {
+                  label: capitalizedRenewal,
+                  data: dataPrices,
                   backgroundColor: ['transparent'],
                   borderColor: ['#27AAF7'],
-                },
-                // {
-                //   label: 'Lifetime',
-                //   data: [6700, 5900, 6100, 6200, 6100, 7400],
-                //   backgroundColor: ['transparent'],
-                //   borderColor: ['#FB4056'],
-                // },
-              ],
+                };
+                return dataset;
+              })) || null,
+
+              // {
+              //   label: 'Renewal',
+              //   data: prices,
+              // backgroundColor: ['transparent'],
+              // borderColor: ['#27AAF7'],
+              // },
+              // {
+              //   label: 'Lifetime',
+              //   data: [6700, 5900, 6100, 6200, 6100, 7400],
+              //   backgroundColor: ['transparent'],
+              //   borderColor: ['#FB4056'],
+              // },
+
             }}
             options={{
               legend: { display: false },

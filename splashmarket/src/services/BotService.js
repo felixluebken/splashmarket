@@ -25,7 +25,7 @@ export default class BotService {
 
   static async GetSales(botName, query, onSuccess, onError) {
     await axios
-      .get(getAPIPath(`bots/${botName}?timeframe=${query}`), { withCredentials: true })
+      .get(getAPIPath(`bots/sales/${botName}?timeframe=${query || '1wk'}`), { withCredentials: true })
       .then(onSuccess)
       .catch(onError);
   }

@@ -55,7 +55,20 @@ function HeaderBots() {
         >
           Leaderboard
         </a>
-        <a className="currentPage">Bots</a>
+        <a
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            handleRedirect('/bots');
+          }}
+          className="currentPage"
+        >
+          Bots
+
+        </a>
         <a>Blogs</a>
         <a>Guide</a>
       </div>
