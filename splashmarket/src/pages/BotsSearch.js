@@ -9,7 +9,7 @@ import BotPanel from '../components/panels/BotPanel';
 import BotService from '../services/BotService';
 import UseDebounce from '../helpers/useDebounce';
 
-const BotsSearch = (props) => {
+const BotsSearch = () => {
   const [bots, setBots] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const pageQuery = useQuery().get('page');
@@ -92,7 +92,6 @@ const BotsSearch = (props) => {
       <div className="bots_search-frame">
         <div className="bots_search-main_frame">
           <div className="search_icon" />
-          {/* <input className="bots_search" type="text" placeholder="Search bots..." /> */}
           <Autocomplete
             style={{ border: '1px solid red' }}
             inputProps={{
@@ -189,13 +188,11 @@ const BotsSearch = (props) => {
           if (mostRecentSale) {
             ({ createdAt, price, type } = mostRecentSale);
           }
-
           return (
             <BotPanel key={_id} name={displayName} iconUrl={logo} lastTransactionDate={createdAt} lastTransactionType={type} lastTransactionPrice={price} highestSale={highestSale} />
           );
         })}
       </div>
-
       <PageSwitch currentPage={currentPage} totalPages={bots.pager && bots.pager.totalPages} />
       <Footer />
     </>

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Bots.css';
-
+import { useParams } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
+import moment from 'moment';
+import useQuery from '../helpers/useQuery';
 import HeaderBots from '../components/header/headerBots';
 import Footer from '../components/footer/footer';
-
 import PreviousSales from '../components/list-panels/previousSales';
+import BotService from '../services/BotService';
 
 /*
 
@@ -23,19 +25,70 @@ function BotsExpand(props) {
   const {
     bannerColor, bannerIconUrl, botName, lastSale, bannerTextColor,
   } = props;
+  const [isLoading, setIsLoading] = useState(true);
+  const { bot } = useParams();
+  const [foundBot, setFoundBot] = useState([]);
+  const [dates, setDates] = useState([]);
+  const [prices, setPrices] = useState([]);
+  const timeframeQuery = useQuery().get('timeframe');
+  useEffect(() => {
+    const onGetBotSuccess = (response) => {
+      setFoundBot(response.data);
+      setIsLoading(false);
+    };
+
+    const onGetBotError = (error) => {
+      console.log('ERROR: ', error.response);
+    };
+    BotService.GetSales(bot, timeframeQuery, onGetBotSuccess, onGetBotError);
+  }, [bot]);
+
+  useEffect(() => {
+    if (foundBot.transactions && foundBot.transactions.length > 0) {
+      foundBot.transactions.forEach((botTransaction) => {
+        const convertedDate = moment(botTransaction.createdAt).format('YYYY-MM-DD');
+
+        // // console.log('BOT TRANSACTION: ', botTransaction);
+        // if (mergedBotRenewals.includes(botTransaction.bot.trim().toLowerCase())) {
+        //   if (!standardRenewalTypes.includes(botTransaction.renewalType.trim().toLowerCase())) {
+        //     botTransaction.renewalType = ' Renewal';
+        //   }
+        // }
+        // foundRenewalTypes[botTransaction.renewalType].dataValues.push({
+        //   x: new Date(convertedDate),
+        //   y: botTransaction.paymentPrice,
+        // });
+        setDates([...dates, convertedDate]);
+        setPrices([...prices, botTransaction.paymentPrice]);
+        dates.push(convertedDate);
+        prices.push(botTransaction.paymentPrice);
+      });
+    }
+  }, [foundBot.transactions]);
+
+  if (isLoading) {
+    return (
+      <h1>
+        LOADING...
+      </h1>
+    );
+  }
+
+  console.log('FOUND BOT: ', dates);
+  console.log('PRICE: ', prices);
   return (
     <>
       <div className="bots_header-container">
         <HeaderBots />
       </div>
-      <div className="bots_expand-header_banner" style={{ backgroundColor: `${bannerColor}` /* ,backgroundImage:`url(${bannerBackgroundUrl})` */ }}>
+      <div className="bots_expand-header_banner" style={{ backgroundColor: 'transparent' /* ,backgroundImage:`url(${bannerBackgroundUrl})` */ }}>
         <div className="bots_expand-header_container">
-          <div className="bots_expand-header_icon" style={{ backgroundImage: `url(${bannerIconUrl})` }} />
-          <h4 className="bots_title" style={{ color: `${bannerTextColor}` }}>{botName}</h4>
+          <div className="bots_expand-header_icon" style={{ backgroundImage: `url(${foundBot.logo || null})` }} />
+          <h4 className="bots_title" style={{ color: `${bannerTextColor}` }}>{foundBot.botName || 'N/A'}</h4>
         </div>
         <div className="bots_expand-header_last-sale_container">
           <p className="last_sale_text">Last Sale</p>
-          <h5 className="last_sale_text">{lastSale}</h5>
+          <h5 className="last_sale_text">{`$${foundBot.lastTransaction || 'N/A'}`}</h5>
         </div>
       </div>
 
@@ -56,15 +109,19 @@ function BotsExpand(props) {
           </div>
 
           <div className="bots_expand-graph_panel-legend-legend">
-            <div className="bots_expand-graph_panel-legend-container">
-              <div className="bots_expand-graph_panel-legend_rectangle" style={{ backgroundColor: '#27AAF7' }} />
-              <p className="graph_light_text">Renewal</p>
-            </div>
+            {foundBot.renewalTypes && foundBot.renewalTypes.length > 0 && foundBot.renewalTypes.map((renewalType) => {
+              const capitalizedRenewal = renewalType.split(' ');
 
-            <div className="bots_expand-graph_panel-legend-container">
-              <div className="bots_expand-graph_panel-legend_rectangle" style={{ backgroundColor: '#FB4056' }} />
-              <p className="graph_light_text">Lifetime</p>
-            </div>
+              for (let i = 0; i < capitalizedRenewal.length; i += 1) {
+                capitalizedRenewal[i] = capitalizedRenewal[i][0].toUpperCase() + capitalizedRenewal[i].substr(1);
+              }
+              return (
+                <div className="bots_expand-graph_panel-legend-container">
+                  <div className="bots_expand-graph_panel-legend_rectangle" style={{ backgroundColor: '#27AAF7' }} />
+                  <p className="graph_light_text">{capitalizedRenewal}</p>
+                </div>
+              );
+            })}
           </div>
 
         </div>
@@ -72,27 +129,32 @@ function BotsExpand(props) {
         <div className="bots_expand-graph_panel-graph">
           <Line
             data={{
-              labels: ['Mar 26', 'Mar 27', 'Mar 28', 'Mar 29', 'Mar 30', 'Mar 31'],
+              labels: dates || [],
               datasets: [
                 {
                   label: 'Renewal',
-                  data: [7000, 6500, 6600, 6700, 7000, 7100],
+                  data: prices,
                   backgroundColor: ['transparent'],
                   borderColor: ['#27AAF7'],
                 },
-                {
-                  label: 'Lifetime',
-                  data: [6700, 5900, 6100, 6200, 6100, 7400],
-                  backgroundColor: ['transparent'],
-                  borderColor: ['#FB4056'],
-                },
+                // {
+                //   label: 'Lifetime',
+                //   data: [6700, 5900, 6100, 6200, 6100, 7400],
+                //   backgroundColor: ['transparent'],
+                //   borderColor: ['#FB4056'],
+                // },
               ],
             }}
             options={{
               legend: { display: false },
-              tooltips: { enabled: false },
               responsive: true,
               scales: {
+                y: {
+                  max: 10000,
+                },
+                x: {
+                  max: 10000,
+                },
                 xAxes: [{
                   display: true,
                   gridLines: {
@@ -101,6 +163,8 @@ function BotsExpand(props) {
                   ticks: {
                     fontSize: 16,
                     fontColor: '#BFC3D3',
+                    autoSkip: true,
+                    maxTicksLimit: 15,
                   },
                 }],
                 yAxes: [{
@@ -116,10 +180,9 @@ function BotsExpand(props) {
                   },
                   ticks: {
                     fontSize: 16,
-
                     fontColor: '#BFC3D3',
                     autoSkip: true,
-                    maxTicksLimit: 6,
+                    maxTicksLimit: 15,
                   },
                 }],
 
@@ -138,14 +201,12 @@ function BotsExpand(props) {
           </tr>
         </table>
         <div className="bots_expand-previous_sales_container">
-          <PreviousSales date="December 24, 2020" type="Lifetime" price="$7000" />
-          <PreviousSales date="December 24, 2020" type="Monthly" price="$7000" />
-          <PreviousSales date="December 24, 2020" type="Lifetime" price="$7000" />
-          <PreviousSales date="December 24, 2020" type="Lifetime" price="$7000" />
-          <PreviousSales date="December 24, 2020" type="Lifetime" price="$7000" />
-          <PreviousSales date="December 24, 2020" type="Lifetime" price="$7000" />
-          <PreviousSales date="December 24, 2020" type="Lifetime" price="$7000" />
-          <PreviousSales date="December 24, 2020" type="Lifetime" price="$7000" />
+          {foundBot.transactions && foundBot.transactions.length > 0 && foundBot.transactions.slice(0).reverse().map((transaction) => {
+            const convertedDate = moment(transaction.createdAt).format('MMMM DD, YYYY');
+            return (
+              <PreviousSales date={convertedDate || 'N/A'} type={transaction.renewalType} price={`${transaction.paymentPrice ? `$${transaction.paymentPrice}` : 'N/A'}`} />
+            );
+          })}
         </div>
       </div>
 

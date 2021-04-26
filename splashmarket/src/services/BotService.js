@@ -22,4 +22,11 @@ export default class BotService {
       .then(onSuccess)
       .catch(onError);
   }
+
+  static async GetSales(botName, query, onSuccess, onError) {
+    await axios
+      .get(getAPIPath(`bots/${botName}?timeframe=${query}`), { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
 }

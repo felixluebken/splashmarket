@@ -17,6 +17,7 @@ import DashboardUserDroplets from './pages/DashboardUserDroplets';
 import DashboardAdminDropletsInfo from './pages/DashboardAdminDropletsInfo';
 import Leaderboard from './pages/Leaderboard';
 import BotsSearch from './pages/BotsSearch';
+import BotsExpand from './pages/BotsExpand';
 
 const Routes = () => {
   const history = useHistory();
@@ -109,6 +110,9 @@ const Routes = () => {
         </Route>
         <Route exact path="/bots">
           <BotsSearch />
+        </Route>
+        <Route exact path="/bots/:bot">
+          <BotsExpand />
         </Route>
       </Switch>
     </Router>
