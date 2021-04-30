@@ -49,6 +49,7 @@ a.list_panel_link-normal {
 .transaction_history-bot_icon {
   width: 36px;
   height: 36px;
+  background-size: contain;
 }
 
 .previous_sales-panel {

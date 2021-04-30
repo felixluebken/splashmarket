@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 import React, { useState, useEffect } from 'react';
 import './Bots.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 import moment from 'moment';
 import useQuery from '../helpers/useQuery';
@@ -25,13 +26,26 @@ function BotsExpand(props) {
   const {
     bannerColor, bannerIconUrl, botName, lastSale, bannerTextColor,
   } = props;
+
+  const timeframes = {
+    day: '1d',
+    week: '1wk',
+    month: '1mo',
+    year: '1yr',
+  };
+  const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
   const { bot } = useParams();
   const [foundBot, setFoundBot] = useState([]);
   const [dates, setDates] = useState([]);
   const [prices, setPrices] = useState([]);
-  const timeframeQuery = useQuery().get('timeframe');
+  const timeframeQuery = useQuery().get('timeframe') || timeframes.week;
+
+  const [activeTimeframe, setActiveTimeframe] = useState(timeframeQuery);
+  const borderColors = ['#27AAF7', '#db4052', '#ff9933', '#fff'];
   useEffect(() => {
+    history.push({ location: history.location.pathname, search: `timeframe=${activeTimeframe}` });
+
     const onGetBotSuccess = (response) => {
       setFoundBot(response.data);
       setIsLoading(false);
@@ -46,8 +60,8 @@ function BotsExpand(props) {
       }
       setIsLoading(false);
     };
-    BotService.GetSales(bot, timeframeQuery, onGetBotSuccess, onGetBotError);
-  }, [bot]);
+    BotService.GetSales(bot, activeTimeframe, onGetBotSuccess, onGetBotError);
+  }, [bot, activeTimeframe]);
 
   // useEffect(() => {
   //   if (foundBot.transactions && foundBot.transactions.length > 0) {
@@ -100,10 +114,62 @@ function BotsExpand(props) {
 
       <div className="bots_expand-graph_panel">
         <div className="bots_expand-graph_panel-header">
-          <p className="graph_nav_text">Year</p>
-          <p className="graph_nav_text">Month</p>
-          <p className="graph_nav_text">Week</p>
-          <p className="graph_nav_text">Day</p>
+          <p
+            className={`graph_nav_text ${activeTimeframe === timeframes.year ? 'bots_expand-header-active' : ''}`}
+            role="button"
+            id={timeframes.year}
+            tabIndex={0}
+            aria-label="Home page header"
+            aria-hidden="true"
+            onClick={(event) => {
+              setActiveTimeframe(event.target.id);
+            }}
+          >
+            Year
+
+          </p>
+          <p
+            className={`graph_nav_text ${activeTimeframe === timeframes.month ? 'bots_expand-header-active' : ''}`}
+            role="button"
+            id={timeframes.month}
+            tabIndex={0}
+            aria-label="Home page header"
+            aria-hidden="true"
+            onClick={(event) => {
+              setActiveTimeframe(event.target.id);
+            }}
+          >
+            Month
+
+          </p>
+          <p
+            className={`graph_nav_text ${activeTimeframe === timeframes.week ? 'bots_expand-header-active' : ''}`}
+            role="button"
+            id={timeframes.week}
+            tabIndex={0}
+            aria-label="Home page header"
+            aria-hidden="true"
+            onClick={(event) => {
+              setActiveTimeframe(event.target.id);
+            }}
+          >
+            Week
+
+          </p>
+          <p
+            className={`graph_nav_text ${activeTimeframe === timeframes.day ? 'bots_expand-header-active' : ''}`}
+            role="button"
+            id={timeframes.day}
+            tabIndex={0}
+            aria-label="Home page header"
+            aria-hidden="true"
+            onClick={(event) => {
+              setActiveTimeframe(event.target.id);
+            }}
+          >
+            Day
+
+          </p>
         </div>
 
         <div className="bots_expand-graph_panel-divider" />
@@ -115,7 +181,7 @@ function BotsExpand(props) {
           </div>
 
           <div className="bots_expand-graph_panel-legend-legend">
-            {foundBot.renewalTypes && Object.keys(foundBot.datasets).length > 0 && Object.keys(foundBot.datasets).map((renewalType) => {
+            {foundBot.renewalTypes && Object.keys(foundBot.datasets).length > 0 && Object.keys(foundBot.datasets).map((renewalType, index) => {
               const capitalizedRenewal = renewalType.split(' ');
               if (foundBot.datasets[renewalType].data.length === 0) return null;
               for (let i = 0; i < capitalizedRenewal.length; i += 1) {
@@ -123,7 +189,7 @@ function BotsExpand(props) {
               }
               return (
                 <div className="bots_expand-graph_panel-legend-container">
-                  <div className="bots_expand-graph_panel-legend_rectangle" style={{ backgroundColor: '#27AAF7' }} />
+                  <div className="bots_expand-graph_panel-legend_rectangle" style={{ backgroundColor: borderColors[index] }} />
                   <p className="graph_light_text">{capitalizedRenewal}</p>
                 </div>
               );
@@ -136,7 +202,7 @@ function BotsExpand(props) {
           <Line
             data={{
               labels: (foundBot && foundBot.dates) || [],
-              datasets: (foundBot && foundBot.datasets && Object.keys(foundBot.datasets) && Object.keys(foundBot.datasets).map((renewalType) => {
+              datasets: (foundBot && foundBot.datasets && Object.keys(foundBot.datasets) && Object.keys(foundBot.datasets).map((renewalType, index) => {
                 const capitalizedRenewal = renewalType.split(' ');
                 const dataPrices = foundBot.datasets[renewalType].data || [];
                 for (let i = 0; i < capitalizedRenewal.length; i += 1) {
@@ -146,7 +212,7 @@ function BotsExpand(props) {
                   label: capitalizedRenewal,
                   data: dataPrices,
                   backgroundColor: ['transparent'],
-                  borderColor: ['#27AAF7'],
+                  borderColor: borderColors[index],
                 };
                 return dataset;
               })) || null,
@@ -170,20 +236,22 @@ function BotsExpand(props) {
               responsive: true,
               scales: {
                 y: {
-                  max: 10000,
+                  max: 150,
                 },
                 x: {
-                  max: 10000,
+                  max: 150,
                 },
                 xAxes: [{
                   display: true,
+                  type: 'time',
+                  distribution: 'series',
                   gridLines: {
                     color: '#303046',
                   },
                   ticks: {
                     fontSize: 16,
                     fontColor: '#BFC3D3',
-                    autoSkip: true,
+                    // autoSkip: true,
                     maxTicksLimit: 15,
                   },
                 }],
