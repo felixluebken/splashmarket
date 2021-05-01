@@ -18,6 +18,10 @@ import BlogsExpand from './pages/BlogsExpand';
 
 import Guides from './pages/Guides';
 import GuidesAdmin from './pages/GuidesAdmin';
+import GuidesUser from './pages/GuidesUser';
+import GuidesSearch from './pages/GuidesSearch';
+import GuidesExpandUser from './pages/GuidesExpandUser';
+import GuidesExpandAdmin from './pages/GuidesExpandAdmin';
 
 // import RedeemDropletsPopup from './popups/RedeemDropletsPopup';
 // import DropletsAdminAddPopup from './popups/DropletsAdminAddPopup';

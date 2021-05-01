@@ -1,3 +1,17 @@
+p.text-normal-large {
+    color: white;
+    font-family: Poppins;
+    font-size: 20px;
+    line-height: 24px;
+}
+p.text-normal-large_blue {
+    color: #29ABFF;
+    font-family: Poppins;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+
 p.text-normal {
     color: white;
     font-family: Poppins;
@@ -115,7 +129,30 @@ p.text-light-small {
 }
 
 
+.guide_tag-frame-large {
+    height: 36px;
 
+    background: #25253A;
+    border-radius: 6px;
+
+    display:inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 3px 5px;
+}
+.guide_tag-frame-large_blue {
+    height: 36px;
+
+    background: rgba(41, 171, 255, 0.2);
+    border-radius: 6px;
+
+    display:inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 3px 5px;
+}
 
 .guide_tag-frame {
     height: 27px;
