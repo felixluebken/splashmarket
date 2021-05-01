@@ -11,6 +11,8 @@ export const dropletValidationSchema = yup.object().shape({
   webhookURL: yup.string().required('Webhook URL is required.'),
 });
 
-export const test = () => {
-
-};
+export const addBotValidationSchema = yup.object().shape({
+  botName: yup.string().required('Bot Name is required.'),
+  tags: yup.array().min(1, 'Bot Tag is required.'),
+  fileContents: yup.string().required('Company Logo is required.'),
+});

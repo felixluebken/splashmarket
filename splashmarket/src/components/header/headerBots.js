@@ -70,7 +70,19 @@ function HeaderBots() {
 
         </a>
         <a>Blogs</a>
-        <a>Guide</a>
+        <a
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            handleRedirect('/guides');
+          }}
+        >
+          Guides
+
+        </a>
       </div>
       <div className="button_group">
         <div

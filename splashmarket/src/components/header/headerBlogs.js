@@ -10,7 +10,7 @@ function HeaderBlogs() {
         <a>Leaderboard</a>
         <a>Bots</a>
         <a className="currentPage">Blogs</a>
-        <a>Guide</a>
+        <a>Guides</a>
       </div>
       <div className="button_group">
         <div className="blue_button" style={{ width: 123, height: 35 }}>

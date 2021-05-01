@@ -1,8 +1,8 @@
 h5.popup_text-normal {
-    color: white;
-    font-family: Poppins;
-    font-size: 20px;
-    line-height: 30px;
+  color: white;
+  font-family: Poppins;
+  font-size: 20px;
+  line-height: 30px;
 }
 h4.popup_text-normal {
   color: white;
@@ -49,10 +49,6 @@ input.popup_admin_input {
 
   padding: 0px 15px;
 }
-input.invalid-input {
-  border: 1px solid red;
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -67,7 +63,7 @@ textarea.popup_admin_text-area {
   resize: none;
   width: 90%;
 
-  height: 40px;
+  height: 80px;
 
   color: white;
   font-family: Poppins;
@@ -78,9 +74,6 @@ textarea.popup_admin_text-area {
   border-radius: 8px;
   border: 1.5px solid #252538;
   padding: 5%;
-}
-textarea.invalid-input {
-  border: 1px solid red;
 }
 
 .popup_panel-small {
@@ -101,8 +94,8 @@ textarea.invalid-input {
 }
 .popup_panel-tall {
   width: 356px;
-  height: 700px;
-  overflow-y: auto;
+  height: 615px;
+
   padding: 30px 40px;
 
   display: inline-block;
@@ -127,11 +120,6 @@ textarea.invalid-input {
 
   margin-bottom: 20px;
 }
-
-.invalid-input {
-  border: 1px solid red;
-}
-
 .droplets_admin_add-header_img-frame {
   height: 69px;
   width: 69px;
@@ -145,12 +133,10 @@ textarea.invalid-input {
 
   cursor: pointer;
 }
-
 .droplets_admin_add-header_img {
   height: 54px;
   width: 54px;
 
-  cursor: pointer;
   background-image: url(../resources/icons/img-grey.svg);
   background-position: center;
   background-size: contain;
@@ -171,14 +157,6 @@ textarea.invalid-input {
   margin-top: 10px;
 }
 
-<<<<<<< HEAD
-
-
-
-
-
-=======
->>>>>>> 5bfaabf... Finished with droplet creation
 .popup_blue-btn {
   width: 184px;
   height: 44px;
@@ -221,33 +199,26 @@ textarea.invalid-input {
   line-height: 14px;
 }
 
-<<<<<<< HEAD
 .guides_popup-icon_frame {
-    background: #C4C4C4;
-    border-radius: 5px;
+  background: #c4c4c4;
+  border-radius: 5px;
 
-    width: 55px;
-    height: 55px;
+  width: 55px;
+  height: 55px;
 
-    display:flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .guides_popup-icon {
-    width:40px;
-    height:40px;
+  width: 40px;
+  height: 40px;
 
-    background-position: center;
-    background-repeat:no-repeat;
-    background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
-
-
-
-
-=======
->>>>>>> 5bfaabf... Finished with droplet creation
 .droplets_redeem_success-header {
   width: 180px;
   height: 54;
@@ -268,75 +239,66 @@ textarea.invalid-input {
   background-repeat: no-repeat;
 }
 
-<<<<<<< HEAD
-
-
-
-
-
 .guides_bot_edit-header {
-    height:55px;
-    width:80%;
+  height: 55px;
+  width: 80%;
 
-    margin:30px 10%;
+  margin: 30px 10%;
 
-    display:flex;
-    align-items: center;
-    justify-content: first baseline;
+  display: flex;
+  align-items: center;
+  justify-content: first baseline;
 }
 .guides_bot_edit-tag_container {
-    display:inline-block;
-    margin:0px 10% 30px 10%;
-    width:80%;
-    min-height:60px;
+  display: inline-block;
+  margin: 0px 10% 30px 10%;
+  width: 80%;
+  min-height: 60px;
 
-    display:inline-flex;
-    justify-content: left;
-    align-items: baseline;
-    flex-wrap: wrap;
+  display: inline-flex;
+  justify-content: left;
+  align-items: baseline;
+  flex-wrap: wrap;
 }
 .guides_bot_edit-input_container {
-    height:90px;
-    width:80%;
+  height: 90px;
+  width: 80%;
 
-    margin: 0 10% 10px 10%;
+  margin: 0 10% 10px 10%;
 }
 .guides_bot_edit-button_container {
-    height:44px;
-    width:80%;
+  height: 44px;
+  width: 80%;
 
-    margin: 0 10% 30px 10%;
+  margin: 0 10% 30px 10%;
 
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .guides_bot_edit-header_img-frame {
-    height:69px;
-    width:69px;
+  height: 69px;
+  width: 69px;
 
-    background: #25253A;
-    border-radius: 5px;
+  background: #25253a;
+  border-radius: 5px;
 
-    display:flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-
-    cursor:pointer;
+  cursor: pointer;
 }
 .guides_bot_edit-header_img {
-    height:54px;
-    width:54px;
+  height: 54px;
+  width: 54px;
 
-    background-image: url(../resources/icons/img-grey.svg);
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
+  background-image: url(../resources/icons/img-grey.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
-=======
->>>>>>> 5bfaabf... Finished with droplet creation
 @media only screen and (max-device-width: 544px) {
   .popup_panel-small {
     width: 316px;
