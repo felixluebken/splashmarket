@@ -29,4 +29,11 @@ export default class BotService {
       .then(onSuccess)
       .catch(onError);
   }
+
+  static async GetAllBots(onSuccess, onError) {
+    await axios
+      .get(getAPIPath('bots'), { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
 }

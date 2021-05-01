@@ -299,6 +299,19 @@ textarea.popup_admin_text-area {
   background-repeat: no-repeat;
 }
 
+select.guides_filter {
+  background: #19192c;
+  outline: none;
+  border: none;
+
+  width: 20%;
+
+  color: white;
+  font-family: Poppins;
+  font-size: 17px;
+  line-height: 18px;
+}
+
 @media only screen and (max-device-width: 544px) {
   .popup_panel-small {
     width: 316px;

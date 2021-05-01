@@ -2,14 +2,13 @@ import React, { useContext } from 'react';
 import './header.css';
 import { useHistory } from 'react-router-dom';
 import DiscordService from '../../services/DiscordService';
-import { SET_USER, UserContext } from '../../context/UserContext';
+import { initialState, SET_USER, UserContext } from '../../context/UserContext';
 
 const HeaderLoggedIn = () => {
   const [user, userDispatch] = useContext(UserContext);
   const history = useHistory();
 
   const handleRedirect = (route) => {
-    console.log('HANDLING REDIRECT', route);
     history.push(route);
   };
 
@@ -18,7 +17,7 @@ const HeaderLoggedIn = () => {
       userDispatch({
         type: SET_USER,
         payload: {
-          value: { ...user, isLoggedIn: false },
+          value: initialState,
         },
       });
       handleRedirect('/');
@@ -27,7 +26,7 @@ const HeaderLoggedIn = () => {
       userDispatch({
         type: SET_USER,
         payload: {
-          value: { ...user, isLoggedIn: false },
+          value: initialState,
         },
       });
       handleRedirect('/');

@@ -17,8 +17,6 @@ import Blogs from './pages/Blogs';
 import BlogsExpand from './pages/BlogsExpand';
 
 import Guides from './pages/Guides';
-import GuidesAdmin from './pages/GuidesAdmin';
-import GuidesUser from './pages/GuidesUser';
 import GuidesSearch from './pages/GuidesSearch';
 import GuidesExpandUser from './pages/GuidesExpandUser';
 import GuidesExpandAdmin from './pages/GuidesExpandAdmin';

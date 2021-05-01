@@ -179,7 +179,7 @@ function DashboardAdmin(props) {
 
           <div className="dashboard_most-transacted_panel">
             <p className="dashboard_text-normal dashboard_most-transacted_header">Most Transacted Bots</p>
-            {topTransactedBots.map((transactedBot) => {
+            {topTransactedBots && topTransactedBots.map((transactedBot) => {
               const { bot, logo, occurences } = transactedBot;
               const occurencePercentage = `${(occurences / transactions.length) * 100}%`;
               return (
