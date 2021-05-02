@@ -12,12 +12,24 @@ number          -str    number of the page
 function PageSwitchIndicator(props) {
   const history = useHistory();
   const { active, number } = props;
+
   const handlePageSwitch = () => {
+    // console.log("SWITCHING PAGE: ")
+    const pageRegex = /(page=\d)/gmi;
+    let newSearch;
+    if (history.location.search && pageRegex.test(history.location.search)) {
+      newSearch = history.location.search.replace(pageRegex, `page=${number}`);
+    } else if (history.location.search) {
+      newSearch = history.location.search.concat(`&page=${number}`);
+    } else {
+      newSearch = `?page=${number}`;
+    }
     history.push({
-      location: '/bots',
-      search: `?page=${number}`,
+      location: history.location.pathname,
+      search: newSearch,
     });
   };
+
   if (active) {
     return (
       <div

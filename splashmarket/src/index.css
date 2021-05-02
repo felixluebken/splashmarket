@@ -5,7 +5,11 @@ body {
 }
 
 .invalid-input {
-  border-color: 1px solid red;
+  border: 1px solid red !important;
+}
+
+.invalid-text-color {
+  color: red;
 }
 
 .btn-saved {

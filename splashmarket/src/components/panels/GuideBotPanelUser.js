@@ -10,7 +10,9 @@ botName                         -str
 */
 
 function GuideBotPanelUser(props) {
-  const { iconBackgroundColor, iconUrl, botName } = props;
+  const {
+    iconBackgroundColor, iconUrl, botName, tags,
+  } = props;
   return (
     <div className="guides_panel">
       <div className="guides_panel-icon_frame" style={{ backgroundColor: `${iconBackgroundColor}` }}>
@@ -18,11 +20,8 @@ function GuideBotPanelUser(props) {
       </div>
       <p className="panel_text-normal" style={{ marginLeft: '25px' }}>{botName}</p>
       <div className="guides_panel-tags_container">
-        <GuideTag tag="Supreme" />
-        <GuideTag tag="Adidas" />
-        <GuideTag tag="YS" />
-        <GuideTag tag="Walmart" />
-        <GuideTag tag="Best Buy" />
+        {tags && tags.length > 0 && tags.map((tag) => <GuideTag tag={tag} />)}
+
       </div>
     </div>
   );

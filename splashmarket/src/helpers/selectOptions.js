@@ -21,6 +21,40 @@ const selectOptions = {
       value: 'newest',
     },
   ],
+  botGuidesFilterOptions: [
+    {
+      label: 'Shopify',
+      value: 'shopify',
+    },
+    {
+      label: 'Foot Sites',
+      value: 'footsites',
+    },
+    {
+      label: 'Supreme',
+      value: 'supreme',
+    },
+    {
+      label: 'Off White',
+      value: 'offWhite',
+    },
+    {
+      label: 'Amazon',
+      value: 'amazon',
+    },
+    {
+      label: 'Target',
+      value: 'target',
+    },
+    {
+      label: 'Walmart',
+      value: 'walmart',
+    },
+    {
+      label: 'Yeezy Supply',
+      value: 'yeezySupply',
+    },
+  ],
 };
 
 export default selectOptions;

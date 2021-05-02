@@ -19,6 +19,7 @@ import Leaderboard from './pages/Leaderboard';
 import BotsSearch from './pages/BotsSearch';
 import BotsExpand from './pages/BotsExpand';
 import Guides from './pages/Guides';
+import GuidesSearch from './pages/GuidesSearch';
 
 const Routes = () => {
   const history = useHistory();
@@ -117,6 +118,9 @@ const Routes = () => {
         </Route>
         <Route exact path="/guides">
           <Guides />
+        </Route>
+        <Route exact path="/guides/search">
+          <GuidesSearch />
         </Route>
       </Switch>
     </Router>

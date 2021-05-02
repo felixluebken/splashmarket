@@ -143,21 +143,24 @@ const HomepageSearch = () => {
         <div className="filter_icon" style={{ margin: '20px 10px' }} />
         <select style={{ margin: '21px 0px' }} defaultValue="" name="sortBy" onChange={handleChange}>
           <option value="">Sort...</option>
-          {selectOptions.sortOptions.map((option, index) => (
-            <option value={option.value} label={option.label} />
+          {selectOptions.sortOptions.map((option) => (
+            <option key={option.value} value={option.value} label={option.label} />
           ))}
         </select>
-        <div className="blue_button-search" style={{ margin: '15px' }}>
+        <div
+          className="blue_button-search"
+          style={{ margin: '15px', cursor: 'pointer' }}
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            handleSearch();
+          }}
+        >
           <span
             className="blue_button-search-text"
-            role="button"
-            tabIndex={0}
-            aria-label="Home page header"
-            aria-hidden="true"
-            style={{ cursor: 'pointer' }}
-            onClick={() => {
-              handleSearch();
-            }}
+
           >
             Search
 

@@ -1,41 +1,35 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Popups.css';
 import { Formik } from 'formik';
 import Autocomplete from 'react-autocomplete';
 import EmptyFileIcon from '../resources/icons/img-grey.svg';
 import { addBotValidationSchema } from '../helpers/validationSchema';
-
 import GuideTag from '../components/small-panels/guideTags';
-import BotService from '../services/BotService';
+import GuideService from '../services/GuideService';
 
 function GuidesAdminAddPopup(props) {
-  const { handleToggleAddBotModal } = props;
+  const {
+    handleToggleAddBotModal, getGuides, validBots,
+  } = props;
   const [imgURL, setImgURL] = useState('');
-
-  const [validBots, setValidBots] = useState([]);
-
-  const getValidBots = async () => {
-    const onGetValidBotsSuccess = (response) => {
-      console.log('RESPONSE: ', response.data);
-      setValidBots(response.data);
-    };
-    const onGetValidBotsError = (error) => {
-      console.log('ON GET VALID BOTS ERROR: ', error.response);
-    };
-
-    await BotService.GetAllBots(onGetValidBotsSuccess, onGetValidBotsError);
-  };
-  console.log('VALID BOTS: ', validBots);
-
-  useEffect(() => {
-    getValidBots();
-  }, []);
+  const [backendError, setBackendError] = useState(null);
 
   const initialValues = {
     botName: '',
     tags: [],
     fileContents: '',
+    unbindType: '',
+    renewalTypes: [{
+      price: '',
+      renewalType: '',
+      renewalInterval: '',
+    }],
+    systemsSupported: [],
+    middleMan: '',
+    scammerPrevention: '',
+    twitterURL: '',
+    instagramURL: '',
   };
 
   const handleBlur = (validateField) => (event) => {
@@ -73,6 +67,28 @@ function GuidesAdminAddPopup(props) {
     setFieldValue(event.target.name, event.target.files[0]);
   };
 
+  const onBotGuideCreateSuccess = (response) => {
+    getGuides();
+    handleToggleAddBotModal();
+  };
+  const onBotGuideCreateError = (error) => {
+    setBackendError(error.response.data);
+  };
+
+  const handleSubmit = (values, validateForm) => {
+    validateForm().then(async (errors) => {
+      if (Object.keys(errors).length === 0) {
+        setBackendError(null);
+        // Create form data and append File + json data
+        const formData = new FormData();
+        formData.append('document', values.fileContents);
+        const stringifiedJSON = JSON.stringify(values);
+        formData.append('data', stringifiedJSON);
+        await GuideService.CreateBotGuide(formData, onBotGuideCreateSuccess, onBotGuideCreateError);
+      }
+    });
+  };
+
   return (
     <Formik
       validationSchema={addBotValidationSchema}
@@ -92,9 +108,8 @@ function GuidesAdminAddPopup(props) {
         setFieldValue,
       }) => {
         const {
-          botName, tags, fileContents,
+          tags,
         } = values;
-        console.log('TAGS: ', tags);
         return (
           <div className="popup_panel-small">
             <div className="guides_bot_edit-header">
@@ -116,26 +131,18 @@ function GuidesAdminAddPopup(props) {
                 />
               </div>
               <div style={{ marginLeft: '25px' }}>
+                {backendError && (
+                  <p className="invalid-text-color">{backendError}</p>
+                )}
                 <p className="popup_text-normal" style={{ margin: '0px 0px 5px 0px' }}>Bot Name</p>
-                {/* <select
-                  className="guides_filter"
-                  style={{ width: '100%', border: '1.5px solid #252538' }}
-                >
-                  <option value="">Select Bot Name</option>
-                  {validBots && validBots.map((bot) => {
-                    console.log('BOT: ', validBots[bot]);
-                    return (
-                      <option value={bot} label={bot.displayName} />
-                    );
-                  })}
 
-                </select> */}
                 <Autocomplete
                   style={{ border: '1px solid red' }}
                   sortItems={validBots.length > 0 && sortBots}
                   inputProps={{
                     name: 'botName',
                     placeholder: 'Search Bot',
+                    className: `${errors.botName && 'invalid-input'}`,
                     style: {
                       fontFamily: 'Poppins',
                       fontSize: '17px',
@@ -212,26 +219,31 @@ function GuidesAdminAddPopup(props) {
 
             <div className="guides_bot_edit-input_container">
 
-              <p className="popup_text-normal">Add Tag</p>
+              <p className="popup_text-normal">Add Tags</p>
               <input
                 type="text"
-                className="popup_admin_input"
+                name="tags"
+                className={`popup_admin_input ${errors.tags && 'invalid-input'}`}
                 placeholder="Insert tag name here..."
                 onKeyPress={handleKeyPress(setFieldValue, values.tags)}
+                onBlur={handleBlur(validateField)}
               />
 
             </div>
 
             <div
               className="guides_bot_edit-button_container"
-              role="button"
-              tabIndex={0}
-              aria-label="Home page header"
-              aria-hidden="true"
-              style={{ cursor: 'pointer' }}
-              onClick={handleToggleAddBotModal}
+
             >
-              <div className="popup_red-btn" style={{ width: '45%' }}>
+              <div
+                className="popup_red-btn"
+                style={{ width: '45%', cursor: 'pointer' }}
+                role="button"
+                tabIndex={0}
+                aria-label="Home page header"
+                aria-hidden="true"
+                onClick={handleToggleAddBotModal}
+              >
                 <span
                   className="popup_red-btn_text"
                 >
@@ -240,8 +252,24 @@ function GuidesAdminAddPopup(props) {
                 </span>
               </div>
 
-              <div className="popup_blue-btn" style={{ width: '45%' }}>
-                <span className="popup_blue-btn_text">Save</span>
+              <div
+                className="popup_blue-btn"
+                style={{ width: '45%', cursor: 'pointer' }}
+                role="button"
+                tabIndex={0}
+                aria-label="Home page header"
+                aria-hidden="true"
+                onClick={() => {
+                  handleSubmit(values, validateForm);
+                }}
+              >
+                <span
+                  className="popup_blue-btn_text"
+
+                >
+                  Save
+
+                </span>
               </div>
             </div>
 
