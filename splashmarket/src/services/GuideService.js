@@ -16,6 +16,13 @@ export default class GuideService {
       .catch(onError);
   }
 
+  static async FindBotGuide(bot, onSuccess, onError) {
+    await axios
+      .get(getAPIPath(`guides/bots/${bot}`), { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
+
   static async FindBotGuides(bot, onSuccess, onError) {
     await axios
       .get(getAPIPath(`guides/${bot}?page=1`), { withCredentials: true })

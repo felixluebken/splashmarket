@@ -826,6 +826,8 @@ input.dashboard_droplets-cost_edit {
   border-radius: 6px;
 
   margin: 15px;
+
+  cursor: pointer;
 }
 .guides_panel-tags_container {
   margin: 16px 25px;

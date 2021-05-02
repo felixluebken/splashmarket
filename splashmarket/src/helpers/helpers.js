@@ -44,3 +44,10 @@ export const enforceNumber = (event) => {
     event.preventDefault();
   }
 };
+
+export const verifyAdmin = (role, isLoggedIn) => {
+  if (role === 'admin' && isLoggedIn) {
+    return true;
+  }
+  return false;
+};

@@ -20,6 +20,7 @@ import BotsSearch from './pages/BotsSearch';
 import BotsExpand from './pages/BotsExpand';
 import Guides from './pages/Guides';
 import GuidesSearch from './pages/GuidesSearch';
+import GuidesExpand from './pages/GuidesExpand';
 
 const Routes = () => {
   const history = useHistory();
@@ -121,6 +122,9 @@ const Routes = () => {
         </Route>
         <Route exact path="/guides/search">
           <GuidesSearch />
+        </Route>
+        <Route exact path="/guides/:bot">
+          <GuidesExpand />
         </Route>
       </Switch>
     </Router>

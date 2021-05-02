@@ -1,6 +1,6 @@
 import React from 'react';
 import './panels.css';
-
+import { useHistory } from 'react-router-dom';
 import GuideTag from '../small-panels/guideTags';
 import GuideTagAdd from '../small-panels/guideTagsAdd';
 
@@ -12,8 +12,27 @@ botName                         -str
 
 function GuideBotPanelAdmin(props) {
   const { iconBackgroundColor, iconUrl, botName } = props;
+
+  const history = useHistory();
+
+  const handleRedirect = (route) => {
+    history.push(route);
+  };
+
+  console.log('BOT NAME: ', botName);
   return (
-    <div className="guides_panel">
+    <div
+      className="guides_panel"
+      role="button"
+      tabIndex={0}
+      aria-label="Home page header"
+      aria-hidden="true"
+      style={{ cursor: 'pointer' }}
+      onClick={() => {
+        console.log('CLICKING');
+        // handleRedirect('/');
+      }}
+    >
       <div className="guides_panel_admin-header">
         <div className="guides_panel-icon_frame" style={{ margin: 0, backgroundColor: `${iconBackgroundColor}` }}>
           <div className="guides_panel-icon" style={{ backgroundImage: `url(${iconUrl})` }} />

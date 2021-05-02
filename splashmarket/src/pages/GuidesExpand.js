@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Guides.css';
-
+import { useParams, useHistory } from 'react-router-dom';
 import HeaderGuide from '../components/header/headerGuide';
 import Footer from '../components/footer/footer';
-
+import { verifyAdmin } from '../helpers/helpers';
 import GuideTag from '../components/small-panels/guideTagsLarge';
 import GuideTagBlue from '../components/small-panels/guideTagsLargeBlue';
+import GuideService from '../services/GuideService';
+import GuidesAdminEditPopup from '../popups/GuidesAdminEditPopup';
+import { UserContext } from '../context/UserContext';
 
 /*
 
@@ -22,18 +25,86 @@ siteLink                    -str
 
 */
 
-function GuidesExpandUser(props) {
+function GuidesExpand(props) {
   const {
-    bannerColor, bannerIconUrl, bannerTextColor, botName, twitterLink, instagramLink, siteLink,
+    bannerColor, bannerIconUrl, bannerTextColor, twitterLink, instagramLink, siteLink,
   } = props;
+  const [user] = useContext(UserContext);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const history = useHistory();
+  const [botGuide, setBotGuide] = useState(null);
+  const [botGuideIcon, setBotGuideIcon] = useState(null);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  let botName;
+  let fileContents;
+  let renewalTypes;
+  let systemsSupported;
+  let tags;
+
+  if (botGuide) {
+    ({
+      botName, fileContents, renewalTypes, systemsSupported, tags,
+    } = botGuide);
+  }
+  const { bot } = useParams();
+
+  const getBotGuide = () => {
+    const onGetBotGuideSuccess = (response) => {
+      setBotGuide(response.data);
+    };
+    const onGetBotGuideError = (error) => {
+      console.log('ERROR GETTING BOT: ', error.response);
+      history.push('/');
+    };
+
+    GuideService.FindBotGuide(bot, onGetBotGuideSuccess, onGetBotGuideError);
+  };
+  useEffect(() => {
+    getBotGuide();
+  }, []);
+
+  useEffect(() => {
+    setIsAdmin(verifyAdmin(user.role, user.isLoggedIn));
+  }, []);
+
+  useEffect(() => {
+    if (fileContents && fileContents.buffer) {
+      // eslint-disable-next-line new-cap
+      const img = new Buffer.from(fileContents.buffer).toString('base64');
+      const imgURL = `data:image/png;base64,${img}`;
+      setBotGuideIcon(imgURL);
+    }
+  }, [botGuide]);
+
+  const toggleEditGuideModal = () => {
+    setIsEditModalVisible(true);
+  };
+
   return (
     <>
+      {isEditModalVisible && (
+      <GuidesAdminEditPopup />
+      )}
       <HeaderGuide />
-      <div className="guides_expand-header_banner" style={{ backgroundColor: `${bannerColor}` /* ,backgroundImage:`url(${bannerBackgroundUrl})` */ }}>
+      <div className="guides_expand-header_banner" style={{ backgroundColor: '#131323' /* ,backgroundImage:`url(${bannerBackgroundUrl})` */ }}>
         <div className="guides_expand-header_container">
-          <div className="guides_expand-header_icon" style={{ backgroundImage: `url(${bannerIconUrl})` }} />
+          <div className="guides_expand-header_icon" style={{ backgroundImage: `url(${botGuideIcon})` }} />
           <h4 className="guides_title" style={{ color: `${bannerTextColor}` }}>{botName}</h4>
         </div>
+
+        {isAdmin && (
+        <div
+          className="guides_expand-edit_btn"
+          role="button"
+          tabIndex={0}
+          aria-label="Edit Bot GUide"
+          aria-hidden="true"
+          onClick={toggleEditGuideModal}
+        >
+          <span className="guides_expand-edit_btn-text">Edit Guide</span>
+        </div>
+        )}
+
       </div>
 
       <div className="guides_expand-panel">
@@ -68,14 +139,8 @@ function GuidesExpandUser(props) {
         <div className="guides_expand-container">
           <p className="text-light" style={{ margin: 0 }}>Sites Supported</p>
           <div className="guides_expand-small_panel-container" style={{ margin: '10px 0' }}>
-            <GuideTag tag="Shopify" />
-            <GuideTag tag="Footsites" />
-            <GuideTag tag="Mesh" />
-            <GuideTag tag="Supreme" />
-            <GuideTag tag="Shopify" />
-            <GuideTag tag="Footsites" />
-            <GuideTag tag="Mesh" />
-            <GuideTag tag="Supreme" />
+            {tags && tags.length > 0 && tags.map((tag) => <GuideTag tag={tag} />)}
+
           </div>
         </div>
 
@@ -124,4 +189,4 @@ function GuidesExpandUser(props) {
   );
 }
 
-export default GuidesExpandUser;
+export default GuidesExpand;
