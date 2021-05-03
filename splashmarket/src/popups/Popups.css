@@ -17,6 +17,18 @@ h3.popup_text-normal {
     line-height: 30px;
 }
 
+p.popup_text-large {
+    color: white;
+    font-family: Poppins;
+    font-size: 17px;
+    line-height: 20px;
+}
+p.popup_text-large-light {
+    color: #BFC3D3;
+    font-family: Poppins;
+    font-size: 17px;
+    line-height: 20px;
+}
 
 p.popup_text-normal {
     color: white;
@@ -81,6 +93,22 @@ textarea.popup_admin_text-area {
 
 
 
+select.popup_admin_select {
+    border: 1.5px solid #252538;
+    box-sizing: border-box;
+    border-radius: 6px;
+
+    height:38px;
+    width:100%;
+
+    padding:0px 15px;
+
+    color: white;
+    font-family: Poppins;
+    font-size: 14px;
+    line-height: 24px;
+}
+
 
 
 
@@ -117,10 +145,76 @@ textarea.popup_admin_text-area {
     left: 50%; 
     transform: translate(-50%, -50%);
 }
+.popup_panel-big {
+        
+    background: #19192C;
+    border-radius: 11.8462px;
+
+    width:60%;
+
+    padding: 40px 5%;
+
+    display:inline-block;
+
+    position:absolute;
+
+    top:20%;
+    left:15%;
+}
 
 
 
+.popup_bot_guides-input-panel {
+    width:100%;
 
+    margin-bottom:20px;
+
+    display:inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.popup_bot_guides-input-container_full {
+    width: 100%;
+    display:inline-block;
+
+    margin-bottom:20px;
+}
+.popup_bot_guides-input-container_half {
+    width: 48%;
+    display:inline-block;
+}
+.popup_bot_guides-input-container_third {
+    width: 30%;
+    display:inline-block;
+}
+.popup_bot_guides-tag_container {
+    width:100%;
+
+
+
+    display:inline-flex;
+    justify-content: start;
+    align-items: flex-start;
+
+    flex-wrap: wrap;
+
+    margin-bottom:20px;
+
+
+}
+.popup_bot_guides_edit-button_container {
+    height:44px;
+    width:60%;
+
+    margin-left:40%;
+
+    margin-top:50px;
+
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 
 
 .droplets_admin_add-header_container {
@@ -328,6 +422,24 @@ textarea.popup_admin_text-area {
     background-repeat: no-repeat;
 }
 
+
+@media only screen and (max-width:1320px) {
+    .popup_panel-big {
+        width:80%;
+        padding: 40px 5%;
+
+        
+        top:20%;
+        left:5%;
+    }
+}
+
+@media only screen and (max-device-width:960px) {
+    .popup_bot_guides-input-container_third {
+        width:100%;
+    }
+}
+
 @media only screen and (max-device-width: 544px) {
     .popup_panel-small {
         width:316px;
@@ -338,5 +450,10 @@ textarea.popup_admin_text-area {
     }
     .droplets_admin_add-header_text-frame {
         width:160px;
+    }
+
+
+    .popup_bot_guides-input-container_half {
+        width:100%;
     }
 }

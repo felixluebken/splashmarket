@@ -33,11 +33,15 @@ import DropletsAdminAddPopup from './popups/DropletsAdminAddPopup'
 import GuidesAdminEditPopup from './popups/GuidesAdminEditPopup'
 import GuidesAdminAddPopup from './popups/GuidesAdminAddPopup'
 
+import GuidesBotAdminEditPopup from './popups/GuidesBotAdminEditPopup'
+
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <GuidesExpandAdmin bannerColor="#52FF81" botName="Cybersole" bannerTextColor="black" siteLink="https://google.com" />
+     <GuidesBotAdminEditPopup />
+     <Leaderboard />
+   
   </React.StrictMode>,
   document.getElementById('root')
 );
