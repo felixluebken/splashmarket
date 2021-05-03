@@ -11,6 +11,10 @@ h3.dashboard_text-normal {
   line-height: 30px;
 }
 
+.blur {
+  filter: blur(0.4rem);
+}
+
 p.dashboard_text-normal {
   color: white;
   font-family: Poppins;

@@ -1,6 +1,6 @@
 import React, { useReducer, createContext } from 'react';
 
-export const UserContext = createContext(null);
+export const UserSearchContext = createContext(null);
 
 export const SET_USER = 'SET_USER';
 
@@ -28,8 +28,8 @@ const reducer = (state, action) => {
   return state;
 };
 
-export const UserContextProvider = (props) => {
+export const UserSearchContextProvider = (props) => {
   const { passedInValue, children } = props;
   const [state, dispatch] = useReducer(reducer, passedInValue || initialState);
-  return <UserContext.Provider value={[state, dispatch]}>{children}</UserContext.Provider>;
+  return <UserSearchContext.Provider value={[state, dispatch]}>{children}</UserSearchContext.Provider>;
 };

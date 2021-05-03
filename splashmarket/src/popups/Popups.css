@@ -93,6 +93,7 @@ textarea.popup_admin_text-area {
   transform: translate(-50%, -50%);
 }
 .popup_panel-tall {
+  overflow-y: auto;
   width: 356px;
   height: 615px;
 

@@ -2,59 +2,18 @@
 import React, { useContext, useState, useEffect } from 'react';
 import './Dashboard.css';
 import { useHistory } from 'react-router-dom';
+import ToggleButton from 'react-toggle-button';
 import HeaderLoggedIn from '../components/header/headerLoggedIn';
-
 import TransactionHistoryPanel from '../components/list-panels/transactionHistory';
 import { UserContext } from '../context/UserContext';
 import { getLocalTime } from '../helpers/helpers';
-
-/*
-PROP PARAMS
-
-dashboardGreeting           -str
-username                    -str
-avatar                      -str (discord avatar url)
-discriminator               -str
-transactions_mm             -str
-transactions                -str
-totalSold                   -str
-totalPurchased              -str
-droplets                    -str
-dropletsRedeemUrl           -str (url for redeeming droplets)
-
-manageSubscriptionUrl       -str (url for managing subscriptions)
-paymentType                 -str
-paymentLast4                -str
-
-MOST TRANSACTED #1
-numTransactions1            -str
-botName1                    -str
-botBackgroundColor1         -str (hex)
-botIcon1                    -str (url)
-botBarColor1                -str (hex)
-botBarPercent1              -str (% of progress)
-
-MOST TRANSACTED #2
-numTransactions2            -str
-botName2                    -str
-botBackgroundColor2         -str (hex)
-botIcon2                    -str (url)
-botBarColor2                -str (hex)
-botBarPercent2              -str (% of progress)
-
-MOST TRANSACTED #3
-numTransactions3            -str
-botName3                    -str
-botBackgroundColor3         -str (hex)
-botIcon3                    -str (url)
-botBarColor3                -str (hex)
-botBarPercent3              -str (% of progress)
-
-*/
+import UserService from '../services/UserService';
 
 function DashboardAdmin(props) {
   const [user] = useContext(UserContext);
   const [greeting, setGreeting] = useState('');
+  const [isToggled, setIsToggled] = useState(user.showTransactions);
+
   const history = useHistory();
   const {
     username, discriminator, avatar, transactions, totalBought, totalSold, currency, topTransactedBots, transactionsMMd,
@@ -66,8 +25,10 @@ function DashboardAdmin(props) {
     setGreeting(getLocalTime());
   }, []);
   const {
-    dropletsRedeemUrl, manageSubscriptionUrl, paymentType, paymentLast4, numTransactions1, botBarColor1,
+    dropletsRedeemUrl, manageSubscriptionUrl, paymentType, paymentLast4, botBarColor1,
   } = props;
+
+  console.log('IS TOGGLED: ', isToggled);
 
   return (
     <>
@@ -80,7 +41,34 @@ function DashboardAdmin(props) {
               <p className="dashboard_text-normal dashboard_banner-greeting_text-admin">{`${greeting},`}</p>
               <div className="dashboard_admin">
                 <div className="dashboard_user-profile-pic" style={{ backgroundImage: `url(${avatar})` }} />
-                <p className="dashboard_text-normal" style={{ padding: '5px 0px 5px 70px', margin: '0px' }}>{username}</p>
+                <div style={{ display: 'flex' }}>
+                  <p className="dashboard_text-normal" style={{ padding: '5px 15px 5px 14px', margin: '0px' }}>{username}</p>
+                  <ToggleButton
+                    inactiveLabel="Show"
+                    activeLabel="Hide"
+                    value={isToggled}
+                    onToggle={(value) => {
+                      setIsToggled(!isToggled);
+
+                      const onUpdateSuccess = (response) => {
+                        setIsToggled(response.data);
+                      };
+                      const onUpdateError = (error) => {
+                        console.log('ERROR UPDATING TRANSACTIONS:', error.response.data);
+                      };
+                      const body = {
+                        showTransactions: !isToggled,
+                      };
+                      UserService.UpdateUser(user.id, body, onUpdateSuccess, onUpdateError);
+                    }}
+                    colors={{
+                      active: {
+                        base: '#29ABFF',
+                      },
+                    }}
+                  />
+                </div>
+
                 <p className="dashboard_text-light" style={{ padding: '5px 0px 0px 70px', margin: '0px' }}>{discriminator}</p>
               </div>
             </div>
@@ -190,8 +178,7 @@ function DashboardAdmin(props) {
 
                   <div className="dashboard_most-transacted-text_container">
                     <p className="dashboard_text-light-xs" style={{ margin: '0' }}>
-                      {numTransactions1}
-                      Transactions
+                      {`${occurences} Transactions`}
                     </p>
                     <p className="dashboard_text-normal-small" style={{ margin: '5px 0px 0px 0px' }}>{bot}</p>
                     <div className="dashboard_most-transacted-bar_container">

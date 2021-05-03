@@ -15,4 +15,18 @@ export default class UserService {
       .then(onSuccess)
       .catch(onError);
   }
+
+  static async UpdateUser(id, data, onSuccess, onError) {
+    await axios
+      .put(getAPIPath(`user/${id}`), data, { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
+
+  static async GetUser(id, onSuccess, onError) {
+    await axios
+      .get(getAPIPath(`user/${id}`), { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
 }

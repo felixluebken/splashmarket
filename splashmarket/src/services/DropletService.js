@@ -9,9 +9,9 @@ export default class DropletService {
       .catch(onError);
   }
 
-  static async GetDroplets(page, onSuccess, onError) {
+  static async GetDroplets(page = 1, onSuccess, onError) {
     await axios
-      .get(getAPIPath('droplets'), { withCredentials: true })
+      .get(getAPIPath(`droplets?page=${page}`), { withCredentials: true })
       .then(onSuccess)
       .catch(onError);
   }

@@ -21,10 +21,11 @@ moreInfoUrl     -str
 
 function DashboardDropletsAdminPanel(props) {
   const {
-    droplet, droplets, setDroplets,
+    droplet, droplets, setDroplets, isAdmin,
   } = props;
 
   const initialValues = { ...droplet };
+
   const [companyIcon, setCompanyIcon] = useState('');
   const [saved, setSaved] = useState(false);
   const history = useHistory();
@@ -128,7 +129,7 @@ function DashboardDropletsAdminPanel(props) {
                 <div className="dashboard_droplets-cost_icon" />
               </div>
               <div className="dashboard_droplets-cost_text">
-                <input name="price" className={`dashboard_droplets-cost_edit ${errors.price && 'invalid-input'}`} placeholder="Droplet Cost" value={price} onChange={handleChange} onBlur={handleBlur(validateField)} onKeyDown={enforceNumber} />
+                <input name="price" className={`dashboard_droplets-cost_edit ${errors.price && 'invalid-input'}`} style={{ width: '100%' }} placeholder="Droplet Cost" value={price} onChange={handleChange} onBlur={handleBlur(validateField)} onKeyDown={enforceNumber} />
               </div>
             </div>
             <div
@@ -149,7 +150,6 @@ function DashboardDropletsAdminPanel(props) {
 
                 >
                   More Info
-
                 </span>
               </div>
               <div

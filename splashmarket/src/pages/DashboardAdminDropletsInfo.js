@@ -11,19 +11,7 @@ import DropletService from '../services/DropletService';
 import { dropletValidationSchema } from '../helpers/validationSchema';
 import { enforceNumber } from '../helpers/helpers';
 
-/*
-droplets            -str
-title               -str
-iconUrl             -str url icon
-cost                -str
-
-mainTitle           -str
-description         -str
-prizeDescription    -str
-
-*/
-
-function DashboardAdminDropletsInfo() {
+const DashboardAdminDropletsInfo = () => {
   const { id } = useParams();
   const [user] = useContext(UserContext);
   const [droplet, setDroplet] = useState({});
@@ -67,7 +55,6 @@ function DashboardAdminDropletsInfo() {
   }
 
   const onDropletUpdateSuccess = () => {
-    console.log('UPDATED SUCCESSFULLY');
     setSaved(true);
   };
 
@@ -115,7 +102,6 @@ function DashboardAdminDropletsInfo() {
           validateField,
           validateForm,
         }) => {
-          console.log('VALUES: ', values);
           const {
             prize, companyDescription, company, prizeDescription, webhookURL, roleID,
           } = values;
@@ -254,6 +240,6 @@ function DashboardAdminDropletsInfo() {
       <Footer />
     </>
   );
-}
+};
 
 export default DashboardAdminDropletsInfo;

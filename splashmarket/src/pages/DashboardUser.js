@@ -1,67 +1,81 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './Dashboard.css';
+import { useParams } from 'react-router-dom';
+import ToggleButton from 'react-toggle-button';
 import HeaderLoggedIn from '../components/header/headerLoggedIn';
 import TransactionHistoryPanel from '../components/list-panels/transactionHistory';
-import { UserContext } from '../context/UserContext';
+import { initialState, SET_USER, UserContext } from '../context/UserContext';
 import { getLocalTime } from '../helpers/helpers';
-
-/*
-PROP PARAMS
-
-dashboardGreeting           -str
-username                    -str
-avatar                      -str (discord avatar url)
-discriminator               -str
-transactions                -str
-totalSold                   -str
-totalPurchased              -str
-droplets                    -str
-dropletsRedeemUrl           -str (url for redeeming droplets)
-
-manageSubscriptionUrl       -str (url for managing subscriptions)
-paymentType                 -str
-paymentLast4                -str
-
-MOST TRANSACTED #1
-numTransactions1            -str
-botName1                    -str
-botBackgroundColor1         -str (hex)
-botIcon1                    -str (url)
-botBarColor1                -str (hex)
-botBarPercent1              -str (% of progress)
-
-MOST TRANSACTED #2
-numTransactions2            -str
-botName2                    -str
-botBackgroundColor2         -str (hex)
-botIcon2                    -str (url)
-botBarColor2                -str (hex)
-botBarPercent2              -str (% of progress)
-
-MOST TRANSACTED #3
-numTransactions3            -str
-botName3                    -str
-botBackgroundColor3         -str (hex)
-botIcon3                    -str (url)
-botBarColor3                -str (hex)
-botBarPercent3              -str (% of progress)
-
-*/
+import { UserSearchContext } from '../context/UserSearchContext';
+import UserService from '../services/UserService';
 
 const DashboardUser = (props) => {
-  // const userID = useParams();
+  const { id } = useParams();
   const [user] = useContext(UserContext);
+  const [userSearch, userDispatch] = useContext(UserSearchContext);
+  const [userView, setUserView] = useState(null);
   const [greeting, setGreeting] = useState('');
-  const {
-    username, discriminator, avatar, transactions, totalBought, totalSold, currency, topTransactedBots,
-  } = user;
+  const [isToggled, setIsToggled] = useState(user.showTransactions);
+
+  let username; let discriminator; let avatar; let transactions; let totalBought; let totalSold; let currency; let
+    topTransactedBots; let
+    showTransactions;
+
+  useEffect(() => {
+    if (id) {
+      if (userSearch.id) {
+        setUserView(userSearch);
+      }
+    } else {
+      setUserView(user);
+    }
+  }, [userView, userSearch]);
+
+  if (userView) {
+    ({
+      username, discriminator, avatar, transactions, totalBought, totalSold, currency, topTransactedBots, showTransactions,
+    } = userView);
+  }
+
   useEffect(() => {
     setGreeting(getLocalTime());
+
+    if (id) {
+      const onGetUserSuccess = (response) => {
+        userDispatch({
+          type: SET_USER,
+          payload: {
+            value: { ...response.data, isLoggedIn: true },
+          },
+        });
+      };
+      const onGetUserError = (error) => {
+        console.log('ERROR UPDATING TRANSACTIONS:', error.response.data);
+      };
+
+      UserService.GetUser(id, onGetUserSuccess, onGetUserError);
+
+      return (() => {
+        userDispatch({
+          type: SET_USER,
+          payload: {
+            value: initialState,
+          },
+        });
+      });
+    }
+    return null;
   }, []);
 
   const {
     dropletsRedeemUrl, manageSubscriptionUrl, paymentType, paymentLast4, numTransactions1, botBarColor1,
   } = props;
+
+  if (!userView) {
+    return <h1>Loading...</h1>;
+  }
+
+  console.log('USER VIEW: ', showTransactions);
 
   return (
     <>
@@ -73,24 +87,53 @@ const DashboardUser = (props) => {
             <p className="dashboard_text-normal dashboard_banner-greeting_text" style={{ padding: '70px 0px 15px 50px', margin: '0px' }}>{`${greeting},`}</p>
             <div className="dashboard_user">
               <div className="dashboard_user-profile-pic" style={{ backgroundImage: `url(${avatar})` }} />
-              <p className="dashboard_text-normal" style={{ padding: '5px 0px 5px 70px', margin: '0px' }}>{username}</p>
+              <div style={{ display: 'flex' }}>
+                <p className="dashboard_text-normal" style={{ padding: '5px 15px 5px 14px', margin: '0px' }}>{username}</p>
+                {!id && (
+                <ToggleButton
+                  inactiveLabel="Show"
+                  activeLabel="Hide"
+                  value={isToggled}
+                  onToggle={(value) => {
+                    setIsToggled(!isToggled);
+
+                    const onUpdateSuccess = (response) => {
+                      setIsToggled(response.data);
+                    };
+                    const onUpdateError = (error) => {
+                      console.log('ERROR UPDATING TRANSACTIONS:', error.response.data);
+                    };
+                    const body = {
+                      showTransactions: !isToggled,
+                    };
+                    UserService.UpdateUser(user.id, body, onUpdateSuccess, onUpdateError);
+                  }}
+                  colors={{
+                    active: {
+                      base: '#29ABFF',
+                    },
+                  }}
+                />
+                )}
+              </div>
               <p className="dashboard_text-light" style={{ padding: '5px 0px 0px 70px', margin: '0px' }}>{`#${discriminator}`}</p>
+
             </div>
           </div>
 
           <div className="dashboard_stats-container">
 
-            <div className="dashboard_stats-panel">
+            <div className={`dashboard_stats-panel ${!showTransactions && id && 'blur'}`}>
               <div className="dashboard_stats-icon_container">
                 <div className="dashboard_stats-icon dashboard_stats-icon-transactions" />
               </div>
               <div className="dashboard_stats-text_container">
-                <h3 className="dashboard_text-normal" style={{ margin: '5px 0px 0px 0px' }}>{transactions.length}</h3>
+                <h3 className="dashboard_text-normal" style={{ margin: '5px 0px 0px 0px' }}>{transactions && transactions.length}</h3>
                 <p className="dashboard_text-light" style={{ margin: '5px 0px 0px 0px' }}>Transactions</p>
               </div>
             </div>
 
-            <div className="dashboard_stats-panel">
+            <div className={`dashboard_stats-panel ${!showTransactions && id && 'blur'}`}>
               <div className="dashboard_stats-icon_container">
                 <div className="dashboard_stats-icon dashboard_stats-icon-sold" />
               </div>
@@ -100,7 +143,7 @@ const DashboardUser = (props) => {
               </div>
             </div>
 
-            <div className="dashboard_stats-panel">
+            <div className={`dashboard_stats-panel ${!showTransactions && id && 'blur'}`}>
               <div className="dashboard_stats-icon_container">
                 <div className="dashboard_stats-icon dashboard_stats-icon-purchased" />
               </div>
@@ -112,7 +155,7 @@ const DashboardUser = (props) => {
 
           </div>
 
-          <div className="dashboard_transaction-history_panel">
+          <div className={`dashboard_transaction-history_panel ${!showTransactions && id && 'blur'}`}>
             <p className="dashboard_text-normal">Transaction History</p>
             <table>
               <tr>
@@ -125,7 +168,7 @@ const DashboardUser = (props) => {
             </table>
 
             <div className="dashboard_transaction-history_panel-container">
-              {transactions.map((transaction) => {
+              {transactions && transactions.map((transaction) => {
                 const {
                   bot, transactionDate, position, otherParty, logo, transcriptHTML, transcriptTitle,
                 } = transaction;
@@ -135,14 +178,15 @@ const DashboardUser = (props) => {
                   uri = `data:text/html,${escape(transcriptHTML)}`;
                 }
                 return (
-                  <TransactionHistoryPanel botBackground="black" botIcon={logo || ''} botName={bot} date={transactionDate} position={position} otherParty={otherParty} transcriptTitle={transcriptTitle || 'Transcript Not Available'} transcriptUrl={uri} />
+                  <TransactionHistoryPanel botBackground="black" botIcon={logo || ''} botName={bot} date={transactionDate} position={position} otherParty={otherParty} transcriptTitle={!id && transcriptTitle ? transcriptTitle : 'Transcript Not Available'} transcriptUrl={!id && uri} />
                 );
               })}
             </div>
           </div>
-
         </div>
+
         <div className="dashboard_body-right">
+          {!id && (
           <div className="dashboard_droplets_panel">
             <div className="dashboard_droplets_panel-header">
               <p className="dashboard_text-normal">Droplets</p>
@@ -160,8 +204,9 @@ const DashboardUser = (props) => {
               </div>
             </div>
           </div>
+          )}
 
-          <div className="dashboard_most-transacted_panel">
+          <div className={`dashboard_most-transacted_panel ${!showTransactions && id && 'blur'}`}>
             <p className="dashboard_text-normal dashboard_most-transacted_header">Most Transacted Bots</p>
             {topTransactedBots && topTransactedBots.map((transactedBot) => {
               const { bot, logo, occurences } = transactedBot;
@@ -174,8 +219,7 @@ const DashboardUser = (props) => {
 
                   <div className="dashboard_most-transacted-text_container">
                     <p className="dashboard_text-light-xs" style={{ margin: '0' }}>
-                      {numTransactions1}
-                      Transactions
+                      {`${occurences} Transactions`}
                     </p>
                     <p className="dashboard_text-normal-small" style={{ margin: '5px 0px 0px 0px' }}>{bot}</p>
                     <div className="dashboard_most-transacted-bar_container">
@@ -187,19 +231,22 @@ const DashboardUser = (props) => {
             })}
           </div>
 
-          <div className="dashboard_payment-panel">
-            <div className="dashboard_payment-panel-card_icon" />
-            <div className="dashboard_payment-panel-text_container">
-              <p className="dashboard_text-light" style={{ margin: '0px 0px 10px 0px' }}>
-                {paymentType}
-                {' '}
-                ••••
-                {' '}
-                {paymentLast4}
-              </p>
-              <a className="dashboard_link_text-normal" href={manageSubscriptionUrl}>Manage Subscription ⇾</a>
+          {!id && (
+            <div className="dashboard_payment-panel">
+              <div className="dashboard_payment-panel-card_icon" />
+              <div className="dashboard_payment-panel-text_container">
+                <p className="dashboard_text-light" style={{ margin: '0px 0px 10px 0px' }}>
+                  {paymentType}
+                  {' '}
+                  ••••
+                  {' '}
+                  {paymentLast4}
+                </p>
+                <a className="dashboard_link_text-normal" href={manageSubscriptionUrl}>Manage Subscription ⇾</a>
+              </div>
             </div>
-          </div>
+          )}
+
         </div>
       </div>
     </>

@@ -13,7 +13,7 @@ import { UserContext, SET_USER } from './context/UserContext';
 import PrivateRoute from './PrivateRoute';
 import DashboardAdmin from './pages/DashboardAdmin';
 import DashboardAdminDroplets from './pages/DashboardAdminDroplets';
-import DashboardUserDroplets from './pages/DashboardUserDroplets';
+import DashboardUserDropletsInfo from './pages/DashboardUserDropletsInfo';
 import DashboardAdminDropletsInfo from './pages/DashboardAdminDropletsInfo';
 import Leaderboard from './pages/Leaderboard';
 import BotsSearch from './pages/BotsSearch';
@@ -25,6 +25,7 @@ import GuidesExpand from './pages/GuidesExpand';
 const Routes = () => {
   const history = useHistory();
   const [user, userDispatch] = useContext(UserContext);
+  // const [userSearch, userSearchDispatch] = useContext(UserSearchContext);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const onGetUserSuccess = (response) => {
@@ -91,18 +92,17 @@ const Routes = () => {
             ? <DashboardAdmin />
             : <DashboardUser />}
         </PrivateRoute>
+        <Route exact path="/user/:id">
+          <DashboardUser />
+        </Route>
         <PrivateRoute exact path="/droplets" isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating}>
-          {user.role === 'admin' ? (
-            <DashboardAdminDroplets />
-          ) : (
-            <DashboardUserDroplets />
-          )}
+          <DashboardAdminDroplets />
         </PrivateRoute>
         <PrivateRoute exact path="/droplets/:id" isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating}>
-          {user.role === 'admin' ? (
+          {!user.role === 'admin' ? (
             <DashboardAdminDropletsInfo />
           ) : (
-            <DashboardUserDroplets />
+            <DashboardUserDropletsInfo />
           )}
         </PrivateRoute>
         <Route exact path="/user/:id">
