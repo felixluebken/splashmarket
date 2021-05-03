@@ -12,13 +12,9 @@ import DropletService from '../services/DropletService';
 import { UserContext } from '../context/UserContext';
 import { verifyAdmin } from '../helpers/helpers';
 import useQuery from '../helpers/useQuery';
+import DashboardDropletsUserPanel from '../components/panels/DashboardDropletsUserPanel';
 
-/*
-droplets           -str
-
-*/
-
-const DashboardAdminDroplets = (props) => {
+const DashboardDroplets = (props) => {
   const [user] = useContext(UserContext);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -53,15 +49,12 @@ const DashboardAdminDroplets = (props) => {
   useEffect(() => {
     getAllDroplets(pageQuery);
 
-    // CHANGE
-    setIsAdmin(!verifyAdmin(user.role, user.isLoggedIn));
+    setIsAdmin(verifyAdmin(user.role, user.isLoggedIn));
   }, []);
 
   useEffect(() => {
     getAllDroplets(pageQuery);
   }, [pageQuery]);
-
-  console.log('IS ADMIN: ', isAdmin);
 
   return (
     <>
@@ -103,11 +96,27 @@ const DashboardAdminDroplets = (props) => {
         </div>
         )}
 
+        <div className="dashboard_droplets_redeem-header_balance">
+          <div className="dashboard_droplets_redeem-header_droplets-body">
+            <div className="dashboard_droplets_panel-icon_container">
+              <div className="dashboard_droplets_panel-icon" />
+            </div>
+            <div className="dashboard_droplets_panel-text_container">
+              <p className="dashboard_text-light" style={{ margin: '5px 0px' }}>Your current balance</p>
+              <h4 className="dashboard_text-normal" style={{ margin: '5px 0px' }}>
+                {`${user.currency || 0} Droplets`}
+              </h4>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div className="dashboard_droplets_redeem-panel_container">
-        {droplets.map((droplet) => (
-          <DashboardDropletsAdminPanel droplet={droplet} droplets={droplets} setDroplets={setDroplets} isAdmin={isAdmin} />
+        {droplets.map((droplet) => (isAdmin ? (
+          <DashboardDropletsAdminPanel droplet={droplet} droplets={droplets} setDroplets={setDroplets} />
+
+        ) : <DashboardDropletsUserPanel droplet={droplet} droplets={droplets} setDroplets={setDroplets} currency={user.currency} />
         ))}
 
       </div>
@@ -118,4 +127,4 @@ const DashboardAdminDroplets = (props) => {
   );
 };
 
-export default DashboardAdminDroplets;
+export default DashboardDroplets;

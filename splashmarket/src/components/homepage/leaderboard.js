@@ -30,11 +30,13 @@ function HomepageLeaderboard() {
       <div className="leaderboard_img">
         {topUsers && topUsers.map((user, index) => {
           const {
-            username, discriminator, avatar, transactionsLength, createdAt,
+            username, discriminator, avatar, transactionsLength, createdAt, id,
           } = user;
+          console.log('USER: ', user);
           return (
             <RankedMemberPanel
-              // key={username}
+              key={id}
+              id={id}
               username={`${username}#${discriminator}`}
               transactions={transactionsLength}
               memberSince={createdAt}

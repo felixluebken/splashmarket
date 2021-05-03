@@ -19,9 +19,9 @@ moreInfoUrl     -str
 
 */
 
-function DashboardDropletsAdminPanel(props) {
+const DashboardDropletsAdminPanel = (props) => {
   const {
-    droplet, droplets, setDroplets, isAdmin,
+    droplet, droplets, setDroplets,
   } = props;
 
   const initialValues = { ...droplet };
@@ -48,7 +48,6 @@ function DashboardDropletsAdminPanel(props) {
   }, [saved]);
 
   const onDropletUpdateSuccess = () => {
-    console.log('UPDATED SUCCESSFULLY');
     setSaved(true);
   };
 
@@ -147,7 +146,6 @@ function DashboardDropletsAdminPanel(props) {
               >
                 <span
                   className="dashboard_droplets-more_info-btn-text"
-
                 >
                   More Info
                 </span>
@@ -164,14 +162,12 @@ function DashboardDropletsAdminPanel(props) {
               >
                 <span className="dashboard_droplets-redeem-btn-text">{saved ? 'Saved!' : 'Save'}</span>
               </div>
-
             </div>
           </div>
         );
       }}
     </Formik>
-
   );
-}
+};
 
 export default DashboardDropletsAdminPanel;

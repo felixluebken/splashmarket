@@ -186,7 +186,6 @@ const Leaderboard = (props) => {
       } else if (searchResults.queries.includes('newest')) {
         sortedResults = searchResultsCopy.sort((a, b) => ((a.createdAt > b.createdAt) ? -1 : (a.createdAt > b.createdAt) ? 1 : 0));
       }
-      console.log('SORTED RESULTS: ', sortedResults);
       if (sortedResults && sortedResults.length > 0) {
         dispatch({
           type: SET_SEARCH_RESULTS,
@@ -332,6 +331,8 @@ const Leaderboard = (props) => {
               const {
                 createdAt, avatar, transactions, username, discriminator, transactionsLength, id,
               } = searchResult;
+
+              console.log('SEARCH RESULT: ', searchResult);
               const memberSince = moment(createdAt).format('MMMM DD, YYYY');
               const lastTransaction = transactions && transactions.length >= 0 ? transactions[transactions.length - 1] : null;
               let lastTransactionDate;
@@ -359,6 +360,7 @@ const Leaderboard = (props) => {
               return (
                 <LeaderboardSearchPanel
                   key={id}
+                  userID={id}
                   username={`${username}${discriminator ? `#${discriminator}` : ''}`}
                   memberSince={memberSince || ''}
                   avatarUrl={avatar}

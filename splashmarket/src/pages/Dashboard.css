@@ -664,6 +664,25 @@ input.invalid-input {
   line-height: 14px;
 }
 
+.dashboard_droplets_info-panel_user-buttons-container {
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard_droplets-info-panel_user-button {
+  background: #29abff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 184px;
+  height: 44px;
+  left: 628px;
+  top: 703px;
+  margin: 8px;
+}
+
 @media screen and (max-width: 4000px) {
   .dashboard_body-left {
     width: 1200px;

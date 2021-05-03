@@ -1,6 +1,7 @@
-import React from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { useEffect, useState } from 'react';
 import './panels.css';
-
+import { useHistory } from 'react-router-dom';
 /*
 
 iconUrl         -str (url of the icon)
@@ -14,18 +15,38 @@ notEnough       -str true or false
 
 */
 
-function DashboardDropletsUserPanel(props) {
+const DashboardDropletsUserPanel = (props) => {
   const {
-    title, subtitle, cost, moreInfoUrl, notEnough, redeemUrl,
+    droplet, droplets, setDroplets, currency,
   } = props;
+
+  const [hasEnoughCurrency, setHasEnoughCurrency] = useState(false);
+  const [companyIcon, setCompanyIcon] = useState('');
+  const history = useHistory();
+
+  useEffect(() => {
+    if (droplet.fileContents && droplet.fileContents.buffer) {
+      // eslint-disable-next-line new-cap
+      const img = new Buffer.from(droplet.fileContents.buffer).toString('base64');
+      const imgURL = `data:image/png;base64,${img}`;
+      setCompanyIcon(imgURL);
+    }
+
+    if (currency) {
+      setHasEnoughCurrency(parseInt(currency, 10) >= parseInt(droplet.price, 10));
+    } else {
+      setHasEnoughCurrency(false);
+    }
+  }, []);
+
   return (
     <div className="dashboard_droplets-panel">
       <div className="dashboard_droplets-panel_header">
-        <div className="dashboard_droplets-panel_header-icon" />
-        <h3 className="panel_text-normal">{title}</h3>
+        <div className="dashboard_droplets-panel_header-icon" style={{ backgroundImage: `url(${companyIcon})` }} />
+        <h3 className="panel_text-normal">{droplet.company}</h3>
       </div>
 
-      <p className="panel_text-normal" style={{ margin: '10px 20px' }}>{subtitle}</p>
+      <p className="panel_text-normal" style={{ margin: '10px 20px' }}>{droplet.prize}</p>
 
       <div className="dashboard_droplets-cost">
         <div className="dashboard_droplets-cost_icon_container">
@@ -34,41 +55,52 @@ function DashboardDropletsUserPanel(props) {
         <div className="dashboard_droplets-cost_text">
           <p className="panel_text-normal-small">Droplet Cost</p>
           <p className="panel_text-normal">
-            {cost}
-            {' '}
-            Droplets
+            {`${droplet.price} Droplets`}
+
           </p>
         </div>
       </div>
 
       <div className="dashboard_droplets-btn_container">
-        <a href={moreInfoUrl}>
-          <div className="dashboard_droplets-more_info-btn">
-            <span className="dashboard_droplets-more_info-btn-text">More Info</span>
-          </div>
-        </a>
+        <div
+          className="dashboard_droplets-more_info-btn"
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            history.push(`/droplets/${droplet._id}`);
+          }}
+        >
+          <span className="dashboard_droplets-more_info-btn-text">More Info</span>
+        </div>
 
-        {(() => {
-          if (notEnough === 'true') {
+        {hasEnoughCurrency ? (
+          <div className="dashboard_droplets-redeem-btn">
+            <span className="dashboard_droplets-redeem-btn-text">Redeem</span>
+          </div>
+        ) : (
+          <div className="dashboard_droplets-not_enough-btn">
+            <span className="dashboard_droplets-not_enough-btn-text">Not enough</span>
+          </div>
+        )}
+        {/* {(() => {
+          if (hasEnoughCurrency) {
             return (
-              <div className="dashboard_droplets-not_enough-btn">
-                <span className="dashboard_droplets-not_enough-btn-text">Not enough</span>
-              </div>
+
             );
           }
 
           return (
-            <a href={redeemUrl}>
-              <div className="dashboard_droplets-redeem-btn">
-                <span className="dashboard_droplets-redeem-btn-text">Redeem</span>
-              </div>
-            </a>
+            <div className="dashboard_droplets-redeem-btn">
+              <span className="dashboard_droplets-redeem-btn-text">Redeem</span>
+            </div>
           );
-        })()}
+        })()} */}
 
       </div>
     </div>
   );
-}
+};
 
 export default DashboardDropletsUserPanel;

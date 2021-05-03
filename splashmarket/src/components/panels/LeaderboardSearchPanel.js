@@ -1,28 +1,33 @@
 import React from 'react';
 import './panels.css';
+import { useHistory } from 'react-router-dom';
 import AvatarPanel43 from '../small-panels/avatar43';
 import BotSwapIcon from '../../resources/logo/bot-swap-icon.svg';
-/*
 
-username                -str
-memberSince             -str
-avatarUrl               -str url of the discord user
-transactions            -str
-lastTransaction         -str
-
-LATEST TRANSACTION #1
-latestTransactionUsername       -str
-latestTransactionAvatarUrl      -str latest transaction avatar url
-
-*/
-
-function LeaderboardSearchPanel(props) {
+const LeaderboardSearchPanel = (props) => {
   const {
-    avatarUrl, username, memberSince, latestTransactionAvatarUrl, latestTransactionUsername, transactionsLength, lastTransaction, transactions,
+    avatarUrl, username, memberSince, latestTransactionAvatarUrl, latestTransactionUsername, transactionsLength, lastTransaction, transactions, userID,
   } = props;
+  const history = useHistory();
+
+  const handleRedirect = (route) => {
+    history.push(route);
+  };
+
+  console.log('USER ID: ', userID);
 
   return (
-    <div className="member_leaderboard_panel">
+    <div
+      className="member_leaderboard_panel"
+      role="button"
+      tabIndex={0}
+      aria-label="Home page header"
+      aria-hidden="true"
+      style={{ cursor: 'pointer' }}
+      onClick={() => {
+        handleRedirect(`user/${userID}`);
+      }}
+    >
       <div className="member_leaderboard_panel-left">
         <div className="member_leaderboard_panel-header">
           <div className="member_leaderboard_panel-header-avatar" style={{ backgroundImage: `url(${avatarUrl})` }} />
@@ -85,6 +90,6 @@ function LeaderboardSearchPanel(props) {
       </div>
     </div>
   );
-}
+};
 
 export default LeaderboardSearchPanel;

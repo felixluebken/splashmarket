@@ -222,10 +222,8 @@ const DashboardAdminDropletsInfo = () => {
                   >
                     <span
                       className="dashboard_droplets_info-panel_footer_admin-btn_text"
-
                     >
                       Cancel
-
                     </span>
                   </div>
 

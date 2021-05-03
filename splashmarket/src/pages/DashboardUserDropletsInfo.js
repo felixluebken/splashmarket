@@ -77,9 +77,7 @@ function DashboardUserDropletsInfo(props) {
             <div className="dashboard_droplets_panel-text_container">
               <p className="dashboard_text-light" style={{ margin: '5px 0px' }}>Your current balance</p>
               <h4 className="dashboard_text-normal" style={{ margin: '5px 0px' }}>
-                {droplets}
-                {' '}
-                Droplets
+                {`${currency} Droplets`}
               </h4>
             </div>
           </div>
@@ -118,6 +116,28 @@ function DashboardUserDropletsInfo(props) {
 
           <p className="dashboard_text-light" style={{ marginTop: '30px' }}>What is the prize?</p>
           <p className="dashboard_text-normal" style={{ margin: '0', lineHeight: '26px' }}>{prizeDescription}</p>
+        </div>
+        <div className="dashboard_droplets_info-panel_user-buttons-container">
+          <div
+            className="dashboard_droplets-info-panel_user-button"
+            style={{ backgroundColor: '#FB4056' }}
+            role="button"
+            tabIndex={0}
+            aria-label="Home page header"
+            aria-hidden="true"
+            onClick={() => {
+              history.push('/droplets');
+            }}
+          >
+            <span
+              className="dashboard_droplets-redeem-btn-text"
+            >
+              Back
+            </span>
+          </div>
+          <div className="dashboard_droplets-info-panel_user-button">
+            <span className="dashboard_droplets-redeem-btn-text">Redeem Prize</span>
+          </div>
         </div>
       </div>
       <Footer />

@@ -12,7 +12,7 @@ import DiscordService from './services/DiscordService';
 import { UserContext, SET_USER } from './context/UserContext';
 import PrivateRoute from './PrivateRoute';
 import DashboardAdmin from './pages/DashboardAdmin';
-import DashboardAdminDroplets from './pages/DashboardAdminDroplets';
+import DashboardDroplets from './pages/DashboardDroplets';
 import DashboardUserDropletsInfo from './pages/DashboardUserDropletsInfo';
 import DashboardAdminDropletsInfo from './pages/DashboardAdminDropletsInfo';
 import Leaderboard from './pages/Leaderboard';
@@ -96,10 +96,10 @@ const Routes = () => {
           <DashboardUser />
         </Route>
         <PrivateRoute exact path="/droplets" isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating}>
-          <DashboardAdminDroplets />
+          <DashboardDroplets />
         </PrivateRoute>
         <PrivateRoute exact path="/droplets/:id" isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating}>
-          {!user.role === 'admin' ? (
+          {user.role === 'admin' ? (
             <DashboardAdminDropletsInfo />
           ) : (
             <DashboardUserDropletsInfo />
