@@ -29,7 +29,7 @@ import GuidesAdminAddPopup from './popups/GuidesAdminAddPopup';
 import reportWebVitals from './reportWebVitals';
 
 // Change this in prod
-axios.defaults.baseURL = 'http://localhost:8000/';
+axios.defaults.baseURL = process.env.PRODUCTION ? 'http://68.183.27.80/' : 'http://localhost:8000/';
 // axios.defaults.baseURL = 'https://splash-market-server.herokuapp.com/';
 
 ReactDOM.render(
