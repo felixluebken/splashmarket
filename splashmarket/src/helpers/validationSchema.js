@@ -16,3 +16,14 @@ export const addBotValidationSchema = yup.object().shape({
   tags: yup.array().min(1, 'Bot Tag is required.'),
   fileContents: yup.string().required('Company Logo is required.'),
 });
+
+export const guideValidationSchema = yup.object().shape({
+  tags: yup.array().min(1, 'Bot Tag is required.'),
+  unbindType: yup.string().required('Unbind Type is required.'),
+  renewalTypes: yup.array().min(1, 'Renewal Types is required'),
+  systemsSupported: yup.string().required('Systems Supported is required.'),
+  middleman: yup.string(),
+  scammerPrevention: yup.string().required('Scammer Prevention is required.'),
+  twitterURL: yup.string(),
+  instagramURL: yup.string(),
+});

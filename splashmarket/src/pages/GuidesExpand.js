@@ -9,6 +9,7 @@ import GuideTagBlue from '../components/small-panels/guideTagsLargeBlue';
 import GuideService from '../services/GuideService';
 import GuidesAdminEditPopup from '../popups/GuidesAdminEditPopup';
 import { UserContext } from '../context/UserContext';
+import GuidesBotAdminEditPopup from '../popups/GuidesBotAdminEditPopup';
 
 /*
 
@@ -77,13 +78,13 @@ function GuidesExpand(props) {
   }, [botGuide]);
 
   const toggleEditGuideModal = () => {
-    setIsEditModalVisible(true);
+    setIsEditModalVisible(!isEditModalVisible);
   };
 
   return (
     <>
       {isEditModalVisible && (
-      <GuidesAdminEditPopup />
+      <GuidesBotAdminEditPopup tags={tags} toggleEditGuideModal={toggleEditGuideModal} botGuide={botGuide} />
       )}
       <HeaderGuide />
       <div className="guides_expand-header_banner" style={{ backgroundColor: '#131323' /* ,backgroundImage:`url(${bannerBackgroundUrl})` */ }}>

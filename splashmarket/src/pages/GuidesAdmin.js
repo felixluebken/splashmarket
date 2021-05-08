@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Guides.css';
 
 import HeaderGuide from '../components/header/headerGuide';
@@ -7,6 +7,7 @@ import Footer from '../components/footer/footer';
 import PageSwitch from '../components/page-switch/PageSwitch';
 
 import GuideBotPanel from '../components/panels/GuideBotPanelAdmin';
+import { UserContext } from '../context/UserContext';
 
 /*
 currentResults          -str
@@ -16,6 +17,7 @@ totalResults            -str
 
 function GuidesAdmin(props) {
   const { currentResults, totalResults } = props;
+
   return (
     <>
       <div className="guides_header-container">

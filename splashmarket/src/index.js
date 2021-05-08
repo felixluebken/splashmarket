@@ -26,6 +26,8 @@ import GuidesExpand from './pages/GuidesExpand';
 import GuidesAdminEditPopup from './popups/GuidesAdminEditPopup';
 import GuidesAdminAddPopup from './popups/GuidesAdminAddPopup';
 
+import GuidesBotAdminEditPopup from './popups/GuidesBotAdminEditPopup';
+
 import reportWebVitals from './reportWebVitals';
 
 // Change this in prod

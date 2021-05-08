@@ -8,10 +8,28 @@ tag         -str
 */
 
 function GuideTagLarge(props) {
-  const { tag } = props;
+  const {
+    tag, handleRemoveTag, handleRemoveRenewalType, values, setFieldValue, setValues, renewalType,
+  } = props;
   return (
     <div className="guide_tag-frame-large">
       <p className="text-normal-large" style={{ margin: '0 10px' }}>{tag}</p>
+      <div
+        className="close_icon"
+        role="button"
+        tabIndex={0}
+        aria-label="Home page header"
+        aria-hidden="true"
+        style={{ cursor: 'pointer' }}
+        onClick={() => {
+          if (handleRemoveTag) {
+            handleRemoveTag(values, tag, setFieldValue);
+          }
+          if (handleRemoveRenewalType) {
+            handleRemoveRenewalType(values, renewalType, setValues);
+          }
+        }}
+      />
     </div>
   );
 }
