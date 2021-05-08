@@ -2,6 +2,7 @@ import React from 'react';
 import './panels.css';
 import { useHistory } from 'react-router-dom';
 import GuideTag from '../small-panels/guideTags';
+import GuideService from '../../services/GuideService';
 
 /*
 iconBackgroundColor             -str
@@ -11,7 +12,7 @@ botName                         -str
 
 function GuideBotPanelUser(props) {
   const {
-    iconBackgroundColor, iconUrl, botName, tags,
+    iconBackgroundColor, iconUrl, botName, tags, id = '', handleDelete,
   } = props;
 
   const history = useHistory();
@@ -27,8 +28,10 @@ function GuideBotPanelUser(props) {
       tabIndex={0}
       aria-label="Home page header"
       aria-hidden="true"
-      onClick={() => {
-        handleRedirect(`/guides/${botName.toLowerCase()}`);
+      onClick={(event) => {
+        if (event.target.id !== 'delete') {
+          handleRedirect(`/guides/${botName.toLowerCase()}`);
+        }
       }}
     >
       <div className="guides_panel_admin-header">
@@ -41,14 +44,15 @@ function GuideBotPanelUser(props) {
         </div>
 
         <div
+          name="delete"
+          id="delete"
           className="guides_panel_admin-delete_btn"
           role="button"
           tabIndex={0}
           aria-label="Home page header"
           aria-hidden="true"
           onClick={() => {
-            console.log('CLICKING DELETE');
-            // handleRedirect('/');
+            handleDelete(id);
           }}
         />
       </div>

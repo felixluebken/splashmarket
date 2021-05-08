@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useContext, useEffect } from 'react';
 import './Guides.css';
 import Autocomplete from 'react-autocomplete';
@@ -99,6 +100,19 @@ const Guides = () => {
     if (e.which === 13) {
       handleBotGuideSearch();
     }
+  };
+
+  const handleDelete = async (id) => {
+    const onDeleteSuccess = () => {
+      const newGuides = [...guides];
+      const foundIndex = guides.findIndex((guide) => guide._id === id);
+      newGuides.splice(foundIndex, 1);
+      setGuides(newGuides);
+    };
+    const onDeleteError = () => {
+      console.log('ERROR DELETING GUIDE');
+    };
+    await GuideService.DeleteBotGuide(id, onDeleteSuccess, onDeleteError);
   };
 
   return (
@@ -230,7 +244,9 @@ const Guides = () => {
       </div>
       <div className="guides_panel-container">
         {guides && guides.map((guide) => {
-          const { botName, fileContents, tags } = guide;
+          const {
+            botName, fileContents, tags, _id,
+          } = guide;
           let imgURL;
           if (fileContents && fileContents.buffer) {
             // eslint-disable-next-line new-cap
@@ -238,7 +254,7 @@ const Guides = () => {
             imgURL = `data:image/png;base64,${img}`;
           }
           return (
-            <GuideBotPanel iconBackgroundColor="black" botName={botName || ''} iconUrl={imgURL || ''} tags={tags || []} />
+            <GuideBotPanel iconBackgroundColor="black" botName={botName || ''} iconUrl={imgURL || ''} tags={tags || []} id={_id} handleDelete={handleDelete} />
           );
         })}
       </div>

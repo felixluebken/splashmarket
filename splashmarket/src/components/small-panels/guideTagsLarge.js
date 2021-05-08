@@ -9,11 +9,12 @@ tag         -str
 
 function GuideTagLarge(props) {
   const {
-    tag, handleRemoveTag, handleRemoveRenewalType, values, setFieldValue, setValues, renewalType,
+    tag, handleRemoveTag, handleRemoveRenewalType, values, setFieldValue, setValues, renewalType, isCloseIconVisible = true,
   } = props;
   return (
     <div className="guide_tag-frame-large">
       <p className="text-normal-large" style={{ margin: '0 10px' }}>{tag}</p>
+      {isCloseIconVisible && (
       <div
         className="close_icon"
         role="button"
@@ -30,6 +31,8 @@ function GuideTagLarge(props) {
           }
         }}
       />
+      )}
+
     </div>
   );
 }

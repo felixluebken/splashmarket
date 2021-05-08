@@ -1,42 +1,62 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
 import './Popups.css';
 import {
   Formik,
 } from 'formik';
 import GuideTagLarge from '../components/small-panels/guideTagsLarge';
+import GuideService from '../services/GuideService';
 import { guideValidationSchema } from '../helpers/validationSchema';
-import { enforceNumber } from '../helpers/helpers';
 
 const GuidesBotAdminEditPopup = (props) => {
-  const { tags, toggleEditGuideModal, botGuide } = props;
+  const {
+    tags, toggleEditGuideModal, botGuide, setBotGuide,
+  } = props;
 
   const initialValues = {
+    id: botGuide._id || '',
     tags: tags || [],
-    unbindType: '',
-    renewalTypes: [],
+    unbindType: botGuide.unbindType || '',
+    renewalTypes: botGuide.renewalTypes || [],
     renewalType: '',
     renewalPrice: '',
     renewalInterval: '',
-    systemsSupported: '',
-    middleMan: '',
-    scammerPrevention: '',
-    twitterURL: '',
-    instagramURL: '',
-    gracePeriod: '',
+    systemsSupported: botGuide.systemsSupported || '',
+    middleman: botGuide.middleman || '',
+    scammerPrevention: botGuide.scammerPrevention || '',
+    twitterURL: botGuide.twitterURL || '',
+    instagramURL: botGuide.instagramURL || '',
+    gracePeriod: botGuide.gracePeriod || '',
+    siteURL: botGuide.siteURL || '',
+  };
+
+  console.log('BOT GUIDE: ', initialValues);
+
+  const onGuideUpdateSuccess = (response) => {
+    setBotGuide(response.data);
+    toggleEditGuideModal();
+  };
+
+  const onGuideUpdateError = (error) => {
+    console.log('ERROR: ', error);
   };
 
   const handleSubmit = (values, validateForm) => {
-    console.log('VALUES: ', values);
     validateForm().then(async (errors) => {
-      console.log('ERRORS: ', errors);
       if (Object.keys(errors).length === 0) {
-        // Create form data and append File + json data
-        const formData = new FormData();
-        formData.append('document', values.fileContents);
-        const stringifiedJSON = JSON.stringify(values);
-        formData.append('data', stringifiedJSON);
-
-        // await DropletService.CreateDroplet(formData, onDropletCreateSuccess, onDropletCreateError);
+        const data = {
+          tags: values.tags,
+          unbindType: values.unbindType,
+          renewalTypes: values.renewalTypes,
+          systemsSupported: values.systemsSupported,
+          middleman: values.middleman,
+          scammerPrevention: values.scammerPrevention,
+          twitterURL: values.twitterURL,
+          instagramURL: values.instagramURL,
+          gracePeriod: values.gracePeriod,
+          siteURL: values.siteURL,
+        };
+        await GuideService.UpdateBotGuide(values.id, data, onGuideUpdateSuccess, onGuideUpdateError);
       }
     });
   };
@@ -57,19 +77,19 @@ const GuidesBotAdminEditPopup = (props) => {
 
   const handleRemoveTag = (values, tagToRemove, setFieldValue) => {
     const newTags = [...values.tags];
+
     const foundTag = newTags.findIndex((tag) => tagToRemove === tag);
     if (foundTag > -1) {
-      console.log('SPLICING');
       newTags.splice(foundTag, 1);
-      console.log('NEW TAGS:', newTags);
       setFieldValue('tags', newTags);
     }
   };
 
   const handleRemoveRenewalType = (values, tagToRemove, setValues) => {
     const newRenewalTypes = [...values.renewalTypes];
+    console.log('NEW TAGS: ', newRenewalTypes);
+    console.log('TAG TO REMOVE: ', tagToRemove);
     const foundTag = newRenewalTypes.findIndex((tag) => {
-      console.log('TAG: ', tag);
       if (tag.renewalType === tagToRemove.renewalType && tag.renewalInterval === tagToRemove.renewalInterval && tag.price === tagToRemove.price) {
         return tag;
       }
@@ -119,25 +139,27 @@ const GuidesBotAdminEditPopup = (props) => {
         setFieldValue,
         setValues,
       }) => {
-        console.log('VALUES: ', values);
+        const {
+          unbindType, siteURL, renewalType, renewalPrice, renewalInterval, systemsSupported, middleman, scammerPrevention, twitterURL, instagramURL, gracePeriod,
+        } = values;
 
         return (
           <div className="popup_panel-big">
             <div className="popup_bot_guides-input-panel">
               <div className="popup_bot_guides-input-container_half">
                 <p className="popup_text-large-light">Bot Unbind Type</p>
-                <input name="unbindType" className={`popup_admin_input ${errors.unbindType && 'invalid-input'}`} placeholder="Enter type" onChange={handleChange} />
+                <input name="unbindType" className={`popup_admin_input ${errors.unbindType && 'invalid-input'}`} placeholder="Enter type" onChange={handleChange} value={unbindType} />
               </div>
               <div className="popup_bot_guides-input-container_half">
                 <p className="popup_text-large-light">Grace Period (optional)</p>
-                <input name="gracePeriod" className="popup_admin_input" placeholder="Enter grace period in days" onChange={handleChange} />
+                <input name="gracePeriod" className="popup_admin_input" placeholder="Enter grace period in days" onChange={handleChange} value={gracePeriod} />
               </div>
             </div>
 
             <div className="popup_bot_guides-input-panel">
               <div className="popup_bot_guides-input-container_third">
                 <p className="popup_text-large-light">Renewal</p>
-                <select name="renewalType" onChange={handleChange} className={`popup_admin_select ${errors.renewalTypes && 'invalid-input'}`}>
+                <select name="renewalType" onChange={handleChange} className={`popup_admin_select ${errors.renewalTypes && 'invalid-input'}`} value={renewalType}>
                   <option value="">Choose Renewal Type</option>
                   <option value="lifetime">Lifetime</option>
                   <option value="renewal">Renewal</option>
@@ -145,11 +167,11 @@ const GuidesBotAdminEditPopup = (props) => {
               </div>
               <div className="popup_bot_guides-input-container_third">
                 <p className="popup_text-large-light">Renewal Price (optional)</p>
-                <input name="renewalPrice" onChange={handleChange} className="popup_admin_input" placeholder="Enter price" value={values.renewalPrice} />
+                <input name="renewalPrice" onChange={handleChange} className="popup_admin_input" placeholder="Enter price" value={renewalPrice} />
               </div>
               <div className="popup_bot_guides-input-container_third">
                 <p className="popup_text-large-light">Renewal Interval</p>
-                <select name="renewalInterval" onChange={handleChange} className="popup_admin_select">
+                <select name="renewalInterval" onChange={handleChange} className="popup_admin_select" value={renewalInterval}>
                   <option value="">No Interval</option>
                   <option value="1 Week">1 Week</option>
                   <option value="1 Month">1 Month</option>
@@ -182,21 +204,21 @@ const GuidesBotAdminEditPopup = (props) => {
             <div className="popup_bot_guides-input-container_full">
               <p className="popup_text-large-light">Renewal Types</p>
               <div className="popup_bot_guides-tag_container">
-                {values.renewalTypes && values.renewalTypes.length > 0 && values.renewalTypes.map((renewalType) => {
+                {values.renewalTypes && values.renewalTypes.length > 0 && values.renewalTypes.map((renewal) => {
                   let tag;
-                  if (renewalType.renewalType.toLowerCase() === 'lifetime') {
-                    if (renewalType.price) {
-                      tag = `Lifetime/${renewalType.price}`;
+                  if (renewal.renewalType.toLowerCase() === 'lifetime') {
+                    if (renewal.price) {
+                      tag = `Lifetime/${renewal.price}`;
                     } else {
                       tag = 'Lifetime';
                     }
-                  } else if (renewalType.price && renewalType.renewalInterval) {
-                    tag = `${renewalType.price}/${renewalType.renewalInterval}`;
+                  } else if (renewal.price && renewal.renewalInterval) {
+                    tag = `${renewal.price}/${renewal.renewalInterval}`;
                   } else {
-                    tag = `${renewalType.renewalType}`;
+                    tag = `${renewal.renewalType}`;
                   }
                   return (
-                    <GuideTagLarge tag={tag} handleRemoveRenewalType={handleRemoveRenewalType} values={values} setFieldValue={setFieldValue} setValues={setValues} renewalType={renewalType} />);
+                    <GuideTagLarge tag={tag} handleRemoveRenewalType={handleRemoveRenewalType} values={values} setFieldValue={setFieldValue} setValues={setValues} renewalType={renewal} />);
                 })}
               </div>
 
@@ -219,7 +241,8 @@ const GuidesBotAdminEditPopup = (props) => {
 
             <div className="popup_bot_guides-input-container_full">
               <p className="popup_text-large-light">Systems Supported</p>
-              <select name="systemsSupported" className={`popup_admin_select ${errors.systemsSupported && 'invalid-input'}`} onChange={handleChange}>
+              <select name="systemsSupported" className={`popup_admin_select ${errors.systemsSupported && 'invalid-input'}`} onChange={handleChange} value={systemsSupported}>
+                <option value="">Select Systems Supported</option>
                 <option value="windows">Windows</option>
                 <option value="macOS">Mac OS</option>
                 <option value="all">Windows & Mac OS</option>
@@ -229,22 +252,30 @@ const GuidesBotAdminEditPopup = (props) => {
             <div className="popup_bot_guides-input-panel">
               <div className="popup_bot_guides-input-container_half">
                 <p className="popup_text-large-light">Middleman</p>
-                <textarea name="middleman" className="popup_admin_text-area" placeholder="Enter middleman information here" onChange={handleChange} />
+                <textarea name="middleman" className="popup_admin_text-area" placeholder="Enter middleman information here" onChange={handleChange} value={middleman} />
               </div>
               <div className="popup_bot_guides-input-container_half">
                 <p className="popup_text-large-light">Scammer Prevention</p>
-                <textarea name="scammerPrevention" className={`popup_admin_text-area ${errors.scammerPrevention && 'invalid-input'}`} placeholder="Enter scammer prevention text here" onChange={handleChange} />
+                <textarea name="scammerPrevention" className={`popup_admin_text-area ${errors.scammerPrevention && 'invalid-input'}`} placeholder="Enter scammer prevention text here" onChange={handleChange} value={scammerPrevention} />
               </div>
             </div>
 
             <div className="popup_bot_guides-input-panel">
               <div className="popup_bot_guides-input-container_half">
+                <p className="popup_text-large-light">Site URL (optional)</p>
+                <input name="siteURL" className="popup_admin_input" placeholder="Enter site link here" onChange={handleChange} value={siteURL} />
+              </div>
+
+            </div>
+
+            <div className="popup_bot_guides-input-panel">
+              <div className="popup_bot_guides-input-container_half">
                 <p className="popup_text-large-light">Twitter (optional)</p>
-                <input name="twitterURL" className="popup_admin_input" placeholder="Enter link here" onChange={handleChange} />
+                <input name="twitterURL" className="popup_admin_input" placeholder="Enter link here" onChange={handleChange} value={twitterURL} />
               </div>
               <div className="popup_bot_guides-input-container_half">
                 <p className="popup_text-large-light">Instagram (optional)</p>
-                <input name="instagramURL" className="popup_admin_input" placeholder="Enter link here" onChange={handleChange} />
+                <input name="instagramURL" className="popup_admin_input" placeholder="Enter link here" onChange={handleChange} value={instagramURL} />
               </div>
             </div>
 

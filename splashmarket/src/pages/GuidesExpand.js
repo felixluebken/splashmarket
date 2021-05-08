@@ -40,11 +40,30 @@ function GuidesExpand(props) {
   let fileContents;
   let renewalTypes;
   let systemsSupported;
+  let gracePeriod;
+  let instagramURL;
+  let twitterURL;
+  let middleman;
+  let scammerPrevention;
+  let unbindType;
   let tags;
+  let siteURL;
 
+  console.log('BOT GUIDE: ', botGuide);
   if (botGuide) {
     ({
-      botName, fileContents, renewalTypes, systemsSupported, tags,
+      instagramURL = '',
+      twitterURL = '',
+      unbindType = '',
+      middleman = '',
+      scammerPrevention = '',
+      gracePeriod = '',
+      siteURL = '',
+      botName,
+      fileContents,
+      renewalTypes,
+      systemsSupported,
+      tags,
     } = botGuide);
   }
   const { bot } = useParams();
@@ -84,7 +103,7 @@ function GuidesExpand(props) {
   return (
     <>
       {isEditModalVisible && (
-      <GuidesBotAdminEditPopup tags={tags} toggleEditGuideModal={toggleEditGuideModal} botGuide={botGuide} />
+      <GuidesBotAdminEditPopup tags={tags} toggleEditGuideModal={toggleEditGuideModal} botGuide={botGuide} setBotGuide={setBotGuide} />
       )}
       <HeaderGuide />
       <div className="guides_expand-header_banner" style={{ backgroundColor: '#131323' /* ,backgroundImage:`url(${bannerBackgroundUrl})` */ }}>
@@ -113,18 +132,26 @@ function GuidesExpand(props) {
 
           <div className="guides_expand-panel_header-container-part">
             <p className="text-light-big" style={{ margin: 0 }}>Type</p>
-            <p className="text-normal-big" style={{ margin: '10px 0' }}>Unbindable (24 hour cooldown)</p>
+            <p className="text-normal-big" style={{ margin: '10px 0' }}>{unbindType}</p>
           </div>
 
           <div className="guides_expand-panel_header-container-part guides_expand-panel_header-links">
-            <a href={twitterLink}>
+            {twitterURL && (
+            <a href={twitterURL} target="_blank" rel="noreferrer">
               <div className="guides_expand-twitter" />
             </a>
-            <a href={instagramLink}>
+            )}
+
+            {instagramURL && (
+            <a href={instagramURL} target="_blank" rel="noreferrer">
               <div className="guides_expand-instagram" style={{ marginLeft: '20px' }} />
             </a>
+            )}
 
-            <a href={siteLink} className="guides_link" style={{ marginLeft: '20px', marginTop: '4px' }}>Visit Site ⇾</a>
+            {siteURL && (
+            <a href={siteURL} target="_blank" className="guides_link" style={{ marginLeft: '20px', marginTop: '4px' }} rel="noreferrer">Visit Site ⇾</a>
+            )}
+
           </div>
 
         </div>
@@ -132,15 +159,29 @@ function GuidesExpand(props) {
         <div className="guides_expand-container">
           <p className="text-light" style={{ margin: 0 }}>Renewal</p>
           <div className="guides_expand-small_panel-container" style={{ margin: '10px 0' }}>
-            <GuideTag tag="$100/6 Months" />
-            <GuideTag tag="Lifetime" />
+            {renewalTypes && renewalTypes.length > 0 && renewalTypes.map((renewal) => {
+              let tag;
+              if (renewal.renewalType.toLowerCase() === 'lifetime') {
+                if (renewal.price) {
+                  tag = `Lifetime/${renewal.price}`;
+                } else {
+                  tag = 'Lifetime';
+                }
+              } else if (renewal.price && renewal.renewalInterval) {
+                tag = `${renewal.price}/${renewal.renewalInterval}`;
+              } else {
+                tag = `${renewal.renewalType}`;
+              }
+              return (
+                <GuideTag tag={tag} isCloseIconVisible={false} />);
+            })}
           </div>
         </div>
 
         <div className="guides_expand-container">
           <p className="text-light" style={{ margin: 0 }}>Sites Supported</p>
           <div className="guides_expand-small_panel-container" style={{ margin: '10px 0' }}>
-            {tags && tags.length > 0 && tags.map((tag) => <GuideTag tag={tag} />)}
+            {tags && tags.length > 0 && tags.map((tag) => <GuideTag tag={tag} isCloseIconVisible={false} />)}
 
           </div>
         </div>
@@ -148,38 +189,39 @@ function GuidesExpand(props) {
         <div className="guides_expand-container">
           <p className="text-light" style={{ margin: 0 }}>Systems Supported</p>
           <div className="guides_expand-small_panel-container" style={{ margin: '10px 0' }}>
-            <GuideTag tag="Windows" />
-            <GuideTag tag="Mac OS" />
+            {systemsSupported === 'windows' && (
+            <GuideTag tag="Windows" isCloseIconVisible={false} />
+            )}
+            {systemsSupported === 'macOS' && (
+            <GuideTag tag="Mac OS" isCloseIconVisible={false} />
+            )}
+            {systemsSupported === 'all' && (
+              <>
+                <GuideTag tag="Windows" isCloseIconVisible={false} />
+                <GuideTag tag="Mac OS" isCloseIconVisible={false} />
+              </>
+            )}
           </div>
         </div>
 
         <div className="guides_expand-container">
           <p className="text-light" style={{ margin: 0 }}>Middleman</p>
           <span className="text-normal-big">
-            Once both parties are ready, head to
-            {' '}
-            <GuideTagBlue tag="#create-ticket" />
-            {' '}
-            and type
-            {' '}
-            <GuideTagBlue tag="$new cyber" />
-            Note: We will ONLY MM Cyber off-cooldown.
 
+            {'Once both parties are ready, head to '}
+            <GuideTagBlue tag="#create-ticket" />
+            and type
+            <GuideTagBlue tag={`$new ${botName}`} />
+            .
+            <br />
+            {middleman && middleman}
           </span>
         </div>
 
         <div className="guides_expand-container">
           <p className="text-light" style={{ margin: 0 }}>Scam Prevention</p>
           <p className="text-normal-big">
-
-            -- Please read #scammer-prevention to avoid being scammed!
-            {' '}
-            <br />
-            -- MMs will ALWAYS do deals inside the Splash Market server.
-            {' '}
-            <br />
-            -- Avoid renting to & from suspicious users!
-            {' '}
+            {scammerPrevention}
             <br />
           </p>
         </div>

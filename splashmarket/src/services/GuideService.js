@@ -9,6 +9,20 @@ export default class GuideService {
       .catch(onError);
   }
 
+  static async UpdateBotGuide(id, data, onSuccess, onError) {
+    await axios
+      .put(getAPIPath(`guides/${id}`), data, { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
+
+  static async DeleteBotGuide(id, onSuccess, onError) {
+    await axios
+      .delete(getAPIPath(`guides/${id}`), { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
+
   static async GetBotGuides(page, onSuccess, onError) {
     await axios
       .get(getAPIPath(`guides?page=${page}`), { withCredentials: true })

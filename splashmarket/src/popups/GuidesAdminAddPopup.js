@@ -26,7 +26,7 @@ function GuidesAdminAddPopup(props) {
       renewalInterval: '',
     }],
     systemsSupported: [],
-    middleMan: '',
+    middleman: '',
     scammerPrevention: '',
     twitterURL: '',
     instagramURL: '',
