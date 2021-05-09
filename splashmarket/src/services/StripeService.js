@@ -8,4 +8,11 @@ export default class StripeService {
       .then(onSuccess)
       .catch(onError);
   }
+
+  static async CreatePortalSession(data, onSuccess, onError) {
+    await axios
+      .post(getAPIPath('stripe/customer-portal'), data, { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
 }

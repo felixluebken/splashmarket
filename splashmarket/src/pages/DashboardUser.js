@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import ToggleButton from 'react-toggle-button';
 import { loadStripe } from '@stripe/stripe-js';
 import Loader from 'react-loader-spinner';
+import moment from 'moment';
 import HeaderLoggedIn from '../components/header/headerLoggedIn';
 import TransactionHistoryPanel from '../components/list-panels/transactionHistory';
 import { initialState, SET_USER, UserContext } from '../context/UserContext';
@@ -21,14 +22,17 @@ const DashboardUser = (props) => {
   const [userView, setUserView] = useState(null);
   const [greeting, setGreeting] = useState('');
   const [isToggled, setIsToggled] = useState(user.showTransactions);
-
+  const [isSubscriptionActive, setIsSubscriptionActive] = useState(false);
   let username; let discriminator; let avatar; let transactions; let totalBought; let totalSold; let currency; let
     topTransactedBots; let
     showTransactions;
   let subscriptionExpiry;
   let cardLastFour;
-  let subscriptionActive;
+  let cardBrand;
   let roles;
+  let customerID;
+  let subscriptionStart;
+  let subscriptionCancelAtPeriodEnd;
   useEffect(() => {
     if (id) {
       if (userSearch.id) {
@@ -37,17 +41,31 @@ const DashboardUser = (props) => {
     } else {
       setUserView(user);
     }
+    if (userView) {
+      if (!userView.subscriptionID) {
+        setIsSubscriptionActive(false);
+      } else if (userView.subscriptionStart && userView.subscriptionExpiry) {
+        setIsSubscriptionActive(moment(userView.subscriptionStart).isSameOrBefore(moment(userView.subscriptionExpiry)));
+      } else {
+        setIsSubscriptionActive(false);
+      }
+    }
   }, [userView, userSearch]);
 
   if (userView) {
     ({
       username, discriminator, avatar, transactions, totalBought, totalSold, currency, topTransactedBots, showTransactions,
       subscriptionExpiry = null,
-      subscriptionActive = false,
       cardLastFour = null,
+      cardBrand = null,
       roles = [],
+      subscriptionStart = null,
+      subscriptionCancelAtPeriodEnd = false,
+      customerID = '',
     } = userView);
   }
+
+  console.log('USER VIEW: ', userView);
 
   useEffect(() => {
     setGreeting(getLocalTime());
@@ -89,6 +107,24 @@ const DashboardUser = (props) => {
     const { error } = await stripe.redirectToCheckout({
       sessionId: sessionID,
     });
+  };
+
+  const redirectToCustomerSubscriptionPortal = async () => {
+    const onPortalCreateSuccess = (response) => {
+      console.log('RESPONSE: ', response.data);
+      if (response.data.url) {
+        window.location.href = response.data.url;
+      }
+    };
+    const onPortalCreateError = (error) => {
+      console.log('ERROR: ', error);
+    };
+    console.log('CUSTOMER ID: ', customerID);
+    console.log('USER VIEW: ', userView);
+    const data = {
+      customerID,
+    };
+    await StripeService.CreatePortalSession(data, onPortalCreateSuccess, onPortalCreateError);
   };
 
   const handleCreateNewSubscription = () => {
@@ -281,14 +317,22 @@ const DashboardUser = (props) => {
 
           {!id && (
             <div className="dashboard_payment-panel">
+
               <div className="dashboard_payment-panel-card_icon" />
               <div className="dashboard_payment-panel-text_container">
                 <p className="dashboard_text-light" style={{ margin: '0px 0px 10px 0px' }}>
-                  {paymentType}
-                  {' '}
-                  ••••
-                  {' '}
-                  {paymentLast4}
+                  {isSubscriptionActive && subscriptionExpiry && !subscriptionCancelAtPeriodEnd && (
+                    `Renewal: ${moment(subscriptionExpiry).format('MMM Do YYYY')}`
+                  )}
+                  {!isSubscriptionActive && !subscriptionCancelAtPeriodEnd && (
+                    'Renewal: Inactive'
+                  )}
+                  {subscriptionCancelAtPeriodEnd && (
+                    `Cancelled: ${moment(subscriptionExpiry).format('MMM Do YYYY')}`
+                  )}
+                </p>
+                <p className="dashboard_text-light" style={{ margin: '0px 0px 10px 0px' }}>
+                  {`${cardBrand ? cardBrand.toUpperCase() : ''} ${cardLastFour || '••••'}`}
                 </p>
                 <a
                   className="dashboard_link_text-normal"
@@ -298,18 +342,14 @@ const DashboardUser = (props) => {
                   aria-hidden="true"
                   style={{ cursor: 'pointer' }}
                   onClick={() => {
-                    console.log('SUBSCRIPTION ACTIVE: ', subscriptionActive);
-                    if (subscriptionActive) {
-                      console.log('MANAGE SUBSCRIPTION THERES ALREADY ACTIVE');
+                    if (isSubscriptionActive) {
+                      redirectToCustomerSubscriptionPortal();
                     } else {
                       handleCreateNewSubscription();
                     }
-                    console.log('HANDLING SUBSCRIPTION');
-                    // handleRedirect('/');
                   }}
                 >
                   Manage Subscription ⇾
-
                 </a>
               </div>
             </div>
