@@ -28,8 +28,6 @@ function DashboardAdmin(props) {
     dropletsRedeemUrl, manageSubscriptionUrl, paymentType, paymentLast4, botBarColor1,
   } = props;
 
-  console.log('IS TOGGLED: ', isToggled);
-
   return (
     <>
       <HeaderLoggedIn />

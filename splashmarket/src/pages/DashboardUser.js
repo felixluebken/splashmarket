@@ -3,6 +3,7 @@ import './Dashboard.css';
 import { useParams } from 'react-router-dom';
 import ToggleButton from 'react-toggle-button';
 import { loadStripe } from '@stripe/stripe-js';
+import Loader from 'react-loader-spinner';
 import HeaderLoggedIn from '../components/header/headerLoggedIn';
 import TransactionHistoryPanel from '../components/list-panels/transactionHistory';
 import { initialState, SET_USER, UserContext } from '../context/UserContext';
@@ -111,7 +112,17 @@ const DashboardUser = (props) => {
   };
 
   if (!userView) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="loading-icon-container" style={{ height: '100%' }}>
+        <Loader
+          type="Puff"
+          color="#00BFFF"
+          height={200}
+          width={100}
+          timeout={15000}
+        />
+      </div>
+    );
   }
 
   return (
