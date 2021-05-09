@@ -109,6 +109,32 @@ const Leaderboard = (props) => {
         sortBy: sortByQueries,
       };
 
+      console.log('QUERY: ', query);
+      const onSearchUserSuccess = (response) => {
+        // This sets the context of the search results for the leader board search page
+        dispatch({
+          type: SET_SEARCH_RESULTS,
+          payload: {
+            ...searchResults,
+            results: response.data,
+            currentSearch: searchParameters.user,
+            queries: [searchParameters.sortBy],
+          },
+        });
+        setIsSearching(false);
+      };
+
+      const onSearchUserError = (error) => {
+        console.log('ERROR: ', error.response);
+        setIsSearching(false);
+      };
+
+      UserService.FindUserSearch(query, onSearchUserSuccess, onSearchUserError);
+    } else {
+      const query = {
+        sortBy: 'most',
+      };
+
       const onSearchUserSuccess = (response) => {
         // This sets the context of the search results for the leader board search page
         dispatch({

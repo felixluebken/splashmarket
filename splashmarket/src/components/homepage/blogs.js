@@ -6,8 +6,8 @@ function HomepageBlogs() {
   return (
     <div className="section_blogs">
       <div className="blogs_text">
-        <span className="section_title-blue">Member Leaderboard</span>
-        <span className="section_title-big">View the members with the most transactions</span>
+        <span className="section_title-blue">Blogs</span>
+        <span className="section_title-big">Catch up on the latest bot related news</span>
       </div>
       <div className="blogs_img">
         <BlogBotPanel

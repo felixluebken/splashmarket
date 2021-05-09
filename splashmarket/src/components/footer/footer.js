@@ -156,11 +156,11 @@ const Footer = () => {
       <div className="footer_main-low">
         <p className="small" style={{ float: 'left' }}>© 2021, Splash Station</p>
 
-        <a>
+        <a href="https://discord.com/invite/splashmarket" target="_blank" rel="noreferrer">
           <div className="discord_icon" />
         </a>
 
-        <a>
+        <a href="https://twitter.com/splashnetwrk?lang=en" target="_blank" rel="noreferrer">
           <div className="twitter_icon" style={{ marginRight: '10px' }} />
         </a>
       </div>
