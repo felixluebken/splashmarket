@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import './Guides.css';
 import Autocomplete from 'react-autocomplete';
 import { useHistory } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import { UserContext } from '../context/UserContext';
 import HeaderGuide from '../components/header/headerGuide';
 import Footer from '../components/footer/footer';
@@ -17,7 +18,10 @@ import selectOptions from '../helpers/selectOptions';
 const Guides = () => {
   const history = useHistory();
   const [guides, setGuides] = useState(null);
-  const [pager, setPager] = useState({});
+  const [pager, setPager] = useState({
+    totalPages: 0,
+    totalItems: 0,
+  });
   const [validBots, setValidBots] = useState([]);
   const [user] = useContext(UserContext);
   const [isAddBotModalVisible, setIsAddBotModalVisible] = useState(false);
@@ -26,6 +30,7 @@ const Guides = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [botsSearch, setBotsSearch] = useState('');
   const [filterSearch, setFilterSearch] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleToggleAddBotModal = () => {
     setIsAddBotModalVisible(!isAddBotModalVisible);
@@ -52,9 +57,12 @@ const Guides = () => {
 
   const getGuides = () => {
     const onGetGuidesSuccess = (response) => {
-      setPager(response.data.pager);
+      if (response.data.pager) {
+        setPager(response.data.pager);
+        setCurrentPage(response.data.pager.currentPage);
+      }
+
       setGuides(response.data.pageOfItems);
-      setCurrentPage(response.data.pager.currentPage);
     };
     const onGetGuidesError = (error) => {
       console.log('ERROR: ', error.response);
@@ -92,6 +100,12 @@ const Guides = () => {
   }, []);
 
   useEffect(() => {
+    if (guides && validBots) {
+      setIsLoading(false);
+    }
+  }, [guides, validBots]);
+
+  useEffect(() => {
     getGuides();
   }, [pageQuery]);
 
@@ -114,6 +128,20 @@ const Guides = () => {
     };
     await GuideService.DeleteBotGuide(id, onDeleteSuccess, onDeleteError);
   };
+
+  if (isLoading) {
+    return (
+      <div className="loading-icon-container" style={{ height: '100%' }}>
+        <Loader
+          type="Puff"
+          color="#00BFFF"
+          height={200}
+          width={100}
+          timeout={15000}
+        />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -254,7 +282,7 @@ const Guides = () => {
             imgURL = `data:image/png;base64,${img}`;
           }
           return (
-            <GuideBotPanel iconBackgroundColor="black" botName={botName || ''} iconUrl={imgURL || ''} tags={tags || []} id={_id} handleDelete={handleDelete} />
+            <GuideBotPanel iconBackgroundColor="black" botName={botName || ''} iconUrl={imgURL || ''} tags={tags || []} id={_id} handleDelete={handleDelete} isAdmin={role === 'admin' || false} />
           );
         })}
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Autocomplete from 'react-autocomplete';
+import Loader from 'react-loader-spinner';
 import useQuery from '../helpers/useQuery';
 import './Bots.css';
 import HeaderBots from '../components/header/headerBots';
@@ -16,8 +17,7 @@ const BotsSearch = () => {
   const [botsSearch, setBotsSearch] = useState('');
   const [botSearchResults, setBotSearchResults] = useState([{ displayName: 'There are no results to show' }]);
   const debouncedBot = UseDebounce(botsSearch, 1000);
-
-  // Need to do paging
+  const [isLoading, setIsLoading] = useState(true);
 
   const findBotsWithGraphs = async () => {
     const onFindBotsSuccess = (response) => {
@@ -25,9 +25,11 @@ const BotsSearch = () => {
         setCurrentPage(response.data.pager.currentPage);
       }
       setBots(response.data);
+      setIsLoading(false);
     };
     const onFindBotsError = (error) => {
       console.log('ERROR: ', error.response);
+      setIsLoading(false);
     };
     BotService.FindBotsWithGraphs(pageQuery || 1, onFindBotsSuccess, onFindBotsError);
   };
@@ -44,9 +46,11 @@ const BotsSearch = () => {
     // This sets search results for the debounce
     const onBotSearchSuccess = (response) => {
       setBotSearchResults(response.data);
+      setIsLoading(false);
     };
     const onBotSearchError = (error) => {
       console.log('ERROR: ', error.response.data);
+      setIsLoading(false);
     };
     await BotService.SearchBot(botsSearch, onBotSearchSuccess, onBotSearchError);
   };
@@ -80,11 +84,28 @@ const BotsSearch = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="loading-icon-container" style={{ height: '100%' }}>
+        <Loader
+          type="Puff"
+          color="#00BFFF"
+          height={200}
+          width={100}
+          timeout={15000}
+        />
+      </div>
+    );
+  }
+
   return (
     <>
+
       <div className="bots_header-container">
+
         <HeaderBots />
         <div className="bots_header-container_banner">
+
           <h3 className="bots_title">Stock market for bots.</h3>
         </div>
       </div>

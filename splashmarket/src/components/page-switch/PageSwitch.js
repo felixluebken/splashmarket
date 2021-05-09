@@ -12,8 +12,6 @@ function PageSwitch(props) {
 
   const history = useHistory();
 
-  console.log('TOTAL PAGES: ', totalPages);
-  console.log('CAN INCREMENT: ', canIncrement);
   useEffect(() => {
     if (pageQuery) {
       const parsedPageQuery = parseInt(pageQuery, 10);

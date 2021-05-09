@@ -5,6 +5,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import DashboardUser from './pages/DashboardUser';
 import Homepage from './pages/Homepage';
 import Loginpage from './pages/Login';
@@ -25,9 +26,10 @@ import GuidesExpand from './pages/GuidesExpand';
 const Routes = () => {
   const history = useHistory();
   const [user, userDispatch] = useContext(UserContext);
-  // const [userSearch, userSearchDispatch] = useContext(UserSearchContext);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const onGetUserSuccess = (response) => {
     userDispatch({
       type: SET_USER,
@@ -75,7 +77,17 @@ const Routes = () => {
   }, []);
 
   if (isAuthenticating) {
-    return <h1>Loading</h1>;
+    return (
+      <div className="loading-icon-container" style={{ height: '100%' }}>
+        <Loader
+          type="Puff"
+          color="#00BFFF"
+          height={200}
+          width={100}
+          timeout={15000}
+        />
+      </div>
+    );
   }
 
   return (

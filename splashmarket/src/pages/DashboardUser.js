@@ -2,12 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import './Dashboard.css';
 import { useParams } from 'react-router-dom';
 import ToggleButton from 'react-toggle-button';
+import { loadStripe } from '@stripe/stripe-js';
 import HeaderLoggedIn from '../components/header/headerLoggedIn';
 import TransactionHistoryPanel from '../components/list-panels/transactionHistory';
 import { initialState, SET_USER, UserContext } from '../context/UserContext';
 import { getLocalTime } from '../helpers/helpers';
 import { UserSearchContext } from '../context/UserSearchContext';
 import UserService from '../services/UserService';
+import StripeService from '../services/StripeService';
+
+const stripeKey = process.env.REACT_APP_STRIPE_KEY;
 
 const DashboardUser = (props) => {
   const { id } = useParams();
@@ -20,7 +24,10 @@ const DashboardUser = (props) => {
   let username; let discriminator; let avatar; let transactions; let totalBought; let totalSold; let currency; let
     topTransactedBots; let
     showTransactions;
-
+  let subscriptionExpiry;
+  let cardLastFour;
+  let subscriptionActive;
+  let roles;
   useEffect(() => {
     if (id) {
       if (userSearch.id) {
@@ -34,6 +41,10 @@ const DashboardUser = (props) => {
   if (userView) {
     ({
       username, discriminator, avatar, transactions, totalBought, totalSold, currency, topTransactedBots, showTransactions,
+      subscriptionExpiry = null,
+      subscriptionActive = false,
+      cardLastFour = null,
+      roles = [],
     } = userView);
   }
 
@@ -71,11 +82,37 @@ const DashboardUser = (props) => {
     dropletsRedeemUrl, manageSubscriptionUrl, paymentType, paymentLast4, numTransactions1, botBarColor1,
   } = props;
 
+  const redirectToPurchase = async (sessionID) => {
+    const stripe = await loadStripe(stripeKey);
+
+    const { error } = await stripe.redirectToCheckout({
+      sessionId: sessionID,
+    });
+  };
+
+  const handleCreateNewSubscription = () => {
+    const onCreateSessionSuccess = (response) => {
+      if (response.data) {
+        const { sessionId } = response.data;
+        redirectToPurchase(sessionId);
+      }
+    };
+    const onCreateSessionError = (error) => {
+      console.error('ERROR CREATING SPLASH MARKET STRIPE CHECKOUT: ', error.response);
+    };
+    const data = {
+      metadata: {
+        id: user.id,
+        username: `${username}#${discriminator}`,
+      },
+      priceId: 'price_1Ip0wHBm6oW7t42oIP4BHG7P',
+    };
+    StripeService.CreateCheckoutSession(data, onCreateSessionSuccess, onCreateSessionError);
+  };
+
   if (!userView) {
     return <h1>Loading...</h1>;
   }
-
-  console.log('USER VIEW: ', showTransactions);
 
   return (
     <>
@@ -242,7 +279,27 @@ const DashboardUser = (props) => {
                   {' '}
                   {paymentLast4}
                 </p>
-                <a className="dashboard_link_text-normal" href={manageSubscriptionUrl}>Manage Subscription ⇾</a>
+                <a
+                  className="dashboard_link_text-normal"
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Home page header"
+                  aria-hidden="true"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    console.log('SUBSCRIPTION ACTIVE: ', subscriptionActive);
+                    if (subscriptionActive) {
+                      console.log('MANAGE SUBSCRIPTION THERES ALREADY ACTIVE');
+                    } else {
+                      handleCreateNewSubscription();
+                    }
+                    console.log('HANDLING SUBSCRIPTION');
+                    // handleRedirect('/');
+                  }}
+                >
+                  Manage Subscription ⇾
+
+                </a>
               </div>
             </div>
           )}

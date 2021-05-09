@@ -1,21 +1,63 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 import './footer.css';
 
-function Footer() {
+const Footer = () => {
+  const history = useHistory();
+  const [user] = useContext(UserContext);
+  const handleRedirect = (route) => {
+    history.push(route);
+  };
+
+  const handleDashboardRedirect = () => {
+    if (user.isLoggedIn) {
+      history.push('/user');
+    } else {
+      history.push('/login');
+    }
+  };
+
   return (
     <div className="footer">
       <div className="footer_main">
         <div className="footer_main-title">
           <div className="logo" />
-          <h2 style={{ marginTop: '60px' }}>Lorem ipsum dolor sit amet</h2>
+          <h2 style={{ marginTop: '60px' }}>Splash Market</h2>
         </div>
 
         <div className="footer_main-res">
           <h3 style={{ marginBottom: '20px' }}>Resources</h3>
           <div style={{ display: 'inline-block' }}>
             <ul>
-              <li><a>Droplets</a></li>
-              <li><a>Dashboard</a></li>
+              <li>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Home page header"
+                  aria-hidden="true"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    handleRedirect('/droplets');
+                  }}
+                >
+                  Droplets
+                </a>
+
+              </li>
+              <li>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Home page header"
+                  aria-hidden="true"
+                  style={{ cursor: 'pointer' }}
+                  onClick={handleDashboardRedirect}
+                >
+                  Dashboard
+                </a>
+
+              </li>
             </ul>
           </div>
 
@@ -25,16 +67,86 @@ function Footer() {
           <h3 style={{ marginBottom: '20px' }}>Navigation</h3>
           <div style={{ width: '50%', height: '100px', float: 'left' }}>
             <ul>
-              <li><a>Home</a></li>
-              <li><a>Leaderboard</a></li>
-              <li><a>Bots</a></li>
+              <li>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Home page header"
+                  aria-hidden="true"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    handleRedirect('/');
+                  }}
+                >
+                  Home
+                </a>
+
+              </li>
+              <li>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Home page header"
+                  aria-hidden="true"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    handleRedirect('/leaderboard');
+                  }}
+                >
+                  Leaderboard
+                </a>
+
+              </li>
+              <li>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Home page header"
+                  aria-hidden="true"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    handleRedirect('/bots');
+                  }}
+                >
+                  Bots
+                </a>
+
+              </li>
             </ul>
 
           </div>
           <div style={{ width: '50%', height: '100px', float: 'right' }}>
             <ul>
-              <li><a>Blogs</a></li>
-              <li><a>Guide</a></li>
+              <li>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Home page header"
+                  aria-hidden="true"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    handleRedirect('/blogs');
+                  }}
+                >
+                  Blogs
+                </a>
+
+              </li>
+              <li>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Home page header"
+                  aria-hidden="true"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    handleRedirect('/guides');
+                  }}
+                >
+                  Guide
+                </a>
+
+              </li>
             </ul>
 
           </div>
@@ -60,6 +172,6 @@ function Footer() {
       </div>
     </div>
   );
-}
+};
 
 export default Footer;

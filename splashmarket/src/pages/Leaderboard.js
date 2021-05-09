@@ -314,7 +314,7 @@ const Leaderboard = (props) => {
         <div className="leaderboard_body-results">
           <p className="text-light">
             {!userQuery && !sortByQueries && 'Search for a member, or pick a sort category above.'}
-            {isSearching && (userQuery || sortByQueries || searchParameters.user || searchParameters.sortBy) && 'Searching for results...'}
+            {isSearching && (userQuery || sortByQueries || searchParameters.user || searchParameters.sortBy) && ' Searching for results...'}
             {!isSearching && (userQuery || sortByQueries) && (
               <>
                 {searchResults.results.length >= 1 && searchResults.results[0].username !== 'No users found' ? (

@@ -16,3 +16,12 @@ body {
   background: #5bf97d;
   background-color: #5bf97d;
 }
+
+.loading-icon-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

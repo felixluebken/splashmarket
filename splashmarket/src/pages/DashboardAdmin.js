@@ -189,20 +189,6 @@ function DashboardAdmin(props) {
               );
             })}
           </div>
-
-          <div className="dashboard_payment-panel">
-            <div className="dashboard_payment-panel-card_icon" />
-            <div className="dashboard_payment-panel-text_container">
-              <p className="dashboard_text-light" style={{ margin: '0px 0px 10px 0px' }}>
-                {paymentType}
-                {' '}
-                ••••
-                {' '}
-                {paymentLast4}
-              </p>
-              <a className="dashboard_link_text-normal" href={manageSubscriptionUrl}>Manage Subscription ⇾</a>
-            </div>
-          </div>
         </div>
 
       </div>

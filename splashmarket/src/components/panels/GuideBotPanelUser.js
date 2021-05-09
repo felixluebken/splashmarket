@@ -12,7 +12,7 @@ botName                         -str
 
 function GuideBotPanelUser(props) {
   const {
-    iconBackgroundColor, iconUrl, botName, tags, id = '', handleDelete,
+    iconBackgroundColor, iconUrl, botName, tags, id = '', handleDelete, isAdmin,
   } = props;
 
   const history = useHistory();
@@ -43,6 +43,7 @@ function GuideBotPanelUser(props) {
           <div className="guides_panel-icon" style={{ backgroundImage: `url(${iconUrl})` }} />
         </div>
 
+        {isAdmin && (
         <div
           name="delete"
           id="delete"
@@ -55,6 +56,7 @@ function GuideBotPanelUser(props) {
             handleDelete(id);
           }}
         />
+        )}
       </div>
       <p className="panel_text-normal" style={{ marginLeft: '25px' }}>{botName}</p>
       <div className="guides_panel-tags_container">

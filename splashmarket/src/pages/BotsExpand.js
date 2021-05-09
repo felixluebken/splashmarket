@@ -1,26 +1,17 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 import React, { useState, useEffect } from 'react';
 import './Bots.css';
 import { useParams, useHistory } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 import moment from 'moment';
+import Loader from 'react-loader-spinner';
+import DownsamplePlugin from 'chartjs-plugin-downsample';
 import useQuery from '../helpers/useQuery';
 import HeaderBots from '../components/header/headerBots';
 import Footer from '../components/footer/footer';
 import PreviousSales from '../components/list-panels/previousSales';
 import BotService from '../services/BotService';
-
-/*
-
-bannerColor                 -str hex code of the background color
-bannerTextColor             -str hex code of the text color
-bannerIconUrl               -str
-bannerBackgroundUrl         -str        (uncomment when assets are ready from database)
-
-botName                     -str
-lastSale                    -str
-
-*/
 
 function BotsExpand(props) {
   const {
@@ -37,8 +28,7 @@ function BotsExpand(props) {
   const [isLoading, setIsLoading] = useState(true);
   const { bot } = useParams();
   const [foundBot, setFoundBot] = useState([]);
-  const [dates, setDates] = useState([]);
-  const [prices, setPrices] = useState([]);
+  const [timeUnit, setTimeUnit] = useState('week');
   const timeframeQuery = useQuery().get('timeframe') || timeframes.week;
 
   const [activeTimeframe, setActiveTimeframe] = useState(timeframeQuery);
@@ -63,36 +53,34 @@ function BotsExpand(props) {
     BotService.GetSales(bot, activeTimeframe, onGetBotSuccess, onGetBotError);
   }, [bot, activeTimeframe]);
 
-  // useEffect(() => {
-  //   if (foundBot.transactions && foundBot.transactions.length > 0) {
-  //     foundBot.transactions.forEach((botTransaction) => {
-  //       const convertedDate = moment(botTransaction.createdAt).format('YYYY-MM-DD');
-
-  //       // // console.log('BOT TRANSACTION: ', botTransaction);
-  //       // if (mergedBotRenewals.includes(botTransaction.bot.trim().toLowerCase())) {
-  //       //   if (!standardRenewalTypes.includes(botTransaction.renewalType.trim().toLowerCase())) {
-  //       //     botTransaction.renewalType = ' Renewal';
-  //       //   }
-  //       // }
-  //       // foundRenewalTypes[botTransaction.renewalType].dataValues.push({
-  //       //   x: new Date(convertedDate),
-  //       //   y: botTransaction.paymentPrice,
-  //       // });
-  //       setDates([...dates, convertedDate]);
-  //       setPrices([...prices, botTransaction.paymentPrice]);
-  //       dates.push(convertedDate);
-  //       prices.push(botTransaction.paymentPrice);
-  //     });
-  //   }
-  // }, [foundBot.transactions]);
-
-  console.log('FOUND BOT: ', foundBot);
+  useEffect(() => {
+    switch (timeframeQuery) {
+      case '1yr':
+        setTimeUnit('week');
+        break;
+      case '1mo':
+        setTimeUnit('day');
+        break;
+      case '1wk':
+        setTimeUnit('day');
+        break;
+      default:
+        setTimeUnit('hour');
+        break;
+    }
+  }, [timeframeQuery]);
 
   if (isLoading) {
     return (
-      <h1>
-        LOADING...
-      </h1>
+      <div className="loading-icon-container" style={{ height: '100%' }}>
+        <Loader
+          type="Puff"
+          color="#00BFFF"
+          height={200}
+          width={100}
+          timeout={15000}
+        />
+      </div>
     );
   }
 
@@ -201,57 +189,56 @@ function BotsExpand(props) {
         <div className="bots_expand-graph_panel-graph">
           <Line
             data={{
-              labels: (foundBot && foundBot.dates) || [],
               datasets: (foundBot && foundBot.datasets && Object.keys(foundBot.datasets) && Object.keys(foundBot.datasets).map((renewalType, index) => {
                 const capitalizedRenewal = renewalType.split(' ');
-                const dataPrices = foundBot.datasets[renewalType].data || [];
+
+                // const dataPrices = foundBot.datasets[renewalType].data || [];
+                const data = foundBot.datasets[renewalType].dataset || [{
+                  x: 0,
+                  y: 0,
+                }];
+
                 for (let i = 0; i < capitalizedRenewal.length; i += 1) {
                   capitalizedRenewal[i] = capitalizedRenewal[i][0].toUpperCase() + capitalizedRenewal[i].substr(1);
                 }
                 const dataset = {
                   label: capitalizedRenewal,
-                  data: dataPrices,
+                  data,
                   backgroundColor: ['transparent'],
                   borderColor: borderColors[index],
+                  spanGaps: true,
                 };
                 return dataset;
               })) || null,
-
-              // {
-              //   label: 'Renewal',
-              //   data: prices,
-              // backgroundColor: ['transparent'],
-              // borderColor: ['#27AAF7'],
-              // },
-              // {
-              //   label: 'Lifetime',
-              //   data: [6700, 5900, 6100, 6200, 6100, 7400],
-              //   backgroundColor: ['transparent'],
-              //   borderColor: ['#FB4056'],
-              // },
-
             }}
             options={{
+              plugins: {
+                DownsamplePlugin,
+
+              },
+              downsample: {
+                auto: true,
+                enabled: true,
+                threshold: foundBot.dates.length || 0, // max number of points to display per dataset
+              },
               legend: { display: false },
               responsive: true,
+              parsing: false,
               scales: {
-                y: {
-                  max: 150,
-                },
-                x: {
-                  max: 150,
-                },
                 xAxes: [{
                   display: true,
                   type: 'time',
-                  distribution: 'series',
+                  time: {
+                    unit: timeUnit,
+                  },
+
                   gridLines: {
                     color: '#303046',
                   },
                   ticks: {
                     fontSize: 16,
                     fontColor: '#BFC3D3',
-                    // autoSkip: true,
+                    autoSkip: true,
                     maxTicksLimit: 15,
                   },
                 }],
@@ -260,6 +247,7 @@ function BotsExpand(props) {
                   gridLines: {
                     color: '#303046',
                   },
+                  distribution: 'linear',
                   scaleLabel: {
                     display: true,
                     labelString: 'Price (USD)',
@@ -271,7 +259,11 @@ function BotsExpand(props) {
                     fontColor: '#BFC3D3',
                     autoSkip: true,
                     maxTicksLimit: 15,
+                    callback(value, index, values) {
+                      return `$${value}`;
+                    },
                   },
+
                 }],
 
               },
@@ -292,7 +284,7 @@ function BotsExpand(props) {
           {foundBot.transactions && foundBot.transactions.length > 0 && foundBot.transactions.slice(0).reverse().map((transaction) => {
             const convertedDate = moment(transaction.createdAt).format('MMMM DD, YYYY');
             return (
-              <PreviousSales date={convertedDate || 'N/A'} type={transaction.renewalType} price={`${transaction.paymentPrice ? `$${transaction.paymentPrice}` : 'N/A'}`} />
+              <PreviousSales key={transaction._id} date={convertedDate || 'N/A'} type={transaction.renewalType} price={`${transaction.paymentPrice ? `$${transaction.paymentPrice}` : 'N/A'}`} />
             );
           })}
         </div>

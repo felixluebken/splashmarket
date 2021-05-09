@@ -157,7 +157,7 @@ th {
 
 .dashboard_user {
   height: 55px;
-  width: 255px;
+  width: 100%;
   overflow: hidden;
   padding: 10px 0px 15px 50px;
 }
