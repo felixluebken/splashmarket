@@ -36,7 +36,7 @@ const BotPanel = (props) => {
       aria-hidden="true"
       onClick={handleBotRedirect}
     >
-      <div className="bot_panel-icon_frame" style={{ backgroundColor: 'black' }}>
+      <div className="bot_panel-icon_frame" style={{ backgroundColor: 'transparent' }}>
         <div className="bot_panel-icon" style={{ backgroundImage: `url(${iconUrl})` }} />
       </div>
       <p className="panel_text-normal" style={{ margin: '20px 0 10px 0' }}>{name}</p>

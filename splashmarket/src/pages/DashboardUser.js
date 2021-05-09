@@ -261,7 +261,7 @@ const DashboardUser = (props) => {
               const occurencePercentage = `${(occurences / transactions.length) * 100}%`;
               return (
                 <div className="dashboard_most-transacted_bot-section">
-                  <div className="dashboard_most-transacted_bot-frame" style={{ backgroundColor: 'black' }}>
+                  <div className="dashboard_most-transacted_bot-frame" style={{ backgroundColor: 'transparent' }}>
                     <div className="dashboard_most-transacted_bot-icon" style={{ backgroundImage: `url(${logo})` }} />
                   </div>
 

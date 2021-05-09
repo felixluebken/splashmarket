@@ -39,7 +39,7 @@ a.list_panel_link-normal {
 .transaction_history-bot_frame {
   width: 43px;
   height: 43px;
-  background: #c4c4c4;
+  background: transparent;
   border-radius: 5px;
 
   display: flex;

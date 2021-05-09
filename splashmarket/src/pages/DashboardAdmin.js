@@ -137,7 +137,7 @@ function DashboardAdmin(props) {
                   uri = `data:text/html,${escape(transcriptHTML)}`;
                 }
                 return (
-                  <TransactionHistoryPanel botBackground="black" botIcon={logo || ''} botName={bot} date={transactionDate} position={position} otherParty={otherParty} transcriptTitle={transcriptTitle || 'Transcript Not Available'} transcriptUrl={uri} />
+                  <TransactionHistoryPanel botBackground="transparent" botIcon={logo || ''} botName={bot} date={transactionDate} position={position} otherParty={otherParty} transcriptTitle={transcriptTitle || 'Transcript Not Available'} transcriptUrl={uri} />
                 );
               })}
             </div>
@@ -170,7 +170,7 @@ function DashboardAdmin(props) {
               const occurencePercentage = `${(occurences / transactions.length) * 100}%`;
               return (
                 <div className="dashboard_most-transacted_bot-section">
-                  <div className="dashboard_most-transacted_bot-frame" style={{ backgroundColor: 'black' }}>
+                  <div className="dashboard_most-transacted_bot-frame" style={{ backgroundColor: 'transparent' }}>
                     <div className="dashboard_most-transacted_bot-icon" style={{ backgroundImage: `url(${logo})` }} />
                   </div>
 

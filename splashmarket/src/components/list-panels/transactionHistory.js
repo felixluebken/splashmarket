@@ -25,7 +25,7 @@ function TransactionHistoryPanel(props) {
         <div className="transaction_history-bot_frame" style={{ backgroundColor: botIcon ? `${botBackground}` : '#242637' }}>
           <div className="transaction_history-bot_icon" style={{ backgroundImage: botIcon ? `url(${botIcon})` : `url(${BotSwapIcon})` }} />
         </div>
-        <p className="list_panel_text-normal" style={{ maxWidth: '58%' }}>{botName}</p>
+        <p className="list_panel_text-normal" style={{ maxWidth: '58%', minWidth: '58%' }}>{botName}</p>
       </div>
       <div className="transaction_history-container">
         <p className="list_panel_text-normal" style={{ maxWidth: '90%' }}>{date}</p>
