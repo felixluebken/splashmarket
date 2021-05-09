@@ -168,7 +168,7 @@ const DashboardUser = (props) => {
         <div className="dashboard_body-left">
 
           <div className="dashboard_user-banner">
-            <p className="dashboard_text-normal dashboard_banner-greeting_text" style={{ padding: '70px 0px 15px 50px', margin: '0px' }}>{`${greeting},`}</p>
+            <p className="dashboard_text-normal dashboard_banner-greeting_text" style={{ padding: '70px 0px 15px 50px', margin: '0px' }}>{`${!id ? `${greeting},` : ''}`}</p>
             <div className="dashboard_user">
               <div className="dashboard_user-profile-pic" style={{ backgroundImage: `url(${avatar})` }} />
               <div style={{ display: 'flex' }}>
