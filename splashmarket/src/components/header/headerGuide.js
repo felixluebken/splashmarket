@@ -19,7 +19,17 @@ const HeaderGuide = () => {
   };
   return (
     <div className="header">
-      <div className="logo" />
+      <div
+        className="logo"
+        role="button"
+        tabIndex={0}
+        aria-label="Home page header"
+        aria-hidden="true"
+        style={{ cursor: 'pointer' }}
+        onClick={() => {
+          handleRedirect('/');
+        }}
+      />
       <div className="nav">
         <a
           role="button"
