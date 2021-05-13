@@ -13,6 +13,7 @@ import BotsExpand from './pages/BotsExpand'
 
 import Blogs from './pages/Blogs'
 import BlogsExpand from './pages/BlogsExpand'
+import BlogsEditPopup from './popups/BlogsEditPopup'
 
 import GuidesUser from './pages/GuidesUser'
 import GuidesAdmin from './pages/GuidesAdmin'
@@ -39,7 +40,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-     <GuidesBotAdminEditPopup />
+     <BlogsEditPopup />
      <Leaderboard />
    
   </React.StrictMode>,
