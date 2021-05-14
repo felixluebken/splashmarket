@@ -1,12 +1,36 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './header.css';
 
-function HeaderBlogs() {
+const HeaderBlogs = () => {
+  const history = useHistory();
+  const handleRedirect = (route) => {
+    history.push(route);
+  };
+
+  const handleDashboardRedirect = () => {
+    if (user.isLoggedIn) {
+      history.push('/user');
+    } else {
+      history.push('/login');
+    }
+  };
   return (
     <div className="header">
       <div className="logo" />
       <div className="nav">
-        <a>Home</a>
+        <a
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            handleRedirect('/leaderboard');
+          }}
+        >
+          Home
+
+        </a>
         <a>Leaderboard</a>
         <a>Bots</a>
         <a className="currentPage">Blogs</a>
@@ -33,6 +57,6 @@ function HeaderBlogs() {
     </div>
 
   );
-}
+};
 
 export default HeaderBlogs;

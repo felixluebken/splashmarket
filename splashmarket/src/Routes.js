@@ -22,6 +22,8 @@ import BotsExpand from './pages/BotsExpand';
 import Guides from './pages/Guides';
 import GuidesSearch from './pages/GuidesSearch';
 import GuidesExpand from './pages/GuidesExpand';
+import Blogs from './pages/Blogs';
+import BlogsExpand from './pages/BlogsExpand';
 
 const Routes = () => {
   const history = useHistory();
@@ -137,6 +139,12 @@ const Routes = () => {
         </Route>
         <Route exact path="/guides/:bot">
           <GuidesExpand />
+        </Route>
+        <Route exact path="/blogs">
+          <Blogs />
+        </Route>
+        <Route exact path="/blogs/:blog">
+          <BlogsExpand />
         </Route>
       </Switch>
     </Router>

@@ -59,7 +59,18 @@ function HeaderLeaderboard() {
           Bots
 
         </a>
-        <a>Blogs</a>
+        <a
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            handleRedirect('/leaderboard');
+          }}
+        >
+          Blogs
+
+        </a>
         <a
           role="button"
           tabIndex={0}
