@@ -122,6 +122,7 @@ select.popup_admin_select {
   transform: translate(-50%, -50%);
 }
 .popup_panel-tall {
+  z-index: 1;
   overflow-y: auto;
   width: 356px;
   height: 615px;

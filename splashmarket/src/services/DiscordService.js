@@ -22,4 +22,11 @@ export default class DiscordService {
       .then(onSuccess)
       .catch(onError);
   }
+
+  static async SendWebhook(webhookURL, data, onSuccess, onError) {
+    await axios
+      .post(webhookURL, data, { withCredentials: true })
+      .then(onSuccess)
+      .catch(onError);
+  }
 }

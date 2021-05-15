@@ -1,28 +1,25 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './panels.css';
 import { useHistory } from 'react-router-dom';
-/*
-
-iconUrl         -str (url of the icon)
-title           -str
-subtitle        -str
-cost            -str
-
-moreInfoUrl     -str
-redeemUrl       -str
-notEnough       -str true or false
-
-*/
+import moment from 'moment';
+import RedeemDropletsPopup from '../../popups/RedeemDropletsPopup';
+import { UserContext } from '../../context/UserContext';
 
 const DashboardDropletsUserPanel = (props) => {
   const {
     droplet, droplets, setDroplets, currency,
   } = props;
-
+  const [user] = useContext(UserContext);
+  const [canRedeem, setCanRedeem] = useState(false);
   const [hasEnoughCurrency, setHasEnoughCurrency] = useState(false);
   const [companyIcon, setCompanyIcon] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const history = useHistory();
+
+  const handleToggleRedeemPopup = () => {
+    setIsModalVisible(!isModalVisible);
+  };
 
   useEffect(() => {
     if (droplet.fileContents && droplet.fileContents.buffer) {
@@ -37,10 +34,24 @@ const DashboardDropletsUserPanel = (props) => {
     } else {
       setHasEnoughCurrency(false);
     }
-  }, []);
+  }, [currency]);
+
+  useEffect(() => {
+    // Can only redeem if they have an active subscription
+    if (user.subscriptionExpiry) {
+      setCanRedeem(moment().isSameOrBefore(moment(user.subscriptionExpiry)));
+    } else {
+      setCanRedeem(false);
+    }
+  }, [user]);
+
+  console.log('CAN REDEEM: ', canRedeem);
 
   return (
     <div className="dashboard_droplets-panel">
+      {isModalVisible && (
+      <RedeemDropletsPopup title={droplet.prize} company={droplet.company} handleToggleRedeemPopup={handleToggleRedeemPopup} price={droplet.price} currency={currency} id={droplet._id} webhookURL={droplet.webhookURL} roleID={droplet.roleID} />
+      )}
       <div className="dashboard_droplets-panel_header">
         <div className="dashboard_droplets-panel_header-icon" style={{ backgroundImage: `url(${companyIcon})` }} />
         <h3 className="panel_text-normal">{droplet.company}</h3>
@@ -75,29 +86,30 @@ const DashboardDropletsUserPanel = (props) => {
           <span className="dashboard_droplets-more_info-btn-text">More Info</span>
         </div>
 
-        {hasEnoughCurrency ? (
+        {canRedeem && hasEnoughCurrency ? (
           <div className="dashboard_droplets-redeem-btn">
-            <span className="dashboard_droplets-redeem-btn-text">Redeem</span>
+            <span
+              className="dashboard_droplets-redeem-btn-text"
+              role="button"
+              tabIndex={0}
+              aria-label="Home page header"
+              aria-hidden="true"
+              onClick={() => {
+                handleToggleRedeemPopup();
+              }}
+            >
+              Redeem
+
+            </span>
           </div>
         ) : (
           <div className="dashboard_droplets-not_enough-btn">
-            <span className="dashboard_droplets-not_enough-btn-text">Not enough</span>
+            <span className="dashboard_droplets-not_enough-btn-text">
+              {!canRedeem && 'Subscribe to Redeem'}
+              {canRedeem && !hasEnoughCurrency && 'Not enough'}
+            </span>
           </div>
         )}
-        {/* {(() => {
-          if (hasEnoughCurrency) {
-            return (
-
-            );
-          }
-
-          return (
-            <div className="dashboard_droplets-redeem-btn">
-              <span className="dashboard_droplets-redeem-btn-text">Redeem</span>
-            </div>
-          );
-        })()} */}
-
       </div>
     </div>
   );

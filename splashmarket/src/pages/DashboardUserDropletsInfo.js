@@ -24,6 +24,8 @@ function DashboardUserDropletsInfo(props) {
   const {
     droplets, title, cost, mainTitle, description,
   } = props;
+  const [hasEnoughCurrency, setHasEnoughCurrency] = useState(false);
+
   const { id } = useParams();
   const [user] = useContext(UserContext);
   const [droplet, setDroplet] = useState({});
@@ -53,11 +55,18 @@ function DashboardUserDropletsInfo(props) {
 
     DropletService.GetDroplet(id, onGetDropletsSuccess, onGetDropletsError);
   }, [id]);
-  console.log('DROPLET: ', droplet);
 
   if (isLoading) {
     return <h1>Loading</h1>;
   }
+
+  // useEffect(() => {
+  //   if (currency) {
+  //     setHasEnoughCurrency(parseInt(currency, 10) >= parseInt(droplet.price, 10));
+  //   } else {
+  //     setHasEnoughCurrency(false);
+  //   }
+  // }, [currency]);
 
   const {
     company, companyDescription, price, prize, prizeDescription,
@@ -135,9 +144,9 @@ function DashboardUserDropletsInfo(props) {
               Back
             </span>
           </div>
-          <div className="dashboard_droplets-info-panel_user-button">
+          {/* <div className="dashboard_droplets-info-panel_user-button">
             <span className="dashboard_droplets-redeem-btn-text">Redeem Prize</span>
-          </div>
+          </div> */}
         </div>
       </div>
       <Footer />

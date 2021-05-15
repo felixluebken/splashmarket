@@ -142,7 +142,7 @@ const DashboardUser = (props) => {
         id: user.id,
         username: `${username}#${discriminator}`,
       },
-      priceId: 'price_1Ip0wHBm6oW7t42oIP4BHG7P',
+      priceId: 'price_1IrVGhLyeoV8Oq71Y2zcTcHx',
     };
     StripeService.CreateCheckoutSession(data, onCreateSessionSuccess, onCreateSessionError);
   };

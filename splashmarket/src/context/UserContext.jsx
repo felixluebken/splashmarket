@@ -19,6 +19,7 @@ export const initialState = {
   transactionsMMd: 0,
   isLoggedIn: false,
   showTransactions: true,
+  email: '',
 };
 
 const reducer = (state, action) => {
