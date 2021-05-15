@@ -16,6 +16,8 @@ import BotsExpand from './pages/BotsExpand';
 import Blogs from './pages/Blogs';
 import BlogsExpand from './pages/BlogsExpand';
 
+import BlogsEditPopup from './popups/BlogsEditPopup';
+
 import Guides from './pages/Guides';
 import GuidesSearch from './pages/GuidesSearch';
 import GuidesExpand from './pages/GuidesExpand';

@@ -21,14 +21,38 @@ blogUrl             -str
 
 function BlogBotPanelSmall(props) {
   const {
-    blogUrl, headerColor, headerIcon, headerTextColor, headerTitle, publishDate, bodyTitle, bodyContent, authorAvatar, authorUsername,
+    blogUrl, headerColor, headerIcon, headerTextColor, headerTitle, publishDate, bodyTitle, bodyContent, authorAvatar, authorUsername, canBeDeleted, id, handleDeleteBlog,
   } = props;
+
   return (
     <a href={blogUrl}>
       <div className="bot_blog_panel-small">
-        <div className="blog_bot_panel-header" style={{ backgroundColor: `${headerColor}` }}>
-          <div className="blog_bot_panel-header-icon" style={{ backgroundImage: `${headerIcon}` }} />
-          <h2 className="blog_bot_panel-header-title" style={{ color: `${headerTextColor}` }}>{headerTitle}</h2>
+        <div
+          className="blog_bot_panel-header"
+          style={{
+            backgroundColor: `${headerColor}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          }}
+        >
+          <div style={{ height: '100%' }}>
+            <div className="blog_bot_panel-header-icon" style={{ backgroundImage: `url(${headerIcon})` }} />
+            <h2 className="blog_bot_panel-header-title" style={{ color: `${headerTextColor}` }}>{headerTitle}</h2>
+          </div>
+
+          {canBeDeleted && (
+          <div
+            name="delete"
+            id="delete"
+            className="guides_panel_admin-delete_btn"
+            role="button"
+            tabIndex={0}
+            aria-label="Home page header"
+            aria-hidden="true"
+            style={{ marginLeft: '0', marginRight: '25px' }}
+            onClick={() => {
+              handleDeleteBlog(id);
+            }}
+          />
+          )}
         </div>
         <div className="blog_bot_panel-body">
           <p className="panel_text-light-small" style={{ width: '220px', overflow: 'hidden', marginBottom: '5px' }}>

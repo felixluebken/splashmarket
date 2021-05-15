@@ -396,13 +396,85 @@ select.guides_filter {
   background: #19192c;
   outline: none;
   border: none;
-
   width: 20%;
+}
+
+.blogs_edit-header {
+  height: 70px;
+  width: 100%;
+
+  margin-bottom: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.blogs_edit-header_img-frame {
+  height: 69px;
+  width: 69px;
+
+  background: #25253a;
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+.blogs_edit-header_img {
+  height: 54px;
+  width: 54px;
+
+  background-image: url(../resources/icons/img-grey.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.blogs_edit-main {
+  width: 100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.blogs_edit-details {
+  width: 35%;
+  margin-right: 5%;
+  display: inline-block;
+}
+.blogs_edit-body {
+  width: 60%;
+  height: 600px;
+
+  display: inline-block;
+}
+.blogs_edit-buttons {
+  width: 100%;
+  height: 44px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+textarea.popup_blog_text-area {
+  background-color: transparent;
+  resize: none;
+  width: 94%;
+
+  height: 400px;
 
   color: white;
   font-family: Poppins;
-  font-size: 17px;
+  font-size: 13px;
   line-height: 18px;
+
+  outline: none;
+  border-radius: 8px;
+  border: 1.5px solid #252538;
+  padding: 2%;
 }
 
 @media only screen and (max-width: 1320px) {
@@ -410,30 +482,54 @@ select.guides_filter {
     width: 80%;
     padding: 40px 5%;
 
-    top: 20%;
-    left: 5%;
-  }
-}
-
-@media only screen and (max-device-width: 960px) {
-  .popup_bot_guides-input-container_third {
-    width: 100%;
-  }
-}
-
-@media only screen and (max-device-width: 544px) {
-  .popup_panel-small {
-    width: 316px;
-    min-height: 384px;
-  }
-  .popup_panel-tall {
-    width: 260px;
-  }
-  .droplets_admin_add-header_text-frame {
-    width: 160px;
+    color: white;
+    font-family: Poppins;
+    font-size: 17px;
+    line-height: 18px;
   }
 
-  .popup_bot_guides-input-container_half {
-    width: 100%;
+  @media only screen and (max-width: 1320px) {
+    .popup_panel-big {
+      width: 80%;
+      padding: 40px 5%;
+
+      top: 20%;
+      left: 5%;
+    }
+  }
+
+  @media only screen and (max-device-width: 960px) {
+    .popup_bot_guides-input-container_third {
+      width: 100%;
+    }
+    .blogs_edit-details {
+      width: 100%;
+      margin-right: 0%;
+    }
+    .blogs_edit-body {
+      width: 100%;
+      height: 600px;
+
+      margin-top: 20px;
+
+      display: inline-block;
+    }
+  }
+
+  @media only screen and (max-device-width: 544px) {
+    .popup_panel-small {
+      width: 316px;
+      min-height: 384px;
+    }
+    .popup_panel-tall {
+      width: 260px;
+    }
+    .droplets_admin_add-header_text-frame {
+      width: 160px;
+    }
+
+    .popup_bot_guides-input-container_half {
+      width: 100%;
+    }
   }
 }

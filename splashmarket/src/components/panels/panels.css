@@ -308,7 +308,7 @@ p.blog_bot_panel-content {
 }
 .blog_bot_panel-icon {
   margin-left: 15px;
-
+  background-size: cover;
   width: 52px;
   height: 52px;
 }
@@ -446,7 +446,7 @@ h4.blog_bot_panel-expand-title {
 .blog_bot_panel-header-icon {
   margin-top: 15px;
   margin-left: 15px;
-
+  background-size: cover;
   width: 52px;
   height: 52px;
   float: left;

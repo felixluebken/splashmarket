@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 import './header.css';
 
 const HeaderBlogs = () => {
   const history = useHistory();
+  const [user] = useContext(UserContext);
+
   const handleRedirect = (route) => {
     history.push(route);
   };
@@ -17,8 +20,30 @@ const HeaderBlogs = () => {
   };
   return (
     <div className="header">
-      <div className="logo" />
+      <div
+        className="logo"
+        role="button"
+        tabIndex={0}
+        aria-label="Home page header"
+        aria-hidden="true"
+        style={{ cursor: 'pointer' }}
+        onClick={() => {
+          handleRedirect('/');
+        }}
+      />
       <div className="nav">
+        <a
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            handleRedirect('/');
+          }}
+        >
+          Home
+
+        </a>
         <a
           role="button"
           tabIndex={0}
@@ -28,16 +53,57 @@ const HeaderBlogs = () => {
             handleRedirect('/leaderboard');
           }}
         >
-          Home
+          Leaderboard
 
         </a>
-        <a>Leaderboard</a>
-        <a>Bots</a>
-        <a className="currentPage">Blogs</a>
-        <a>Guides</a>
+        <a
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            handleRedirect('/bots');
+          }}
+        >
+          Bots
+
+        </a>
+        <a
+          className="currentPage"
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            handleRedirect('/blogs');
+          }}
+        >
+          Blogs
+
+        </a>
+        <a
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            handleRedirect('/guides');
+          }}
+        >
+          Guides
+
+        </a>
       </div>
       <div className="button_group">
-        <div className="blue_button" style={{ width: 123, height: 35 }}>
+        <div
+          className="blue_button"
+          style={{ width: 123, height: 35 }}
+          role="button"
+          tabIndex={0}
+          aria-hidden="true"
+          onClick={handleDashboardRedirect}
+        >
           <span className="blue_button-text">Dashboard</span>
         </div>
         <div
@@ -47,9 +113,9 @@ const HeaderBlogs = () => {
           tabIndex={0}
           aria-label="Home page header"
           aria-hidden="true"
-          // onClick={() => {
-          //   handleRedirect('/droplets');
-          // }}
+          onClick={() => {
+            handleRedirect('/droplets');
+          }}
         >
           <span className="dark_button-text">Droplets</span>
         </div>

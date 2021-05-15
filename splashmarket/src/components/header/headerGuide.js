@@ -76,7 +76,7 @@ const HeaderGuide = () => {
           aria-label="Home page header"
           aria-hidden="true"
           onClick={() => {
-            handleRedirect('/leaderboard');
+            handleRedirect('/blogs');
           }}
         >
           Blogs

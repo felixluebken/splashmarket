@@ -143,7 +143,7 @@ const Routes = () => {
         <Route exact path="/blogs">
           <Blogs />
         </Route>
-        <Route exact path="/blogs/:blog">
+        <Route exact path="/blogs/:id">
           <BlogsExpand />
         </Route>
       </Switch>

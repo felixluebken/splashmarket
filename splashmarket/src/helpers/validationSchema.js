@@ -27,3 +27,12 @@ export const guideValidationSchema = yup.object().shape({
   twitterURL: yup.string(),
   instagramURL: yup.string(),
 });
+
+export const blogValidationSchema = yup.object().shape({
+  fileContents: yup.string().required('File Contents is required.'),
+  botName: yup.string().required('Bot Name is required.'),
+  imageURL: yup.string().required('Image URL is required.'),
+  headerColor: yup.string().required('Header color is required.'),
+  title: yup.string().required('Title is required.'),
+  body: yup.string().required('Body is required.'),
+});
