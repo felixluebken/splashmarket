@@ -28,6 +28,14 @@ export const guideValidationSchema = yup.object().shape({
   instagramURL: yup.string(),
 });
 
+export const adminBotValidationSchema = yup.object().shape({
+  values: yup.array().min(1, 'Bot Values are required.'),
+  renewalTypes: yup.array().min(1, 'Renewal Types is required'),
+  botName: yup.string().required('Bot Name is required'),
+  iconUrl: yup.string(),
+  isVisibleOnGraphs: yup.boolean(),
+});
+
 export const blogValidationSchema = yup.object().shape({
   fileContents: yup.string().required('File Contents is required.'),
   botName: yup.string().required('Bot Name is required.'),

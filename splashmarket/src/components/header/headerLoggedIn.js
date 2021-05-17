@@ -49,6 +49,7 @@ const HeaderLoggedIn = () => {
         style={{ margin: '10px auto', cursor: 'pointer' }}
       />
       <div className="button_group" style={{ margin: '10px auto' }}>
+
         <div
           className="dark_button-solid"
           style={{ width: 123, height: 35 }}
@@ -72,6 +73,19 @@ const HeaderLoggedIn = () => {
           style={{ width: 123, height: 35 }}
         >
           <span className="dark_button-text">Droplets</span>
+        </div>
+        <div
+          className="dark_button-solid"
+          style={{ width: 123, height: 35 }}
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            handleRedirect('/admin/bots');
+          }}
+        >
+          <span className="dark_button-solid-text">Manage Bots</span>
         </div>
       </div>
     </div>

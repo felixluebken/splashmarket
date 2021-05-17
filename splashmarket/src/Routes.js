@@ -24,13 +24,13 @@ import GuidesSearch from './pages/GuidesSearch';
 import GuidesExpand from './pages/GuidesExpand';
 import Blogs from './pages/Blogs';
 import BlogsExpand from './pages/BlogsExpand';
+import AdminBots from './pages/AdminBots';
 
 const Routes = () => {
   const history = useHistory();
   const [user, userDispatch] = useContext(UserContext);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   const onGetUserSuccess = (response) => {
     userDispatch({
@@ -146,6 +146,9 @@ const Routes = () => {
         <Route exact path="/blogs/:id">
           <BlogsExpand />
         </Route>
+        <PrivateRoute exact path="/admin/bots" isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating}>
+          <AdminBots />
+        </PrivateRoute>
       </Switch>
     </Router>
   );

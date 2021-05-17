@@ -19,7 +19,6 @@ function GuideBotPanelAdmin(props) {
     history.push(route);
   };
 
-  console.log('BOT NAME: ', botName);
   return (
     <div
       className="guides_panel"

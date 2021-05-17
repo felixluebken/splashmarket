@@ -81,7 +81,15 @@ const HomepageSearch = () => {
   return (
     <div className="main_section">
       <div className="main_section-frame">
-        <h1 style={{ textAlign: 'center', marginBottom: '60px' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
+        <h1 style={{
+          textAlign: 'center', color: '#29ABFF',
+        }}
+        >
+          Splash Market
+        </h1>
+        <h2 style={{ marginBottom: '60px' }}>
+          Safe and Secure Marketplace for Digital Products
+        </h2>
       </div>
       <div className="search-frame_homepage">
         <div className="search_icon" />
