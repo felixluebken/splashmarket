@@ -158,7 +158,10 @@ const GuidesValidBotAdminEditPopup = (props) => {
 
         return (
           <div className="popup_panel-big">
-            <div className="popup_bot_guides-input-container_half">
+            <div
+              className="popup_bot_guides-input-container_half"
+              style={{ marginRight: '20px' }}
+            >
               <p className="popup_text-large-light">Bot Name</p>
               <input
                 type="text"
