@@ -40,7 +40,6 @@ const AdminBots = () => {
 
   const getBots = () => {
     const onGetBotsSuccess = (response) => {
-      console.log('RESPONSE: ', response.data);
       if (response.data.pager) {
         setPager(response.data.pager);
         setCurrentPage(response.data.pager.currentPage);
@@ -95,7 +94,6 @@ const AdminBots = () => {
 
   const getAllBotsList = async () => {
     const onFindBotsSuccess = (response) => {
-      console.log('RESPONSE FIND ALL BOTS: ', response.data);
       setBotList(response.data);
       setIsLoading(false);
     };
@@ -108,7 +106,6 @@ const AdminBots = () => {
 
   const handleBotSearch = () => {
     const onFindBotsSuccess = (response) => {
-      console.log('RESPONSE: ', response.data);
       if (response.data.pager && response.data.pager.currentPage) {
         setCurrentPage(response.data.pager.currentPage);
       }
