@@ -102,7 +102,7 @@ const Routes = () => {
           <Loginpage />
         </Route>
         <PrivateRoute exact path="/user" isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating}>
-          {user.role === 'admin'
+          {(user.role === 'admin' || user.role === 'middleman')
             ? <DashboardAdmin />
             : <DashboardUser />}
         </PrivateRoute>
