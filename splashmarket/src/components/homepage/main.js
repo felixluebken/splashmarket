@@ -88,7 +88,7 @@ const HomepageSearch = () => {
           Splash Market
         </h1>
         <h2 style={{ marginBottom: '60px' }}>
-          Safe and Secure Marketplace for Digital Products
+          The safest and most secure marketplace for digital transactions
         </h2>
       </div>
       <div className="search-frame_homepage">

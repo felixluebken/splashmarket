@@ -7,7 +7,7 @@ import { initialState, SET_USER, UserContext } from '../../context/UserContext';
 const HeaderLoggedIn = () => {
   const [user, userDispatch] = useContext(UserContext);
   const history = useHistory();
-
+  const { role = 'member' } = user;
   const handleRedirect = (route) => {
     history.push(route);
   };
@@ -74,6 +74,8 @@ const HeaderLoggedIn = () => {
         >
           <span className="dark_button-text">Droplets</span>
         </div>
+
+        {(role === 'middleman' || role === 'admin') && (
         <div
           className="dark_button-solid"
           style={{ width: 123, height: 35 }}
@@ -87,6 +89,7 @@ const HeaderLoggedIn = () => {
         >
           <span className="dark_button-solid-text">Manage Bots</span>
         </div>
+        )}
       </div>
     </div>
   );
