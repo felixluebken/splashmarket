@@ -212,9 +212,10 @@ function BotsExpand(props) {
               })) || null,
             }}
             options={{
+              animation: false,
               elements: {
                 line: {
-                  tension: 0,
+                  tension: 0.2,
                 },
               },
               plugins: {
@@ -244,7 +245,7 @@ function BotsExpand(props) {
                     fontSize: 16,
                     fontColor: '#BFC3D3',
                     autoSkip: true,
-                    maxTicksLimit: 15,
+                    maxTicksLimit: 10,
                   },
                 }],
                 yAxes: [{
