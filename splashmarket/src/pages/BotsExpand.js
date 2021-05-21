@@ -214,8 +214,8 @@ function BotsExpand(props) {
             options={{
               elements: {
                 line: {
-                  tension: 0
-                }
+                  tension: 0,
+                },
               },
               plugins: {
                 DownsamplePlugin,
