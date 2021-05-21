@@ -40,8 +40,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-     <BlogsEditPopup />
-     <Leaderboard />
+     <BotsExpand />
    
   </React.StrictMode>,
   document.getElementById('root')

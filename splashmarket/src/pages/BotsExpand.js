@@ -123,6 +123,12 @@ function BotsExpand(props) {
                                     }
                                 }]
                                 
+                            
+                            },
+                            elements: {
+                                line: {
+                                    tension:0
+                                }
                             }
                         }}
                     />
