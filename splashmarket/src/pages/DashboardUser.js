@@ -202,12 +202,12 @@ const DashboardUser = (props) => {
                 )}
               </div>
               <p className="dashboard_text-light" style={{ padding: '5px 0px 0px 70px', margin: '0px' }}>{`#${discriminator}`}</p>
-              {!id && freeTransactionCount && freeTransactionCount > 0 && (
-              <p className="dashboard_text-light" style={{ padding: '5px 0px 0px 70px', margin: '0px' }}>
-                {`Transaction Count: ${freeTransactionCount}`}
-              </p>
+              {!id && (freeTransactionCount && freeTransactionCount > 0) ? (
+                <p className="dashboard_text-light" style={{ padding: '5px 0px 0px 70px', margin: '0px' }}>
+                  {`Transaction Count: ${freeTransactionCount}`}
+                </p>
 
-              )}
+              ) : null}
 
             </div>
           </div>
