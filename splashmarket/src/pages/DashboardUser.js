@@ -32,7 +32,9 @@ const DashboardUser = (props) => {
   let roles;
   let customerID;
   let subscriptionStart;
+  let freeTransactionCount;
   let subscriptionCancelAtPeriodEnd;
+
   useEffect(() => {
     if (id) {
       if (userSearch.id) {
@@ -62,10 +64,9 @@ const DashboardUser = (props) => {
       subscriptionStart = null,
       subscriptionCancelAtPeriodEnd = false,
       customerID = '',
+      freeTransactionCount = 0,
     } = userView);
   }
-
-  console.log('USER VIEW: ', userView);
 
   useEffect(() => {
     setGreeting(getLocalTime());
@@ -201,6 +202,12 @@ const DashboardUser = (props) => {
                 )}
               </div>
               <p className="dashboard_text-light" style={{ padding: '5px 0px 0px 70px', margin: '0px' }}>{`#${discriminator}`}</p>
+              {!id && freeTransactionCount && freeTransactionCount > 0 && (
+              <p className="dashboard_text-light" style={{ padding: '5px 0px 0px 70px', margin: '0px' }}>
+                {`Transaction Count: ${freeTransactionCount}`}
+              </p>
+
+              )}
 
             </div>
           </div>
