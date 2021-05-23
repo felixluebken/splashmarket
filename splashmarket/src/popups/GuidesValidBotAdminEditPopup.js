@@ -22,6 +22,7 @@ const GuidesValidBotAdminEditPopup = (props) => {
     renewalTypes: [],
     values: '',
     isVisibleOnGraphs: false,
+    headerColor: '',
   };
 
   useEffect(() => () => {
@@ -36,6 +37,7 @@ const GuidesValidBotAdminEditPopup = (props) => {
       renewalTypes: bot.validRenewalTypes,
       values: bot.values,
       isVisibleOnGraphs: bot.isVisibleOnGraphs,
+      headerColor: bot.headerColor,
     };
   }
 
@@ -66,6 +68,7 @@ const GuidesValidBotAdminEditPopup = (props) => {
           validRenewalTypes: values.renewalTypes,
           values: values.values,
           isVisibleOnGraphs: values.isVisibleOnGraphs,
+          headerColor: values.headerColor,
         };
         if (bot) {
           // Edit
@@ -153,11 +156,26 @@ const GuidesValidBotAdminEditPopup = (props) => {
         setValues,
       }) => {
         const {
-          unbindType, siteURL, renewalType, botName, iconUrl, systemsSupported, middleman, scammerPrevention, twitterURL, instagramURL, gracePeriod,
+          renewalType, botName, iconUrl, headerColor,
         } = values;
 
+        console.log('ERRORS: ', errors.headerColor);
         return (
           <div className="popup_panel-big">
+            <p className="popup_text-large-light">Show on Public Bot Graphs</p>
+            <ToggleButton
+              inactiveLabel="Show"
+              activeLabel="Hide"
+              value={values.isVisibleOnGraphs}
+              onToggle={(value) => {
+                setFieldValue('isVisibleOnGraphs', !value);
+              }}
+              colors={{
+                active: {
+                  base: '#29ABFF',
+                },
+              }}
+            />
             <div
               className="popup_bot_guides-input-container_half"
               style={{ marginRight: '20px' }}
@@ -185,20 +203,22 @@ const GuidesValidBotAdminEditPopup = (props) => {
                 value={iconUrl}
               />
             </div>
-            <p className="popup_text-large-light">Show on Public Bot Graphs</p>
-            <ToggleButton
-              inactiveLabel="Show"
-              activeLabel="Hide"
-              value={values.isVisibleOnGraphs}
-              onToggle={(value) => {
-                setFieldValue('isVisibleOnGraphs', !value);
-              }}
-              colors={{
-                active: {
-                  base: '#29ABFF',
-                },
-              }}
-            />
+            <div
+              className="popup_bot_guides-input-container_half"
+              style={{ marginRight: '20px' }}
+            >
+              <p className="popup_text-large-light">Header Color (Hex Code)</p>
+              <input
+                type="text"
+                name="headerColor"
+                className={`popup_admin_input ${errors.headerColor && 'invalid-input'}`}
+                placeholder={errors.headerColor ? errors.headerColor : '#ffffff'}
+                onChange={handleChange}
+                onBlur={handleBlur(validateField)}
+                value={headerColor}
+              />
+            </div>
+
             <div className="popup_bot_guides-input-panel">
               <div className="popup_bot_guides-input-container_third">
                 <p className="popup_text-large-light">Renewal</p>

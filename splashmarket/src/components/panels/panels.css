@@ -653,7 +653,7 @@ h2.blog_bot_panel-header-title {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  text-align: center;
   cursor: default;
 }
 .dashboard_droplets-not_enough-btn-text {

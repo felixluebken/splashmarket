@@ -51,7 +51,6 @@ function HomepageLeaderboard() {
           const {
             username, discriminator, avatar, transactionsLength, createdAt, id,
           } = user;
-          console.log('USER: ', user);
           return (
             <RankedMemberPanel
               key={id}

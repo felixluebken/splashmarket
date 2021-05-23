@@ -1,0 +1,26 @@
+.info-section {
+  width: 50%;
+  margin: 0 auto;
+  white-space: pre-line;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media only screen and (max-device-width: 1000px) {
+  .info-section {
+    align-items: baseline;
+    justify-content: space-around;
+  }
+}
+
+@media only screen and (max-device-width: 600px) {
+  .info-section {
+    align-items: baseline;
+    justify-content: space-around;
+  }
+}

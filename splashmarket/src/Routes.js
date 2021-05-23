@@ -25,6 +25,9 @@ import GuidesExpand from './pages/GuidesExpand';
 import Blogs from './pages/Blogs';
 import BlogsExpand from './pages/BlogsExpand';
 import AdminBots from './pages/AdminBots';
+import InformationTOC from './pages/InformationTOC';
+import Disclaimer from './pages/Disclaimer';
+import CookiePolicy from './pages/PrivacyPolicy';
 
 const Routes = () => {
   const history = useHistory();
@@ -97,6 +100,15 @@ const Routes = () => {
       <Switch>
         <Route exact path="/">
           <Homepage />
+        </Route>
+        <Route exact path="/terms-of-service">
+          <InformationTOC />
+        </Route>
+        <Route exact path="/disclaimer">
+          <Disclaimer />
+        </Route>
+        <Route exact path="/cookie-policy">
+          <CookiePolicy />
         </Route>
         <Route exact path="/login">
           <Loginpage />

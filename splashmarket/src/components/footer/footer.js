@@ -27,6 +27,57 @@ const Footer = () => {
         </div>
 
         <div className="footer_main-res">
+          <h3 style={{ marginBottom: '20px' }}>Information</h3>
+          <div style={{ display: 'inline-block' }}>
+            <ul>
+              <li>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Home page header"
+                  aria-hidden="true"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    handleRedirect('/terms-of-service');
+                  }}
+                >
+                  Terms of Service
+                </a>
+              </li>
+              <li>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Home page header"
+                  aria-hidden="true"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    handleRedirect('/disclaimer');
+                  }}
+                >
+                  Disclaimer
+                </a>
+              </li>
+              <li>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Home page header"
+                  aria-hidden="true"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    handleRedirect('/cookie-policy');
+                  }}
+                >
+                  Cookie Policy
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div className="footer_main-res" style={{ marginRight: 0 }}>
           <h3 style={{ marginBottom: '20px' }}>Resources</h3>
           <div style={{ display: 'inline-block' }}>
             <ul>
@@ -60,7 +111,6 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-
         </div>
 
         <div className="footer_main-nav">

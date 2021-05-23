@@ -34,7 +34,7 @@
 }
 .section_graphs {
   width: 100%;
-
+  color: white;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

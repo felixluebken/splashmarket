@@ -14,7 +14,6 @@ const HomepageBlogs = () => {
 
   const getBlogs = () => {
     const onGetBlogsSuccess = (response) => {
-      console.log('RESPONSE: ', response.data);
       if (response.data.pageOfItems && response.data.pageOfItems.length > 0) {
         setBlogs(response.data.pageOfItems);
       } else {

@@ -15,7 +15,7 @@ import BotService from '../services/BotService';
 
 function BotsExpand(props) {
   const {
-    bannerColor, bannerIconUrl, botName, lastSale, bannerTextColor,
+    botName, bannerTextColor,
   } = props;
 
   const timeframes = {
@@ -53,6 +53,7 @@ function BotsExpand(props) {
     BotService.GetSales(bot, activeTimeframe, onGetBotSuccess, onGetBotError);
   }, [bot, activeTimeframe]);
 
+  console.log('FOUND BOT: ', foundBot);
   useEffect(() => {
     switch (timeframeQuery) {
       case '1yr':
@@ -89,7 +90,7 @@ function BotsExpand(props) {
       <div className="bots_header-container">
         <HeaderBots />
       </div>
-      <div className="bots_expand-header_banner" style={{ backgroundColor: 'transparent' /* ,backgroundImage:`url(${bannerBackgroundUrl})` */ }}>
+      <div className="bots_expand-header_banner" style={{ backgroundColor: `${foundBot && foundBot.headerColor ? foundBot.headerColor : 'transparent'}` }}>
         <div className="bots_expand-header_container">
           <div className="bots_expand-header_icon" style={{ backgroundImage: `url(${foundBot.logo || null})` }} />
           <h4 className="bots_title" style={{ color: `${bannerTextColor}` }}>{foundBot.botName || 'N/A'}</h4>

@@ -270,6 +270,47 @@ const DashboardUser = (props) => {
         </div>
 
         <div className="dashboard_body-right">
+
+          {!id && (
+          <div className="dashboard_payment-panel">
+
+            <div className="dashboard_payment-panel-card_icon" />
+            <div className="dashboard_payment-panel-text_container">
+              <p className="dashboard_text-light" style={{ margin: '0px 0px 10px 0px' }}>
+                {isSubscriptionActive && subscriptionExpiry && !subscriptionCancelAtPeriodEnd && (
+                  `Renewal: ${moment(subscriptionExpiry).format('MMM Do YYYY')}`
+                )}
+                {!isSubscriptionActive && !subscriptionCancelAtPeriodEnd && (
+                  'Renewal: Inactive'
+                )}
+                {subscriptionCancelAtPeriodEnd && (
+                  `Cancelled: ${moment(subscriptionExpiry).format('MMM Do YYYY')}`
+                )}
+              </p>
+              <p className="dashboard_text-light" style={{ margin: '0px 0px 10px 0px' }}>
+                {`${cardBrand ? cardBrand.toUpperCase() : ''} ${cardLastFour || '••••'}`}
+              </p>
+              <a
+                className="dashboard_link_text-normal"
+                role="button"
+                tabIndex={0}
+                aria-label="Home page header"
+                aria-hidden="true"
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  if (isSubscriptionActive) {
+                    redirectToCustomerSubscriptionPortal();
+                  } else {
+                    handleCreateNewSubscription();
+                  }
+                }}
+              >
+                Manage Subscription ⇾
+              </a>
+            </div>
+          </div>
+          )}
+
           {!id && (
           <div className="dashboard_droplets_panel">
             <div className="dashboard_droplets_panel-header">
@@ -314,46 +355,6 @@ const DashboardUser = (props) => {
               );
             })}
           </div>
-
-          {!id && (
-            <div className="dashboard_payment-panel">
-
-              <div className="dashboard_payment-panel-card_icon" />
-              <div className="dashboard_payment-panel-text_container">
-                <p className="dashboard_text-light" style={{ margin: '0px 0px 10px 0px' }}>
-                  {isSubscriptionActive && subscriptionExpiry && !subscriptionCancelAtPeriodEnd && (
-                    `Renewal: ${moment(subscriptionExpiry).format('MMM Do YYYY')}`
-                  )}
-                  {!isSubscriptionActive && !subscriptionCancelAtPeriodEnd && (
-                    'Renewal: Inactive'
-                  )}
-                  {subscriptionCancelAtPeriodEnd && (
-                    `Cancelled: ${moment(subscriptionExpiry).format('MMM Do YYYY')}`
-                  )}
-                </p>
-                <p className="dashboard_text-light" style={{ margin: '0px 0px 10px 0px' }}>
-                  {`${cardBrand ? cardBrand.toUpperCase() : ''} ${cardLastFour || '••••'}`}
-                </p>
-                <a
-                  className="dashboard_link_text-normal"
-                  role="button"
-                  tabIndex={0}
-                  aria-label="Home page header"
-                  aria-hidden="true"
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    if (isSubscriptionActive) {
-                      redirectToCustomerSubscriptionPortal();
-                    } else {
-                      handleCreateNewSubscription();
-                    }
-                  }}
-                >
-                  Manage Subscription ⇾
-                </a>
-              </div>
-            </div>
-          )}
 
         </div>
       </div>

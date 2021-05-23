@@ -213,7 +213,7 @@ p.last_sale_text {
   width: 100%;
   height: 272px;
   background-position: left;
-  background-image: url(../resources/temp/cyber.svg);
+  /* background-image: url(../resources/temp/cyber.svg); */
   background-repeat: no-repeat;
   background-size: auto;
 }

@@ -14,6 +14,7 @@ import useQuery from '../helpers/useQuery';
 import BotService from '../services/BotService';
 import GuidesValidBotAdminEditPopup from '../popups/GuidesValidBotAdminEditPopup';
 import UseDebounce from '../helpers/useDebounce';
+import HeaderLoggedIn from '../components/header/headerLoggedIn';
 
 const AdminBots = () => {
   const [user] = useContext(UserContext);
@@ -144,7 +145,7 @@ const AdminBots = () => {
       {isToggleModalVisible && (
       <GuidesValidBotAdminEditPopup toggleModal={handleToggleModal} getBots={getBots} bot={botEditing} setBot={setBotEditing} />
       )}
-      <HeaderBlogs />
+      <HeaderLoggedIn />
       <div className="bots_search-frame">
         <div className="bots_search-main_frame">
           <div className="search_icon" />

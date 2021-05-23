@@ -48,6 +48,7 @@ function GuidesExpand(props) {
   let unbindType;
   let tags;
   let siteURL;
+  let headerColor;
 
   console.log('BOT GUIDE: ', botGuide);
   if (botGuide) {
@@ -58,6 +59,7 @@ function GuidesExpand(props) {
       middleman = '',
       scammerPrevention = '',
       gracePeriod = '',
+      headerColor = '',
       siteURL = '',
       botName,
       fileContents,
@@ -106,7 +108,7 @@ function GuidesExpand(props) {
       <GuidesBotAdminEditPopup tags={tags} toggleEditGuideModal={toggleEditGuideModal} botGuide={botGuide} setBotGuide={setBotGuide} />
       )}
       <HeaderGuide />
-      <div className="guides_expand-header_banner" style={{ backgroundColor: '#131323' /* ,backgroundImage:`url(${bannerBackgroundUrl})` */ }}>
+      <div className="guides_expand-header_banner" style={{ backgroundColor: `${headerColor || 'transparent'}` /* ,backgroundImage:`url(${bannerBackgroundUrl})` */ }}>
         <div className="guides_expand-header_container">
           <div className="guides_expand-header_icon" style={{ backgroundImage: `url(${botGuideIcon})` }} />
           <h4 className="guides_title" style={{ color: `${bannerTextColor}` }}>{botName}</h4>

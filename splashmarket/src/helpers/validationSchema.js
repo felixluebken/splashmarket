@@ -34,6 +34,7 @@ export const adminBotValidationSchema = yup.object().shape({
   botName: yup.string().required('Bot Name is required'),
   iconUrl: yup.string(),
   isVisibleOnGraphs: yup.boolean(),
+  headerColor: yup.string().matches('^#(?:[0-9a-fA-F]{3}){1,2}$', 'Must be a valid hex code.'),
 });
 
 export const blogValidationSchema = yup.object().shape({
