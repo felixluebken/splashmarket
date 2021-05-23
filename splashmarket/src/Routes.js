@@ -57,6 +57,9 @@ const Routes = () => {
     // Handle authentication
     setIsAuthenticated(false);
     setIsAuthenticating(false);
+    if (error && error.response && error.response.status === 404) {
+      window.location.href = 'https://discord.com/invite/splashmarket';
+    }
     if (history.location.pathnname === '/user') {
       history.push('/');
     }
