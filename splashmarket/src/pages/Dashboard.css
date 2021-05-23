@@ -104,7 +104,8 @@ th {
   width: 808px;
   height: 217px;
 
-  background-image: url(../resources/pages/dashboard-banner-user.png);
+  /*background-image: url(../resources/pages/dashboard-banner-user.png);*/
+  background-image: url(../resources/pages/dashboard-banner-user.svg);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -113,7 +114,8 @@ th {
   width: 530px;
   height: 189px;
 
-  background-image: url(../resources/pages/dashboard-banner-admin.png);
+  /*background-image: url(../resources/pages/dashboard-banner-admin.png);*/
+  background-image: url(../resources/pages/dashboard-banner-admin.svg);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
