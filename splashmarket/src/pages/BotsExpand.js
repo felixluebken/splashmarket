@@ -85,6 +85,7 @@ function BotsExpand(props) {
     );
   }
 
+  console.log('foundBot');
   return (
     <>
       <div className="bots_header-container">
