@@ -131,6 +131,7 @@ const RedeemDropletsPopup = (props) => {
           onClick={() => {
             handleRedeemPrize();
           }}
+          disabled
         >
           <span
             className="popup_blue-btn_text"
