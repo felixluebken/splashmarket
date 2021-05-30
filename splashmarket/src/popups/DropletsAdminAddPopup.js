@@ -20,6 +20,7 @@ const initialValues = {
   fileContents: '',
   roleID: '',
   webhookURL: '',
+  headerColor: '',
 };
 
 function DropletsAdminAddPopup(props) {
@@ -75,7 +76,7 @@ function DropletsAdminAddPopup(props) {
         setFieldValue,
       }) => {
         const {
-          company, prize, price, companyDescription, prizeDescription, roleID, webhookURL,
+          company, prize, price, companyDescription, prizeDescription, roleID, webhookURL, headerColor,
         } = values;
         return (
           <div className="popup_panel-tall">
@@ -111,6 +112,18 @@ function DropletsAdminAddPopup(props) {
               </div>
 
             </div>
+            <p className="popup_text-normal-small" style={{ marginBottom: '6px' }}>Header Color (Hex Code)</p>
+            <input
+              name="headerColor"
+              type="text"
+              className={`popup_admin_input ${errors.headerColor && 'invalid-input'}`}
+              placeholder="#ffffff"
+              style={{ marginBottom: '10px' }}
+              value={headerColor}
+              onChange={handleChange}
+              onBlur={handleBlur(validateField)}
+            />
+
             <p className="popup_text-normal-small" style={{ marginBottom: '6px' }}>Prize Name</p>
             <input
               name="prize"

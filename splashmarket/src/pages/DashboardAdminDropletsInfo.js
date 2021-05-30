@@ -71,7 +71,7 @@ const DashboardAdminDropletsInfo = () => {
           webhookURL: values.webhookURL,
           companyDescription: values.companyDescription,
           prizeDescription: values.prizeDescription,
-
+          headerColor: values.headerColor,
         };
         const { _id } = values;
         await DropletService.UpdateDroplet(_id, putData, onDropletUpdateSuccess, onDropletUpdateError);
@@ -103,11 +103,11 @@ const DashboardAdminDropletsInfo = () => {
           validateForm,
         }) => {
           const {
-            prize, companyDescription, company, prizeDescription, webhookURL, roleID,
+            companyDescription, prizeDescription, webhookURL, roleID, headerColor,
           } = values;
           return (
             <>
-              <div className="dashboard_droplets_info-header">
+              <div className="dashboard_droplets_info-header" style={{ background: headerColor || 'transparent' }}>
                 <div className="dashboard_droplets_redeem-header_balance">
                   <div className="dashboard_droplets_redeem-header_droplets-body">
                     <div className="dashboard_droplets_panel-icon_container">
@@ -154,6 +154,18 @@ const DashboardAdminDropletsInfo = () => {
                   <h3 className="dashboard_text-normal">{droplet.prize}</h3>
 
                   <div className="dashboard_droplets_info-panel_body_admin-container">
+
+                    <div className="dashboard_droplets_info-panel_body_admin">
+                      <p className="dashboard_text-light" style={{ marginTop: '30px' }}>
+                        Header Color
+                      </p>
+                      <input type="text" name="headerColor" className={`dashboard_text-input ${errors.headerColor && 'invalid-input'}`} value={headerColor} onChange={handleChange} onBlur={handleBlur(validateField)} />
+                    </div>
+                    <div className="dashboard_droplets_info-panel_body_admin" />
+                  </div>
+
+                  <div className="dashboard_droplets_info-panel_body_admin-container">
+
                     <div className="dashboard_droplets_info-panel_body_admin">
                       <p className="dashboard_text-light" style={{ marginTop: '30px' }}>
                         Role ID

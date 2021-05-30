@@ -497,7 +497,7 @@ th {
   min-height: 90px;
   width: 70%;
   flex-direction: row-reverse;
-  margin: 20px 15%;
+  padding: 20px 15%;
 }
 .dashboard_droplets_info-panel {
   background: #19192c;
@@ -915,7 +915,7 @@ input.invalid-input {
   }
   .dashboard_droplets_info-header {
     width: 90%;
-    margin: 20px 5%;
+    padding: 20px 5%;
   }
 }
 @media screen and (max-width: 970px) {

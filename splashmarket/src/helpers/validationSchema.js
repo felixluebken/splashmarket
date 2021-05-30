@@ -9,6 +9,7 @@ export const dropletValidationSchema = yup.object().shape({
   fileContents: yup.string().required('Company Logo is required.'),
   webhookURL: yup.string().required('Webhook URL is required.'),
   roleID: yup.string().required('Discord Role ID is required.'),
+  headerColor: yup.string().matches('^#(?:[0-9a-fA-F]{3}){1,2}$', 'Must be a valid hex code.'),
 });
 
 export const addBotValidationSchema = yup.object().shape({
