@@ -9,12 +9,14 @@ import PageSwitch from '../components/page-switch/PageSwitch';
 import BotPanel from '../components/panels/BotPanel';
 import BotService from '../services/BotService';
 import UseDebounce from '../helpers/useDebounce';
+import selectOptions from '../helpers/selectOptions';
 
 const BotsSearch = () => {
   const [bots, setBots] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const pageQuery = useQuery().get('page');
   const [botsSearch, setBotsSearch] = useState('');
+  const [sortSearch, setSortSearch] = useState('');
   const [botSearchResults, setBotSearchResults] = useState([{ displayName: 'There are no results to show' }]);
   const debouncedBot = UseDebounce(botsSearch, 1000);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,11 +30,13 @@ const BotsSearch = () => {
       setIsLoading(false);
     };
     const onFindBotsError = (error) => {
-      console.log('ERROR: ', error.response);
+      console.log('ERROR: ', error);
       setIsLoading(false);
     };
     BotService.FindBotsWithGraphs(pageQuery || 1, onFindBotsSuccess, onFindBotsError);
   };
+
+  console.log('IS LOADING: ', isLoading);
 
   useEffect(() => {
     findBotsWithGraphs();
@@ -40,6 +44,9 @@ const BotsSearch = () => {
 
   const handleChange = (event) => {
     setBotsSearch(event.target.value);
+  };
+  const handleSelectionChange = (event) => {
+    setSortSearch(event.target.value);
   };
 
   const makeAndHandleRequest = async () => {
@@ -52,7 +59,7 @@ const BotsSearch = () => {
       console.log('ERROR: ', error.response.data);
       setIsLoading(false);
     };
-    await BotService.SearchBot(botsSearch, onBotSearchSuccess, onBotSearchError);
+    await BotService.SearchBot(botsSearch, sortSearch, onBotSearchSuccess, onBotSearchError);
   };
 
   useEffect(() => {
@@ -74,7 +81,7 @@ const BotsSearch = () => {
     const onFindBotsError = (error) => {
       console.log('ERROR: ', error.response);
     };
-    BotService.FindBotSearch(botsSearch, onFindBotsSuccess, onFindBotsError);
+    BotService.FindBotSearch(botsSearch, sortSearch, onFindBotsSuccess, onFindBotsError);
   };
 
   const handleKeypress = (e) => {
@@ -171,16 +178,30 @@ const BotsSearch = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="bots_search-btn">
+        <div className="search_divider" style={{ margin: '15px 10px' }} />
+        <div className="filter_icon" style={{ margin: '20px 10px' }} />
+        <select style={{ margin: '21px 0px' }} defaultValue="" name="sortBy" onChange={handleSelectionChange}>
+          <option value="" disabled>Sort...</option>
+          {selectOptions.botSortOptions.map((option) => (
+            <option key={option.value} value={option.value} label={option.label} />
+          ))}
+        </select>
+        <div
+          className="bots_search-btn"
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            if (botsSearch || sortSearch) {
+              handleBotSearch();
+            }
+          }}
+          style={{ opacity: (!botsSearch && !sortSearch) ? '0.6' : '1' }}
+        >
           <span
             className="bots_search-btn_text"
-            role="button"
-            tabIndex={0}
-            aria-label="Home page header"
-            aria-hidden="true"
-            onClick={() => {
-              handleBotSearch();
-            }}
+
           >
             Search
 

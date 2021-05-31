@@ -9,9 +9,9 @@ export default class BotService {
       .catch(onError);
   }
 
-  static async FindBotSearch(bot, onSuccess, onError) {
+  static async FindBotSearch(bot, sort, onSuccess, onError) {
     await axios
-      .get(getAPIPath(`bots/graphs/${bot}?page=1`), { withCredentials: true })
+      .get(getAPIPath(`bots/graphs/sort?bot=${bot}&page=1&sort=${sort}`), { withCredentials: true })
       .then(onSuccess)
       .catch(onError);
   }

@@ -79,6 +79,20 @@ const selectOptions = {
       value: 'newest',
     },
   ],
+  botSortOptions: [
+    {
+      label: 'Most Transactions',
+      value: 'most',
+    },
+    {
+      label: 'Alphabetical A-Z',
+      value: 'a-z',
+    },
+    {
+      label: 'Alphabetical Z-A',
+      value: 'z-a',
+    },
+  ],
   botGuidesFilterOptions: [
     {
       label: 'Shopify',

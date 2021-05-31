@@ -188,11 +188,18 @@ const Leaderboard = (props) => {
   }, [sortByQueries, searchParameters.sortBy]);
 
   const handleCategoryCheck = (event) => {
+    const newSearchResults = [...searchResults.queries];
+    if (!searchResults.queries.includes(event.target.name)) { // checking weather array contain the id
+      newSearchResults.push(event.target.name); // adding to array because value doesnt exists
+    } else {
+      newSearchResults.splice(newSearchResults.indexOf(event.target.name), 1); // deleting
+    }
+
     dispatch({
       type: SET_SEARCH_RESULTS,
       payload: {
         ...searchResults,
-        queries: [event.target.name],
+        queries: newSearchResults,
       },
     });
   };
@@ -211,6 +218,8 @@ const Leaderboard = (props) => {
         sortedResults = searchResultsCopy.sort((a, b) => ((a.createdAt < b.createdAt) ? -1 : (a.createdAt > b.createdAt) ? 1 : 0));
       } else if (searchResults.queries.includes('newest')) {
         sortedResults = searchResultsCopy.sort((a, b) => ((a.createdAt > b.createdAt) ? -1 : (a.createdAt > b.createdAt) ? 1 : 0));
+      } else {
+        sortedResults = searchResultsCopy.sort((a, b) => ((a.username.toLowerCase() < b.username.toLowerCase()) ? -1 : (a.username.toLowerCase() > b.username.toLowerCase()) ? 1 : 0));
       }
       if (sortedResults && sortedResults.length > 0) {
         dispatch({
@@ -289,7 +298,7 @@ const Leaderboard = (props) => {
           <div className="search_divider" style={{ margin: '15px 10px' }} />
           <div className="filter_icon" style={{ margin: '20px 10px' }} />
           <select style={{ margin: '21px 0px' }} defaultValue="" name="sortBy" onChange={handleChange}>
-            <option value="">Sort...</option>
+            <option value="" disabled>Sort...</option>
             {selectOptions.sortOptions.map((option, index) => (
               <option value={option.value} label={option.label} />
             ))}
@@ -358,7 +367,7 @@ const Leaderboard = (props) => {
                 createdAt, avatar, transactions, username, discriminator, transactionsLength, id,
               } = searchResult;
 
-              console.log('SEARCH RESULT: ', searchResult);
+              console.log('SEARCH RESULT: ', searchResults.queries);
               const memberSince = moment(createdAt).format('MMMM DD, YYYY');
               const lastTransaction = transactions && transactions.length >= 0 ? transactions[transactions.length - 1] : null;
               let lastTransactionDate;

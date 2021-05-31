@@ -14,8 +14,6 @@ const LeaderboardSearchPanel = (props) => {
     history.push(route);
   };
 
-  console.log('USER ID: ', userID);
-
   return (
     <div
       className="member_leaderboard_panel"

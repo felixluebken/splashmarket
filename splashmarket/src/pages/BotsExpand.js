@@ -90,7 +90,7 @@ function BotsExpand(props) {
       <div className="bots_header-container">
         <HeaderBots />
       </div>
-      <div className="bots_expand-header_banner" style={{ backgroundColor: `${foundBot && foundBot.headerColor ? foundBot.headerColor : 'transparent'}` }}>
+      <div className="bots_expand-header_banner" style={{ backgroundColor: `${foundBot && foundBot.headerColor ? `${foundBot.headerColor}E6` : 'transparent'}` }}>
         <div className="bots_expand-header_container">
           <div className="bots_expand-header_icon" style={{ backgroundImage: `url(${foundBot.logo || null})` }} />
           <h4 className="bots_title" style={{ color: `${bannerTextColor}` }}>{foundBot.botName || 'N/A'}</h4>

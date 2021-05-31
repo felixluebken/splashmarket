@@ -150,7 +150,7 @@ const HomepageSearch = () => {
         <div className="search_divider" style={{ margin: '15px 10px' }} />
         <div className="filter_icon" style={{ margin: '20px 10px' }} />
         <select style={{ margin: '21px 0px' }} defaultValue="" name="sortBy" onChange={handleChange}>
-          <option value="">Sort...</option>
+          <option value="" disabled>Sort...</option>
           {selectOptions.sortOptions.map((option) => (
             <option key={option.value} value={option.value} label={option.label} />
           ))}
