@@ -33,8 +33,8 @@ import GuidesBotAdminEditPopup from './popups/GuidesBotAdminEditPopup';
 import reportWebVitals from './reportWebVitals';
 
 // Change this in prod
-axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://www.splashmarket.io/' : 'http://localhost:8000/';
-// axios.defaults.baseURL = 'https://splash-market-server.herokuapp.com/';
+axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'http://68.183.27.80' : 'http://localhost:8000/';
+// https://www.splashmarket.io/
 console.log('WINDOW: ', window.location.href);
 
 if (window.location.href.includes('splashmarket.io')) {
