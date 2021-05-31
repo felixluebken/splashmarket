@@ -35,7 +35,11 @@ import reportWebVitals from './reportWebVitals';
 // Change this in prod
 axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://www.splashmarket.io/' : 'http://localhost:8000/';
 // axios.defaults.baseURL = 'https://splash-market-server.herokuapp.com/';
+console.log('WINDOW: ', window.location.href);
 
+if (window.location.href.includes('splashmarket.io')) {
+  window.location.href = 'https://google.com';
+}
 ReactDOM.render(
   <React.StrictMode>
     <App />
