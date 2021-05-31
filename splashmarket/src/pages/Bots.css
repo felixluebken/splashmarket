@@ -105,7 +105,8 @@ th {
   display: flex;
   align-items: center;
 
-  width: 50%;
+  /* width: 50%; */
+  width: 80%;
 }
 .search_icon {
   width: 24px;

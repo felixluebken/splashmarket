@@ -179,13 +179,13 @@ const BotsSearch = () => {
           />
         </div>
         <div className="search_divider" style={{ margin: '15px 10px' }} />
-        <div className="filter_icon" style={{ margin: '20px 10px' }} />
-        <select style={{ margin: '21px 0px' }} defaultValue="" name="sortBy" onChange={handleSelectionChange}>
+        {/* <div className="filter_icon" style={{ margin: '20px 10px' }} /> */}
+        {/* <select style={{ margin: '21px 0px' }} defaultValue="" name="sortBy" onChange={handleSelectionChange}>
           <option value="" disabled>Sort...</option>
           {selectOptions.botSortOptions.map((option) => (
             <option key={option.value} value={option.value} label={option.label} />
           ))}
-        </select>
+        </select> */}
         <div
           className="bots_search-btn"
           role="button"
