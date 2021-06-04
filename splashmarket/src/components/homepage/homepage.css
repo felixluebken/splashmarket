@@ -230,7 +230,7 @@ h1 {
   display: inline-block;
 }
 .graphs_img {
-  background-image: url(../../resources/pages/homepage-graphs.png);
+  background-image: url(../../resources/pages/homepage-graphs.svg);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -268,7 +268,7 @@ a.blog_link {
   width: 1001px;
   height: 272px;
 
-  background-image: url(../../resources/pages/homepage-discord.png);
+  background-image: url(../../resources/pages/homepage-discord.svg);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
