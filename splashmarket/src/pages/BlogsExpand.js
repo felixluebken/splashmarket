@@ -56,7 +56,12 @@ const BlogsExpand = () => {
         <BotBlogPanelExpand botName={blog.botName} publishDate={moment(blog.createdAt).format('MMMM DD, YYYY')} authorUsername={blog.author} authorAvatar={blog.authorAvatar} imageUrl={blog.imageURL} title={blog.title} fileContents={blog.fileContents} />
         <h5 className="bots_expand-title">{blog.title}</h5>
         <p className="bots_expand-text">
-          {blog.body}
+          {blog.body.split('\n').map((item) => (
+            <span key={item}>
+              {item}
+              <br />
+            </span>
+          ))}
         </p>
       </div>
       <Footer />
