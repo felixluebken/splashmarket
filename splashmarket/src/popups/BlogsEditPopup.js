@@ -1,5 +1,9 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable new-cap */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect, useContext } from 'react';
+import React, {
+  useState, useEffect, useContext, useMemo,
+} from 'react';
 import {
   Formik,
 } from 'formik';
@@ -12,7 +16,7 @@ import BlogService from '../services/BlogService';
 import { UserContext } from '../context/UserContext';
 
 const BlogsEditPopup = (props) => {
-  const { handleToggleAddBlogModal } = props;
+  const { handleToggleAddBlogModal, blog = null, getBlog } = props;
   const [user] = useContext(UserContext);
   const [imgURL, setImgURL] = useState('');
   const [validBots, setValidBots] = useState([]);
@@ -22,16 +26,25 @@ const BlogsEditPopup = (props) => {
     setFieldValue(event.target.name, event.target.files[0]);
   };
 
-  const initialValues = {
-    fileContents: {},
-    botName: '',
-    imageURL: '',
-    headerColor: '',
-    title: '',
-    body: '',
+  useEffect(() => {
+    if (blog && blog.fileContents && blog.fileContents.buffer) {
+      const img = new Buffer.from(blog.fileContents.buffer).toString('base64');
+      setImgURL(`data:image/png;base64,${img}`);
+    }
+  }, [blog]);
+
+  const initialValues = useMemo(() => ({
+    fileContents: (blog && blog.fileContents.toString()) || {},
+    botName: (blog && blog.botName) || '',
+    imageURL: (blog && blog.imageURL) || '',
+    headerColor: (blog && blog.headerColor) || '',
+    titleColor: (blog && blog.titleColor) || '',
+    bodyColor: (blog && blog.bodyColor) || '',
+    title: (blog && blog.title) || '',
+    body: (blog && blog.body) || '',
     author: user ? `${user.username}#${user.discriminator}` : '',
     authorAvatar: user.avatar ? user.avatar : '',
-  };
+  }), [blog]);
 
   const sortBots = (a, b, value) => {
     const aLower = a.displayName.toLowerCase();
@@ -61,26 +74,38 @@ const BlogsEditPopup = (props) => {
   }, []);
 
   const onCreateBlogSuccess = (response) => {
-    console.log('RESPONSE: ', response.data);
     handleToggleAddBlogModal();
   };
   const onCreateBlogError = (error) => {
     console.log('ERROR: ', error.response);
   };
 
-  console.log('USER: ', user);
+  const onUpdateBlogSuccess = (response) => {
+    handleToggleAddBlogModal();
+    if (getBlog) {
+      getBlog();
+    }
+  };
+  const onUpdateBlogError = (error) => {
+    console.log('ERROR: ', error.response);
+  };
 
   const handleSubmit = (values, validateForm) => {
     validateForm().then(async (errors) => {
+      console.log('ERRORS: ', errors);
       if (Object.keys(errors).length === 0) {
         // Create form data and append File + json data
         const formData = new FormData();
         formData.append('document', values.fileContents);
         const stringifiedJSON = JSON.stringify(values);
         formData.append('data', stringifiedJSON);
-
-        await BlogService.CreateBlog(formData, onCreateBlogSuccess, onCreateBlogError);
+        if (blog) {
+          await BlogService.EditBlog(blog._id, formData, onUpdateBlogSuccess, onUpdateBlogError);
+        } else {
+          await BlogService.CreateBlog(formData, onCreateBlogSuccess, onCreateBlogError);
+        }
       }
+      return null;
     });
   };
 
@@ -111,9 +136,8 @@ const BlogsEditPopup = (props) => {
         setFieldValue,
       }) => {
         const {
-          fileContents, botName, imageURL, headerColor, title, body,
+          fileContents, botName, imageURL, headerColor, title, body, bodyColor, titleColor,
         } = values;
-        console.log('VALUES: ', values);
         return (
           <div className="popup_panel-big">
             <div className="blogs_edit-main">
@@ -142,13 +166,13 @@ const BlogsEditPopup = (props) => {
                   </div>
 
                   <div style={{ marginLeft: '20px', width: '70%' }}>
-                    <p className="popup_text-normal" style={{ margin: '0px 0px 5px 0px' }}>Bot Name</p>
+                    <p className="popup_text-normal" style={{ margin: '0px 0px 5px 0px' }}>Title Name</p>
                     <Autocomplete
                       style={{ border: '1px solid red' }}
                       sortItems={validBots.length > 0 && sortBots}
                       inputProps={{
                         name: 'botName',
-                        placeholder: 'Search Bot',
+                        placeholder: 'Enter Bot Name / Secondary Title',
                         className: `${errors.botName && 'invalid-input'}`,
                         style: {
                           fontFamily: 'Poppins',
@@ -218,6 +242,7 @@ const BlogsEditPopup = (props) => {
                     placeholder="Enter image URL"
                     onChange={handleChange}
                     onBlur={handleBlur(validateField)}
+                    value={imageURL}
                   />
                 </div>
 
@@ -230,6 +255,33 @@ const BlogsEditPopup = (props) => {
                     placeholder="#03F045"
                     onChange={handleChange}
                     onBlur={handleBlur(validateField)}
+                    value={headerColor}
+                  />
+                </div>
+
+                <div style={{ width: '100%', marginTop: '20px', display: 'inline-block' }}>
+                  <p className="popup_text-normal" style={{ margin: '0px 0px 5px 0px' }}>Title Text Color</p>
+                  <input
+                    name="titleColor"
+                    type="text"
+                    className={`popup_admin_input ${errors.titleColor && 'invalid-input'}`}
+                    placeholder="#03F045"
+                    onChange={handleChange}
+                    onBlur={handleBlur(validateField)}
+                    value={titleColor}
+                  />
+                </div>
+
+                <div style={{ width: '100%', marginTop: '20px', display: 'inline-block' }}>
+                  <p className="popup_text-normal" style={{ margin: '0px 0px 5px 0px' }}>Body Text Color</p>
+                  <input
+                    name="bodyColor"
+                    type="text"
+                    className={`popup_admin_input ${errors.bodyColor && 'invalid-input'}`}
+                    placeholder="#03F045"
+                    onChange={handleChange}
+                    onBlur={handleBlur(validateField)}
+                    value={bodyColor}
                   />
                 </div>
               </div>
@@ -245,6 +297,7 @@ const BlogsEditPopup = (props) => {
                       placeholder="Enter title"
                       onChange={handleChange}
                       onBlur={handleBlur(validateField)}
+                      value={title}
                     />
                   </div>
                 </div>
@@ -255,6 +308,7 @@ const BlogsEditPopup = (props) => {
                   placeholder="Type your blog here"
                   onChange={handleChange}
                   onBlur={handleBlur(validateField)}
+                  value={body}
                 />
               </div>
             </div>
@@ -281,7 +335,7 @@ const BlogsEditPopup = (props) => {
                   handleSubmit(values, validateForm);
                 }}
               >
-                <span className="popup_blue-btn_text">Add Blog</span>
+                <span className="popup_blue-btn_text">{blog ? 'Save Blog' : 'Add Blog'}</span>
               </div>
             </div>
           </div>

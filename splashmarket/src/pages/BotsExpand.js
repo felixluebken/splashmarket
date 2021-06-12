@@ -53,7 +53,6 @@ function BotsExpand(props) {
     BotService.GetSales(bot, activeTimeframe, onGetBotSuccess, onGetBotError);
   }, [bot, activeTimeframe]);
 
-  console.log('FOUND BOT: ', foundBot);
   useEffect(() => {
     switch (timeframeQuery) {
       case '1yr':

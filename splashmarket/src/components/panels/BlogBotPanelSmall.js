@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './panels.css';
 
 /*
@@ -23,9 +24,24 @@ function BlogBotPanelSmall(props) {
   const {
     blogUrl, headerColor, headerIcon, headerTextColor, headerTitle, publishDate, bodyTitle, bodyContent, authorAvatar, authorUsername, canBeDeleted, id, handleDeleteBlog,
   } = props;
+  // http://localhost:3000/blogs/60c4312da3404d5958ddd2c9
+
+  const history = useHistory();
+
+  const handleRedirect = (route) => {
+    history.push(route);
+  };
 
   return (
-    <a href={blogUrl}>
+    <a
+      role="button"
+      tabIndex={0}
+      aria-label="Home page header"
+      aria-hidden="true"
+      onClick={() => {
+        handleRedirect(`/blogs/${id}`);
+      }}
+    >
       <div className="bot_blog_panel-small">
         <div
           className="blog_bot_panel-header"
@@ -35,7 +51,7 @@ function BlogBotPanelSmall(props) {
         >
           <div style={{ height: '100%' }}>
             <div className="blog_bot_panel-header-icon" style={{ backgroundImage: `url(${headerIcon})` }} />
-            <h2 className="blog_bot_panel-header-title" style={{ color: `${headerTextColor}` }}>{headerTitle}</h2>
+            <h2 className="blog_bot_panel-header-title">{headerTitle}</h2>
           </div>
 
           {canBeDeleted && (

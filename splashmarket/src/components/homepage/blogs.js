@@ -44,7 +44,6 @@ const HomepageBlogs = () => {
           return (
             <BlogBotPanel
               headerColor={headerColor}
-              headerTextColor="#131323"
               headerTitle={botName}
               headerIcon={imageURL}
               bodyContent={title}

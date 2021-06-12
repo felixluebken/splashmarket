@@ -28,7 +28,6 @@ function GuideBotPanelAdmin(props) {
       aria-hidden="true"
       style={{ cursor: 'pointer' }}
       onClick={() => {
-        console.log('CLICKING');
         // handleRedirect('/');
       }}
     >

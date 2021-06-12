@@ -42,7 +42,9 @@ export const blogValidationSchema = yup.object().shape({
   fileContents: yup.string().required('File Contents is required.'),
   botName: yup.string().required('Bot Name is required.'),
   imageURL: yup.string().required('Image URL is required.'),
-  headerColor: yup.string().required('Header color is required.'),
+  headerColor: yup.string().required('Header color is required.').matches('^#(?:[0-9a-fA-F]{3}){1,2}$', 'Must be a valid hex code.'),
+  titleColor: yup.string().matches('^#(?:[0-9a-fA-F]{3}){1,2}$', 'Must be a valid hex code.'),
+  bodyColor: yup.string().matches('^#(?:[0-9a-fA-F]{3}){1,2}$', 'Must be a valid hex code.'),
   title: yup.string().required('Title is required.'),
   body: yup.string().required('Body is required.'),
 });

@@ -11,6 +11,7 @@ function BlogBotPanel(props) {
   const handleRedirect = (route) => {
     history.push(route);
   };
+
   return (
     <div
       className="blog_bot_panel"

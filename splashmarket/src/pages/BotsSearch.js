@@ -36,8 +36,6 @@ const BotsSearch = () => {
     BotService.FindBotsWithGraphs(pageQuery || 1, onFindBotsSuccess, onFindBotsError);
   };
 
-  console.log('IS LOADING: ', isLoading);
-
   useEffect(() => {
     findBotsWithGraphs();
   }, [pageQuery]);

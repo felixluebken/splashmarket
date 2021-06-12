@@ -1,5 +1,6 @@
 /* eslint-disable new-cap */
 import React, { useState, useEffect } from 'react';
+import BlogsEditPopup from '../../popups/BlogsEditPopup';
 import './panels.css';
 
 /*
@@ -19,13 +20,18 @@ publishDate         -str
 
 function BotBlogPanelExpand(props) {
   const {
-    imageUrl, headerIcon, publishDate, botName, title, authorAvatar, authorUsername, fileContents,
+    imageUrl, headerIcon, publishDate, botName, bodyColor, titleColor, title, authorAvatar, authorUsername, fileContents, blog, getBlog,
   } = props;
 
   const [botIcon, setBotIcon] = useState(null);
+  const [isAddBlogModalVisible, setIsAddBlogModalVisible] = useState(false);
+
+  const handleToggleAddBlogModal = () => {
+    setIsAddBlogModalVisible(!isAddBlogModalVisible);
+  };
 
   useEffect(() => {
-    if (fileContents.buffer) {
+    if (fileContents && fileContents.buffer) {
       const img = new Buffer.from(fileContents.buffer).toString('base64');
       setBotIcon(`data:image/png;base64,${img}`);
     }
@@ -33,21 +39,37 @@ function BotBlogPanelExpand(props) {
 
   return (
     <div className="bot_blog_panel-expand">
-
+      {isAddBlogModalVisible && (
+      <BlogsEditPopup handleToggleAddBlogModal={handleToggleAddBlogModal} blog={blog} getBlog={getBlog} />
+      )}
       <div className="bot_blog_panel-expand-img" style={{ backgroundImage: `url(${imageUrl})` }} />
 
       <div className="bot_blog_panel-expand-content">
-        <p className="bot_blog_panel-publish_date">
-          Published
-          {' '}
-          {publishDate}
-        </p>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <p className="bot_blog_panel-publish_date">
+            Published
+            {' '}
+            {publishDate}
+          </p>
+          <div
+            className="popup_blue-btn"
+            role="button"
+            tabIndex={0}
+            aria-label="Home page header"
+            aria-hidden="true"
+            onClick={handleToggleAddBlogModal}
+
+          >
+            <span className="popup_blue-btn_text">Edit Blog</span>
+          </div>
+        </div>
+
         <div className="bot_blog_panel-large-bot_container">
           <div className="blog_bot_panel-icon" style={{ backgroundImage: `url(${botIcon})`, marginLeft: 0 }} />
           <p className="blog_bot_panel-title" style={{ color: 'white' }}>{botName}</p>
         </div>
 
-        <h4 className="blog_bot_panel-expand-title">{title}</h4>
+        <h4 className="blog_bot_panel-expand-title" style={{ color: titleColor || 'white' }}>{title}</h4>
         <div className="blog_bot_panel-divider" />
 
         <div className="blog_bot_panel-author">

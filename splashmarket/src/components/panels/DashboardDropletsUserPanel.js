@@ -45,8 +45,6 @@ const DashboardDropletsUserPanel = (props) => {
     }
   }, [user]);
 
-  console.log('CAN REDEEM: ', canRedeem);
-
   return (
     <div className="dashboard_droplets-panel">
       {isModalVisible && (
