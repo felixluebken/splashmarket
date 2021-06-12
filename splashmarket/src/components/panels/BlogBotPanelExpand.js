@@ -1,5 +1,7 @@
 /* eslint-disable new-cap */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
+import { verifyAdmin } from '../../helpers/helpers';
 import BlogsEditPopup from '../../popups/BlogsEditPopup';
 import './panels.css';
 
@@ -22,10 +24,10 @@ function BotBlogPanelExpand(props) {
   const {
     imageUrl, headerIcon, publishDate, botName, bodyColor, titleColor, title, authorAvatar, authorUsername, fileContents, blog, getBlog,
   } = props;
-
+  const [user] = useContext(UserContext);
   const [botIcon, setBotIcon] = useState(null);
   const [isAddBlogModalVisible, setIsAddBlogModalVisible] = useState(false);
-
+  const [isAdmin, setIsAdmin] = useState(false);
   const handleToggleAddBlogModal = () => {
     setIsAddBlogModalVisible(!isAddBlogModalVisible);
   };
@@ -36,7 +38,9 @@ function BotBlogPanelExpand(props) {
       setBotIcon(`data:image/png;base64,${img}`);
     }
   }, [fileContents]);
-
+  useEffect(() => {
+    setIsAdmin(verifyAdmin(user.role, user.isLoggedIn));
+  }, []);
   return (
     <div className="bot_blog_panel-expand">
       {isAddBlogModalVisible && (
@@ -51,6 +55,8 @@ function BotBlogPanelExpand(props) {
             {' '}
             {publishDate}
           </p>
+
+          {isAdmin && (
           <div
             className="popup_blue-btn"
             role="button"
@@ -58,10 +64,11 @@ function BotBlogPanelExpand(props) {
             aria-label="Home page header"
             aria-hidden="true"
             onClick={handleToggleAddBlogModal}
-
           >
             <span className="popup_blue-btn_text">Edit Blog</span>
           </div>
+          )}
+
         </div>
 
         <div className="bot_blog_panel-large-bot_container">
