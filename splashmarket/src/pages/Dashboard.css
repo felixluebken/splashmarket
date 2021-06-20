@@ -685,10 +685,21 @@ input.invalid-input {
   margin: 8px;
 }
 
+@media screen and (min-width: 2560px) {
+  .dashboard_admin-mm_transactions-icon_container {
+    margin: 40px;
+  }
+
+  .dashboard-transactions-mmd-text {
+    margin-left: 42px !important;
+  }
+}
+
 @media screen and (max-width: 4000px) {
   .dashboard_body-left {
     width: 1200px;
   }
+
   .dashboard_user-banner {
     width: 1200px;
     height: 322px;

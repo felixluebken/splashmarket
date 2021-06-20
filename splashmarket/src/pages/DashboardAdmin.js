@@ -28,6 +28,10 @@ function DashboardAdmin(props) {
     dropletsRedeemUrl, manageSubscriptionUrl, paymentType, paymentLast4, botBarColor1,
   } = props;
 
+  const handleRedirect = (route) => {
+    history.push(route);
+  };
+
   return (
     <>
       <HeaderLoggedIn />
@@ -75,8 +79,8 @@ function DashboardAdmin(props) {
               <div className="dashboard_admin-mm_transactions-icon_container">
                 <div className="dashboard_admin-mm_transactions-icon" />
               </div>
-              <h3 className="dashboard_text-normal" style={{ margin: '0px 0px 0px 20px' }}>{transactionsMMd}</h3>
-              <p className="dashboard_text-light" style={{ margin: '5px 0px 0px 20px' }}>Total Transactions MM&#39;d</p>
+              <h3 className="dashboard_text-normal dashboard-transactions-mmd-text" style={{ margin: '0px 0px 0px 20px' }}>{transactionsMMd}</h3>
+              <p className="dashboard_text-light dashboard-transactions-mmd-text" style={{ margin: '5px 0px 0px 20px' }}>Total Transactions MM&#39;d</p>
             </div>
           </div>
 
@@ -148,7 +152,20 @@ function DashboardAdmin(props) {
           <div className="dashboard_droplets_panel">
             <div className="dashboard_droplets_panel-header">
               <p className="dashboard_text-normal">Droplets</p>
-              <a href={dropletsRedeemUrl} className="dashboard_link_text-normal">Redeem ⇾</a>
+              <a
+                className="dashboard_link_text-normal"
+                role="button"
+                tabIndex={0}
+                aria-label="Home page header"
+                aria-hidden="true"
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  handleRedirect('/droplets');
+                }}
+              >
+                Redeem ⇾
+
+              </a>
             </div>
             <div className="dashboard_droplets_panel-body">
               <div className="dashboard_droplets_panel-icon_container">

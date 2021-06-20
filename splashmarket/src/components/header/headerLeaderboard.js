@@ -95,7 +95,16 @@ function HeaderLeaderboard() {
         >
           <span className="blue_button-text">Dashboard</span>
         </div>
-        <div className="dark_button" style={{ width: 123, height: 35 }}>
+        <div
+          className="dark_button"
+          style={{ width: 123, height: 35 }}
+          role="button"
+          tabIndex={0}
+          aria-hidden="true"
+          onClick={() => {
+            handleRedirect('/droplets');
+          }}
+        >
           <span className="dark_button-text">Droplets</span>
         </div>
       </div>

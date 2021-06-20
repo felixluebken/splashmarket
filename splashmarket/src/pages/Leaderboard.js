@@ -24,7 +24,7 @@ const Leaderboard = (props) => {
 
   const [searchParameters, setSearchParameters] = useState({
     user: '',
-    sortBy: '',
+    sortBy: 'most',
   });
   const [searchResults, dispatch] = useContext(SearchContext);
   const [selected, setSelected] = useState(false);
@@ -366,8 +366,6 @@ const Leaderboard = (props) => {
               const {
                 createdAt, avatar, transactions, username, discriminator, transactionsLength, id,
               } = searchResult;
-
-              console.log('SEARCH RESULT: ', searchResults.queries);
               const memberSince = moment(createdAt).format('MMMM DD, YYYY');
               const lastTransaction = transactions && transactions.length >= 0 ? transactions[transactions.length - 1] : null;
               let lastTransactionDate;
@@ -407,16 +405,7 @@ const Leaderboard = (props) => {
                 />
               );
             })}
-            {/* <LeaderboardSearchPanel
-              username="dearchitect#7745"
-              memberSince="Jan 1, 2012"
-              avatarUrl="https://cdn.discordapp.com/avatars/638784999293976635/06d1e75f49559a1b16e6d127ec1c4fbf.jpg"
-              transactions="100"
-              lastTransaction="Mar 24, 2021"
-              latestTransactionUsername="dearchitect#7745"
-              latestTransactionAvatarUrl="https://cdn.discordapp.com/avatars/638784999293976635/06d1e75f49559a1b16e6d127ec1c4fbf.jpg"
-            />
-            <LeaderboardSearchPanel username="sapatos#7745" memberSince="Jan 1, 2012" /> */}
+
           </div>
         </div>
       </div>

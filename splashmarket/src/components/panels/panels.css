@@ -177,11 +177,11 @@ a {
   width: 100%;
   height: 81px;
   background: #1e1e31;
-
+  padding-bottom: 15px;
   border-radius: 10px;
-
   margin-bottom: 15px;
 }
+
 .ranked_member_panel-avatar {
   height: 81px;
   width: 81px;
@@ -205,7 +205,7 @@ a {
 .ranked_member_panel-content {
   width: 333px;
   height: 41px;
-  margin: 18px;
+  margin: 10px;
 
   float: left;
   display: block;
@@ -250,8 +250,8 @@ p.bot_blog_panel-publish_date {
   font-family: Poppins;
   font-size: 12px;
   line-height: 14px;
-
   margin: 0;
+  margin-bottom: 15px;
 }
 p.blog_bot_panel-title {
   margin: 0;
@@ -454,7 +454,7 @@ h4.blog_bot_panel-expand-title {
 h2.blog_bot_panel-header-title {
   color: white;
   margin: 0;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: 15px;
   width: 52px;
   height: 52px;

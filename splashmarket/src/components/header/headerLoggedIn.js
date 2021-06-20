@@ -78,7 +78,7 @@ const HeaderLoggedIn = () => {
         {(role === 'middleman' || role === 'admin') && (
         <div
           className="dark_button-solid"
-          style={{ width: 123, height: 35 }}
+          style={{ width: 123, height: 35, marginRight: '15px' }}
           role="button"
           tabIndex={0}
           aria-label="Home page header"
