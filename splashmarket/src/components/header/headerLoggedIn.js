@@ -62,6 +62,19 @@ const HeaderLoggedIn = () => {
           <span className="dark_button-solid-text">Log Out</span>
         </div>
         <div
+          className="dark_button-solid"
+          style={{ width: 123, height: 35, marginRight: '15px' }}
+          role="button"
+          tabIndex={0}
+          aria-label="Home page header"
+          aria-hidden="true"
+          onClick={() => {
+            handleRedirect('/user');
+          }}
+        >
+          <span className="dark_button-solid-text">Dashboard</span>
+        </div>
+        <div
           role="button"
           tabIndex={0}
           aria-label="Home page header"
@@ -90,6 +103,7 @@ const HeaderLoggedIn = () => {
           <span className="dark_button-solid-text">Manage Bots</span>
         </div>
         )}
+
       </div>
     </div>
   );

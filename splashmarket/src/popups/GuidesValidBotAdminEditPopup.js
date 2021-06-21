@@ -94,7 +94,7 @@ const GuidesValidBotAdminEditPopup = (props) => {
 
   const handleKeyPress = (setFieldValue, botValues) => (e) => {
     // it triggers by pressing the enter key
-    if (e.which === 13) {
+    if (e.which === 13 && e.target.value) {
       const copiedBotValues = [...botValues, e.target.value];
       setFieldValue('values', copiedBotValues);
       e.target.value = '';
@@ -238,7 +238,10 @@ const GuidesValidBotAdminEditPopup = (props) => {
                   aria-label="Home page header"
                   aria-hidden="true"
                   onClick={() => {
-                    handleAddRenewalType(values, setFieldValue);
+                    if (values.renewalType) {
+                      handleAddRenewalType(values, setFieldValue);
+                    }
+                    validateField('renewalTypes');
                   }}
                 >
                   <span

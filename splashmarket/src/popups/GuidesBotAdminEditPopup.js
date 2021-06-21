@@ -67,7 +67,7 @@ const GuidesBotAdminEditPopup = (props) => {
 
   const handleKeyPress = (setFieldValue, tagValues) => (e) => {
     // it triggers by pressing the enter key
-    if (e.which === 13) {
+    if (e.which === 13 && e.target.value) {
       const copiedTags = [...tagValues, e.target.value];
       setFieldValue('tags', copiedTags);
       e.target.value = '';
@@ -87,8 +87,7 @@ const GuidesBotAdminEditPopup = (props) => {
 
   const handleRemoveRenewalType = (values, tagToRemove, setValues) => {
     const newRenewalTypes = [...values.renewalTypes];
-    console.log('NEW TAGS: ', newRenewalTypes);
-    console.log('TAG TO REMOVE: ', tagToRemove);
+
     const foundTag = newRenewalTypes.findIndex((tag) => {
       if (tag.renewalType === tagToRemove.renewalType && tag.renewalInterval === tagToRemove.renewalInterval && tag.price === tagToRemove.price) {
         return tag;
@@ -189,7 +188,10 @@ const GuidesBotAdminEditPopup = (props) => {
                   aria-label="Home page header"
                   aria-hidden="true"
                   onClick={() => {
-                    handleAddRenewalType(values, setFieldValue);
+                    if (values.renewalType) {
+                      handleAddRenewalType(values, setFieldValue);
+                    }
+                    validateField('renewalTypes');
                   }}
                 >
                   <span
