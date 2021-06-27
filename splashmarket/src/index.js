@@ -6,12 +6,10 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 // Change this in prod
-axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'http://68.183.27.80' : 'http://localhost:8000/';
-// https://www.splashmarket.io/
+// http://68.183.27.80
+axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://www.splashmarket.io/' : 'http://localhost:8000/';
+//
 
-if (window.location.href.includes('splashmarket.io')) {
-  window.location.href = 'https://google.com';
-}
 ReactDOM.render(
   <React.StrictMode>
     <App />
