@@ -1,5 +1,6 @@
 import React from 'react';
 import './list-panels.css';
+import { useParams } from 'react-router-dom';
 import BotSwapIcon from '../../resources/logo/bot-swap-icon.svg';
 /*
 PROP PARAMS
@@ -18,6 +19,7 @@ function TransactionHistoryPanel(props) {
   const {
     botBackground, botIcon, botName, date, position, otherParty, transcriptUrl, transcriptTitle,
   } = props;
+  const { id } = useParams();
 
   return (
     <div className="transaction_history-panel">
@@ -39,6 +41,7 @@ function TransactionHistoryPanel(props) {
         <p className="list_panel_text-normal" style={{ maxWidth: '90%' }}>{otherParty}</p>
       </div>
 
+      {!id && (
       <div
         className="transaction_history-container"
       >
@@ -52,6 +55,8 @@ function TransactionHistoryPanel(props) {
           {`${transcriptTitle ? `${transcriptTitle} ⇾` : transcriptTitle}`}
         </a>
       </div>
+      )}
+
     </div>
   );
 }
