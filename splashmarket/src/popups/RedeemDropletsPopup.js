@@ -123,15 +123,15 @@ const RedeemDropletsPopup = (props) => {
         {!hasConfirmedRedemption && (
         <div
           className="popup_blue-btn"
-          style={{ margin: '10px auto' }}
+          disabled
+          style={{ margin: '10px auto', opacity: 0.5 }}
           role="button"
           tabIndex={0}
           aria-label="Home page header"
           aria-hidden="true"
           onClick={() => {
-            handleRedeemPrize();
+            // handleRedeemPrize();
           }}
-          disabled
         >
           <span
             className="popup_blue-btn_text"
