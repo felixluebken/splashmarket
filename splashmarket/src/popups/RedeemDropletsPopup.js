@@ -149,8 +149,8 @@ const RedeemDropletsPopup = (props) => {
             {/* {isOnRedeemCooldown ? (
               `You may redeem again on ${redemptionDate.format('YYYY MM DD')}.`:'You have redeemed this droplet too many times.'
             ) : 'Redeem Prize'} */}
-              {isOnRedeemCooldown ? (
-              `You may redeem again on ${redemptionDate.format('YYYY MM DD')}.`:'You have redeemed this droplet too many times.'
+            {isOnRedeemCooldown ? (
+             `You may redeem again on ${redemptionDate.format('YYYY MM DD')}.`:'You have redeemed this droplet too many times.'
             ) : 'Coming Soon.'}
           </span>
         </div>
