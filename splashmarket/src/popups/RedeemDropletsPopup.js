@@ -13,18 +13,6 @@ const RedeemDropletsPopup = (props) => {
   const [user, userDispatch] = useContext(UserContext);
 
   const updateUserDroplets = () => {
-    const onRedemptionSuccess = () => {
-      setHasConfirmedRedemption(true);
-      userDispatch({
-        type: SET_USER,
-        payload: {
-          value: { ...user, currency: parseInt(currency, 10) - parseInt(price, 10) },
-        },
-      });
-    };
-    const onRedemptionError = (error) => {
-      console.log('ERROR: ', error);
-    };
     const dropletsRedeemed = user.dropletsRedeemed || {};
     dropletsRedeemed[id] = {
       prize: title,
@@ -33,6 +21,18 @@ const RedeemDropletsPopup = (props) => {
     const data = {
       currency: parseInt(currency, 10) - parseInt(price, 10),
       dropletsRedeemed,
+    };
+    const onRedemptionSuccess = () => {
+      setHasConfirmedRedemption(true);
+      userDispatch({
+        type: SET_USER,
+        payload: {
+          value: { ...user, currency: parseInt(currency, 10) - parseInt(price, 10), dropletsRedeemed },
+        },
+      });
+    };
+    const onRedemptionError = (error) => {
+      console.log('ERROR: ', error);
     };
     // return null;
     UserService.UpdateUser(user.id, data, onRedemptionSuccess, onRedemptionError);
@@ -131,15 +131,16 @@ const RedeemDropletsPopup = (props) => {
         {!hasConfirmedRedemption && (
         <div
           className="popup_blue-btn"
-          style={{ margin: '10px auto', opacity: isOnRedeemCooldown ? '0.5' : '1' }}
+          // style={{ margin: '10px auto', opacity: isOnRedeemCooldown ? '0.5' : '1' }}
+          style={{ margin: '10px auto', opacity: '0.5' }}
           role="button"
           tabIndex={0}
           aria-label="Home page header"
           aria-hidden="true"
           onClick={() => {
-            if (!isOnRedeemCooldown) {
-              handleRedeemPrize();
-            }
+            // if (!isOnRedeemCooldown) {
+            //   handleRedeemPrize();
+            // }
           }}
         >
           <span
