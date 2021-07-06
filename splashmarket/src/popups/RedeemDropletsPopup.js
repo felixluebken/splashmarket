@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useContext, useEffect, useState } from 'react';
 import { SET_USER, UserContext } from '../context/UserContext';
 import DiscordService from '../services/DiscordService';
@@ -6,7 +7,7 @@ import './Popups.css';
 
 const RedeemDropletsPopup = (props) => {
   const {
-    title, handleToggleRedeemPopup, company, price, currency, id, webhookURL, roleID,
+    title, handleToggleRedeemPopup, company, price, currency, id, webhookURL, roleID, isOnRedeemCooldown, redemptionDate,
   } = props;
   const [hasConfirmedRedemption, setHasConfirmedRedemption] = useState(false);
   const [user, userDispatch] = useContext(UserContext);
@@ -24,9 +25,16 @@ const RedeemDropletsPopup = (props) => {
     const onRedemptionError = (error) => {
       console.log('ERROR: ', error);
     };
+    const dropletsRedeemed = user.dropletsRedeemed || {};
+    dropletsRedeemed[id] = {
+      prize: title,
+      redeemed: moment().format('YYYY MM DD'),
+    };
     const data = {
       currency: parseInt(currency, 10) - parseInt(price, 10),
+      dropletsRedeemed,
     };
+    // return null;
     UserService.UpdateUser(user.id, data, onRedemptionSuccess, onRedemptionError);
   };
 
@@ -123,20 +131,23 @@ const RedeemDropletsPopup = (props) => {
         {!hasConfirmedRedemption && (
         <div
           className="popup_blue-btn"
-          disabled
-          style={{ margin: '10px auto', opacity: 0.5 }}
+          style={{ margin: '10px auto', opacity: isOnRedeemCooldown ? '0.5' : '1' }}
           role="button"
           tabIndex={0}
           aria-label="Home page header"
           aria-hidden="true"
           onClick={() => {
-            // handleRedeemPrize();
+            if (!isOnRedeemCooldown) {
+              handleRedeemPrize();
+            }
           }}
         >
           <span
             className="popup_blue-btn_text"
           >
-            Redeem Prize
+            {isOnRedeemCooldown ? (
+              `You may redeem again on ${redemptionDate.format('YYYY MM DD')}.`:'You have redeemed this droplet too many times.'
+            ) : 'Redeem Prize'}
           </span>
         </div>
         )}

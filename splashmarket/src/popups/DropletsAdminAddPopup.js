@@ -21,6 +21,7 @@ const initialValues = {
   roleID: '',
   webhookURL: '',
   headerColor: '',
+  redeemInterval: 0,
 };
 
 function DropletsAdminAddPopup(props) {
@@ -76,7 +77,7 @@ function DropletsAdminAddPopup(props) {
         setFieldValue,
       }) => {
         const {
-          company, prize, price, companyDescription, prizeDescription, roleID, webhookURL, headerColor,
+          company, prize, price, companyDescription, prizeDescription, roleID, webhookURL, headerColor, redeemInterval,
         } = values;
         return (
           <div className="popup_panel-tall">
@@ -122,6 +123,18 @@ function DropletsAdminAddPopup(props) {
               value={headerColor}
               onChange={handleChange}
               onBlur={handleBlur(validateField)}
+            />
+
+            <p className="popup_text-normal-small" style={{ marginBottom: '6px' }}>Redeem Interval (in days)</p>
+            <input
+              name="redeemInterval"
+              type="text"
+              className="popup_admin_input"
+              placeholder="Enter cooldown for droplet to be redeemed"
+              style={{ marginBottom: '10px' }}
+              value={redeemInterval}
+              onChange={handleChange}
+              onKeyDown={enforceNumber}
             />
 
             <p className="popup_text-normal-small" style={{ marginBottom: '6px' }}>Prize Name</p>

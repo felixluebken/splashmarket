@@ -12,7 +12,9 @@ const DashboardDropletsUserPanel = (props) => {
   } = props;
   const [user] = useContext(UserContext);
   const [canRedeem, setCanRedeem] = useState(false);
+  const [isOnRedeemCooldown, setIsOnRedeemCooldown] = useState(false);
   const [hasEnoughCurrency, setHasEnoughCurrency] = useState(false);
+  const [redemptionDate, setRedemptionDate] = useState('');
   const [companyIcon, setCompanyIcon] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const history = useHistory();
@@ -43,12 +45,34 @@ const DashboardDropletsUserPanel = (props) => {
     } else {
       setCanRedeem(false);
     }
+
+    // isOnRedeemCooldown checks if a droplet has a redeem cooldown. Checks if user has redeemed within a certain period of time and disables until that cooldown has been exhausted
+    if (droplet.redeemInterval && user.dropletsRedeemed && Object.keys(user.dropletsRedeemed).length) {
+      // get redeemCooldown from user
+      const redeemObject = user.dropletsRedeemed[droplet._id];
+      // If there's no redeem cooldown, then they have not redeemed yet
+      if (!redeemObject) {
+        setIsOnRedeemCooldown(false);
+        return;
+      }
+      // add the redeem interval to the redeemed date
+      const nextRedemptionDate = moment(redeemObject.redeemed).add(droplet.redeemInterval, 'days');
+      setRedemptionDate(nextRedemptionDate);
+      // check if date now is past nextRedemptionDate to see if you can redeem again
+      if (moment() >= nextRedemptionDate) {
+        setIsOnRedeemCooldown(false);
+      } else {
+        setIsOnRedeemCooldown(true);
+      }
+    } else {
+      setIsOnRedeemCooldown(false);
+    }
   }, [user]);
 
   return (
     <div className="dashboard_droplets-panel">
       {isModalVisible && (
-      <RedeemDropletsPopup title={droplet.prize} company={droplet.company} handleToggleRedeemPopup={handleToggleRedeemPopup} price={droplet.price} currency={currency} id={droplet._id} webhookURL={droplet.webhookURL} roleID={droplet.roleID} />
+      <RedeemDropletsPopup title={droplet.prize} company={droplet.company} handleToggleRedeemPopup={handleToggleRedeemPopup} price={droplet.price} currency={currency} id={droplet._id} webhookURL={droplet.webhookURL} roleID={droplet.roleID} isOnRedeemCooldown={isOnRedeemCooldown} redemptionDate={redemptionDate} />
       )}
       <div className="dashboard_droplets-panel_header">
         <div className="dashboard_droplets-panel_header-icon" style={{ backgroundImage: `url(${companyIcon})` }} />

@@ -72,6 +72,7 @@ const DashboardAdminDropletsInfo = () => {
           companyDescription: values.companyDescription,
           prizeDescription: values.prizeDescription,
           headerColor: values.headerColor,
+          redeemInterval: values.redeemInterval,
         };
         const { _id } = values;
         await DropletService.UpdateDroplet(_id, putData, onDropletUpdateSuccess, onDropletUpdateError);
@@ -103,7 +104,7 @@ const DashboardAdminDropletsInfo = () => {
           validateForm,
         }) => {
           const {
-            companyDescription, prizeDescription, webhookURL, roleID, headerColor,
+            companyDescription, prizeDescription, webhookURL, roleID, headerColor, redeemInterval,
           } = values;
           return (
             <>
@@ -160,6 +161,12 @@ const DashboardAdminDropletsInfo = () => {
                         Header Color
                       </p>
                       <input type="text" name="headerColor" className={`dashboard_text-input ${errors.headerColor && 'invalid-input'}`} value={headerColor} onChange={handleChange} onBlur={handleBlur(validateField)} />
+                    </div>
+                    <div className="dashboard_droplets_info-panel_body_admin">
+                      <p className="dashboard_text-light" style={{ marginTop: '30px' }}>
+                        Redeem Interval (in days)
+                      </p>
+                      <input type="text" name="redeemInterval" className="dashboard_text-input" value={redeemInterval} onChange={handleChange} onKeyDown={enforceNumber} />
                     </div>
                     <div className="dashboard_droplets_info-panel_body_admin" />
                   </div>
